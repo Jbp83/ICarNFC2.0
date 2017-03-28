@@ -1,0 +1,57 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- enable window content transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+    </style>
+
+
+    <style
+        name="greenWindowTitleBackground">
+        <item
+            name="android:background">@color/opaque_green</item>
+        <item
+            name="android:textColor">@color/opaque_white</item>
+    </style>
+    <style
+        name="tabIndicatorText">
+        <item
+            name="android:textColor">@color/opaque_white</item>
+        <item
+            name="android:textStyle">bold</item>
+        <item
+            name="android:shadowColor">#222</item>
+        <item
+            name="android:shadowRadius">2</item>
+    </style>
+    <style
+        name="textShadow">
+        <item
+            name="android:textColor">@color/opaque_white</item>
+        <item
+            name="android:shadowColor">#444</item>
+        <item
+            name="android:shadowRadius">2</item>
+        <item
+            name="android:textStyle">bold</item>
+    </style>
+    <style
+        name="buttonStyle"
+        parent="android:Widget.Button">
+        <item
+            name="android:textColor">@color/opaque_grey</item>
+    </style>
+
+</resources>
+
+
+
+
+
+
+
