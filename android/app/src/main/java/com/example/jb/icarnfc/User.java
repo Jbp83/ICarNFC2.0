@@ -8,28 +8,13 @@ package com.example.jb.icarnfc;
 public class User {
     final String name;
     final String first_name;
+    final String email;
 
-    public User(String name, String first_name) {
+
+
+    public User(String name, String first_name, String email) {
         this.name = name;
         this.first_name = first_name;
-
+        this.email = email;
     }
 }
-=======
- * Created by Mars on 20/03/2017.
- */
-
-
-    class User {
-
-        final String UserLogin;
-        final String UserPassword;
-
-        public User(String UserLogin, String UserPassword) {
-            this.UserLogin = UserLogin;
-            this.UserPassword = UserPassword;
-
-        }
-    }
-
->>>>>>> origin/Android

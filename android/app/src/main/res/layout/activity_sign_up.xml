@@ -20,11 +20,14 @@
         app:srcCompat="@drawable/logo"
         android:id="@+id/imageView" /> -->
 
-    <ImageView
-        android:id="@+id/imageView"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="194dp"
-        app:srcCompat="@drawable/logo" />
+        android:layout_height="wrap_content"
+        android:text="Inscription"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/login_form"
@@ -77,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in"
+                android:text="@string/action_sign_up"
                 android:textStyle="bold" />
 
         </LinearLayout>

@@ -83,6 +83,8 @@ public class icarService {
 
 
                 return Response.ok(jsonInfo).build();
+
+
             }
             else
             {

@@ -32,11 +32,14 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/mesvoitures">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                     <action android:name="android.intent.action.MAIN" />
                     <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".TagActivity"
@@ -63,11 +66,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".test_next">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".DisplayMessageActivity"
@@ -78,10 +83,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".test_next" />
         </activity>
-
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".SignUp"></activity>
     </application>
 
 </manifest>
