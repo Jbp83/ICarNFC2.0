@@ -3,10 +3,13 @@ package com.example.jb.icarnfc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -17,6 +20,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -77,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+
+
                 call.cancel();
             }
 
@@ -102,6 +109,22 @@ public class MainActivity extends AppCompatActivity {
                             Intent myIntent = new Intent(getBaseContext(), MesVoitures.class);
                             startActivity(myIntent);
                         }
+
+                        if (myResponse.equals("fail to login")) {
+
+                            Toast toast = Toast.makeText(MainActivity.this, "Nom d'utilisateur ou mot de passe incorrect !", Toast.LENGTH_LONG);
+                            LinearLayout layout = (LinearLayout) toast.getView();
+                            if (layout.getChildCount() > 0) {
+                                TextView tv = (TextView) layout.getChildAt(0);
+                                tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                            }
+                            toast.show();
+                        }
+
+
+
+
+
                         // txtString.setText(myResponse);
                     }
                 });
