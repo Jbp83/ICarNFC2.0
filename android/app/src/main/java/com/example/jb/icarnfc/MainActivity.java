@@ -49,8 +49,32 @@ public class MainActivity extends AppCompatActivity {
 
         txtString= (TextView)findViewById(R.id.txtString);
 
+       TextView textview =(TextView) findViewById(R.id.inscription);
+        textview.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    SignUp();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            });
+
 
     }
+
+    void SignUp() throws IOException
+    {
+        Intent myIntent = new Intent(getBaseContext(), SignUp.class);
+        startActivity(myIntent);
+    }
+
+
+
 
     void run() throws IOException {
 

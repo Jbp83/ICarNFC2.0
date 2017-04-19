@@ -9,7 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.jb.icarnfc.LoginActivity">
+    tools:context="com.example.jb.icarnfc.LoginActivity"
+    android:weightSum="1">
 
 
     <!-- Login progress -->
@@ -20,6 +21,12 @@
         app:srcCompat="@drawable/logo"
         android:id="@+id/imageView" /> -->
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
@@ -29,7 +36,8 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="223dp"
+        android:layout_weight="0.53">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -90,6 +98,14 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/inscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.26"
+        android:text="Pas de compte ? Inscrivez vous"
+        android:textAlignment="center" />
 
     <ProgressBar
         android:id="@+id/login_progress"
