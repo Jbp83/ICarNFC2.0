@@ -2,6 +2,8 @@ package com.example.jb.icarnfc;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 /**
@@ -9,6 +11,7 @@ import retrofit2.http.POST;
  */
 
 interface PostTo {
-    @POST("/login")
-    Call<Repo> sendUser(@Body User body);
+    @FormUrlEncoded
+    @POST("login")
+    Call<User> sendUser(@Field("UserLogin") String login,@Field("UserPassword")String password);
 }
