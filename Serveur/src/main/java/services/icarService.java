@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
 import java.sql.*;
 
 @RestController
@@ -64,7 +62,7 @@ public class icarService {
     }
 
     @RequestMapping(method = RequestMethod.POST, value ="/subscribe")
-    public String Subscribe(@RequestParam("UserLogin") String UserLogin,@RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut)
+    public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut)
     {
 
         //Connection à la base de donnée avec la variable conn
@@ -75,7 +73,7 @@ public class icarService {
         PreparedStatement PrepStat;
         ResultSet resultats;
         String Req;
-        Req = "SELECT * FROM users WHERE login='"+UserLogin+ "' ;";
+        Req = "SELECT * FROM users WHERE login='"+UserMail+ "' ;";
 
         try {
             statement =  conn.createStatement();
@@ -88,13 +86,14 @@ public class icarService {
             }
             else
             {
-                Req = "INSERT INTO users ( mail, login, password, status) VALUES (?, ?, ?, ?)";
+                Req = "INSERT INTO users ( mail, nom, prenom, login, password, status) VALUES ( ?, ?, ?, ?, ?)";
                 PrepStat = conn.prepareStatement(Req);
 
                 PrepStat.setString(1,UserMail);
-                PrepStat.setString(2,UserLogin);
-                PrepStat.setString(3,UserPassword);
-                PrepStat.setString(4,UserStatut);
+                PrepStat.setString(2,UserName);
+                PrepStat.setString(3,UserSurname);
+                PrepStat.setString(4,UserPassword);
+                PrepStat.setString(5,UserStatut);
 
                 int created = PrepStat.executeUpdate();
                 if(created ==1)
@@ -111,7 +110,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/info")
-    public Response getInfos(@RequestParam("UserLogin") String UserLogin)
+    public String getInfos(@RequestParam("UserMail") String UserMail)
     {
         JSONObject jsonInfo = new JSONObject();
 
@@ -122,7 +121,7 @@ public class icarService {
         Statement statement;
         ResultSet resultats;
         String Req;
-        Req = "SELECT * FROM users WHERE login='"+UserLogin+"' ;";
+        Req = "SELECT * FROM users WHERE `mail`='"+UserMail +"';";
 
         try {
             statement =  conn.createStatement();
@@ -130,28 +129,34 @@ public class icarService {
 
             if(resultats.next()) {
 
-
-                return Response.ok(jsonInfo).build();
+                jsonInfo.put("nom", resultats.getString("nom"));
+                jsonInfo.put("prenom", resultats.getString("prenom"));
+                jsonInfo.put("mail", resultats.getString("mail"));
+                jsonInfo.put("status", resultats.getString("status"));
+                return jsonInfo.toString();
 
 
             }
             else
             {
-                return Response.status(400).build();
+                return "error user not found";
             }
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-
+        return null;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value ="/userCars")
-    public Response getCars(@PathParam("UserLogin") String UserLogin)
+    @RequestMapping(method = RequestMethod.POST, value ="/userCars")
+    public String getCars(@RequestParam("UserMail") String UserMail)
     {
-        JSONObject jsonCar = new JSONObject();
         JSONArray CarArray = new JSONArray();
+
+
         //Connection à la base de donnée avec la variable conn
         Connection  conn = getConnection();
 
@@ -159,38 +164,44 @@ public class icarService {
         Statement statement;
         ResultSet resultats;
         String Req;
-        Req = "SELECT * FROM voiture WHERE id_proprietaire=(SELECT id FROM users WHERE login='"+UserLogin +"');";
+        Req = "SELECT * FROM `voiture` WHERE `id_proprietaire` = (SELECT `id` FROM `users` WHERE `mail`='"+UserMail +"');";
 
         try {
             statement =  conn.createStatement();
             resultats = statement.executeQuery(Req);
 
-            while(resultats.next()) {
 
-                try {
+            if(resultats.next())
+            {
+                resultats.previous();
+                
+                while(resultats.next()) {
+                    JSONObject jsonCar = new JSONObject();
                     jsonCar.put("id",resultats.getInt("id"));
                     jsonCar.put("id_proprietaire",resultats.getInt("id_proprietaire"));
                     jsonCar.put("Immatriculation",resultats.getString("Immatriculation"));
-                    jsonCar.put("Modèle",resultats.getInt("Modèle"));
+                    jsonCar.put("Modèle",resultats.getString("Modèle"));
                     jsonCar.put("DateImmat",resultats.getDate("DateImmat"));
                     jsonCar.put("CV",resultats.getInt("CV"));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    CarArray.put(jsonCar);
                 }
 
-                CarArray.put(jsonCar);
-
-
+               return CarArray.toString();
             }
-            return Response.ok(CarArray.toString()).build();
+            else
+            {
+                return "error cannot load cars";
+            }
 
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+         catch (JSONException e) {
+        e.printStackTrace();
+    }
 
-
+        return "fail to load cars";
     }
 
 
