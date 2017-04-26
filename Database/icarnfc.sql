@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 14 Mars 2017 à 14:19
+-- Généré le :  Mar 25 Avril 2017 à 16:18
 -- Version du serveur :  5.6.15-log
--- Version de PHP :  5.5.8
+-- Version de PHP :  5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -98,11 +98,20 @@ CREATE TABLE IF NOT EXISTS `proprietaire` (
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(11) NOT NULL,
+  `mail` varchar(50) NOT NULL,
   `password` varchar(11) NOT NULL,
   `status` varchar(11) NOT NULL,
+  `nom` varchar(30) NOT NULL,
+  `prenom` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `users`
+--
+
+INSERT INTO `users` (`id`, `mail`, `password`, `status`, `nom`, `prenom`) VALUES
+(1, 'alex@alex.com', 'Alexlpb', 'Pro', 'Meyer', 'Alexandre');
 
 -- --------------------------------------------------------
 
@@ -114,11 +123,19 @@ CREATE TABLE IF NOT EXISTS `voiture` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_proprietaire` int(11) NOT NULL,
   `Immatriculation` varchar(11) NOT NULL,
-  `Modèle` int(11) NOT NULL,
+  `Modèle` varchar(11) NOT NULL,
   `DateImmat` date NOT NULL,
   `CV` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `voiture`
+--
+
+INSERT INTO `voiture` (`id`, `id_proprietaire`, `Immatriculation`, `Modèle`, `DateImmat`, `CV`) VALUES
+(1, 1, 'VE 333 TC', 'X5', '2010-12-12', 300),
+(2, 1, '88 12T 22', '207', '1999-05-05', 90);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
