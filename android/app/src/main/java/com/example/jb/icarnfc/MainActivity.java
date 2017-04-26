@@ -21,7 +21,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static android.widget.Toast.LENGTH_LONG;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -87,74 +86,85 @@ public class MainActivity extends AppCompatActivity {
         String passwordtxt = password.getText().toString();
 
 
-        FormBody.Builder formBuilder = new FormBody.Builder()
-                .add("UserLogin", logintxt);
+        if(logintxt.matches("") || passwordtxt.matches(""))
+        {
+
+           Toast.makeText(MainActivity.this, "Les champs ne sont pas tous remplis", Toast.LENGTH_LONG).show();
+
+
+        } else
+
+        {
+            FormBody.Builder formBuilder = new FormBody.Builder()
+                    .add("UserLogin", logintxt);
 
 // dynamically add more parameter like this:
-        formBuilder.add("UserPassword", passwordtxt);
+            formBuilder.add("UserPassword", passwordtxt);
 
-        RequestBody formBody = formBuilder.build();
+            RequestBody formBody = formBuilder.build();
 
-        Request request = new Request.Builder()
-                .url("http://192.168.1.15:8080/login")
-                .post(formBody)
-                .build();
+            Request request = new Request.Builder()
+                    .url("http://127.0.0.1:8080/login")
+                    .post(formBody)
+                    .build();
 
-        OkHttpClient client = new OkHttpClient();
-
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
+            OkHttpClient client = new OkHttpClient();
 
 
-                call.cancel();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-                final String myResponse = response.body().string();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
 
 
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                    call.cancel();
+                }
 
-                        if (myResponse.equals("pro")) {
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
 
-                            Intent myIntent = new Intent(getBaseContext(), LoginActivity.class);
-                            startActivity(myIntent);
-                        }
+                    final String myResponse = response.body().string();
 
 
-                        if (myResponse.equals("particulier")) {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                            Intent myIntent = new Intent(getBaseContext(), MesVoitures.class);
-                            startActivity(myIntent);
-                        }
+                            if (myResponse.equals("Professionnel")) {
 
-                        if (myResponse.equals("fail to login")) {
-
-                            Toast toast = Toast.makeText(MainActivity.this, "Nom d'utilisateur ou mot de passe incorrect !", Toast.LENGTH_LONG);
-                            LinearLayout layout = (LinearLayout) toast.getView();
-                            if (layout.getChildCount() > 0) {
-                                TextView tv = (TextView) layout.getChildAt(0);
-                                tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                                Intent myIntent = new Intent(getBaseContext(), LoginActivity.class);
+                                startActivity(myIntent);
                             }
-                            toast.show();
+
+
+                            if (myResponse.equals("Particulier")) {
+
+                                Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
+                                startActivity(myIntent);
+                            }
+
+                            if (myResponse.equals("fail to login")) {
+
+                                Toast toast = Toast.makeText(MainActivity.this, "Nom d'utilisateur ou mot de passe incorrect !", Toast.LENGTH_LONG);
+                                LinearLayout layout = (LinearLayout) toast.getView();
+                                if (layout.getChildCount() > 0) {
+                                    TextView tv = (TextView) layout.getChildAt(0);
+                                    tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                                }
+                                toast.show();
+                            }
+
+                            
+                            // txtString.setText(myResponse);
                         }
+                    });
+
+                }
+            });
+
+        }
 
 
 
-
-
-                        // txtString.setText(myResponse);
-                    }
-                });
-
-            }
-        });
     }
 
 }

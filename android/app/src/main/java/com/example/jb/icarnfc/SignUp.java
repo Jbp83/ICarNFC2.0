@@ -3,6 +3,7 @@ package com.example.jb.icarnfc;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -34,7 +35,7 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
 
-        Button button= (Button) findViewById(R.id.butonsignup);
+        Button button = (Button) findViewById(R.id.butonsignup);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,8 +55,7 @@ public class SignUp extends AppCompatActivity {
         //Création d'une liste d'élément à mettre dans le Spinner(pour l'exemple)
         List exempleList = new ArrayList();
         exempleList.add("Particulier");
-        exempleList.add("Professionel");
-
+        exempleList.add("Professionnel");
 
 
         ArrayAdapter adapter = new ArrayAdapter(
@@ -64,24 +64,20 @@ public class SignUp extends AppCompatActivity {
                 exempleList
         );
 
-
-               /* On definit une présentation du spinner quand il est déroulé         (android.R.layout.simple_spinner_dropdown_item) */
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Enfin on passe l'adapter au Spinner et c'est tout
         spinner.setAdapter(adapter);
     }
 
 
-
-    void Inscription()throws IOException
-    {
+    void Inscription() throws IOException {
 
 
 // déclare l'édit text, que l'on chercher à partir de son id
-        EditText login = (EditText) findViewById (R.id.login);
-        EditText password = (EditText) findViewById (R.id.password);
-        EditText confirmpassword = (EditText) findViewById (R.id.password2);
-        EditText email = (EditText) findViewById (R.id.email);
+        EditText login = (EditText) findViewById(R.id.login);
+        EditText password = (EditText) findViewById(R.id.password);
+        EditText confirmpassword = (EditText) findViewById(R.id.password2);
+        EditText email = (EditText) findViewById(R.id.email);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
 // Récupére le text présent dans l'edit text
@@ -90,10 +86,13 @@ public class SignUp extends AppCompatActivity {
         String passwordtxt2 = confirmpassword.getText().toString();
         String emailtxt = email.getText().toString();
 
-        String status;
-        status=spinner.getSelectedItem().toString();
 
-        if(passwordtxt.matches("") || passwordtxt2.matches("") || logintxt.matches("")|| emailtxt.matches("")) {
+        String status;
+        status = spinner.getSelectedItem().toString();
+
+        Log.i("email",email.toString());
+
+        if (passwordtxt.matches("") || passwordtxt2.matches("") || logintxt.matches("") || emailtxt.matches("")) {
 
 
             Toast toast = Toast.makeText(SignUp.this, "Tous les champs ne sont pas remplis !", Toast.LENGTH_LONG);
@@ -105,23 +104,24 @@ public class SignUp extends AppCompatActivity {
             toast.show();
 
 
-        }else if(passwordtxt==passwordtxt2)
+        } else if (passwordtxt.equals(passwordtxt2))
+
+
         {
             FormBody.Builder formBuilder = new FormBody.Builder()
                     .add("UserLogin", logintxt);
 
 
-        // dynamically add more parameter like this:
+            // dynamically add more parameter like this:
+            formBuilder.add("UserMail", emailtxt);
             formBuilder.add("UserPassword", passwordtxt);
-            formBuilder.add("email", emailtxt);
-            formBuilder.add("status",status);
-
+            formBuilder.add("UserStatut", status);
 
 
             RequestBody formBody = formBuilder.build();
 
             Request request = new Request.Builder()
-                    .url("http://192.168.1.15:8080/inscription")
+                    .url("http://127.0.0.1/subscribe")
                     .post(formBody)
                     .build();
 
@@ -133,6 +133,8 @@ public class SignUp extends AppCompatActivity {
                 public void onFailure(Call call, IOException e) {
 
                     call.cancel();
+
+
                 }
 
                 @Override
@@ -145,22 +147,31 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            if (myResponse.equals("success")) {
+                            if (myResponse.equals("utilisateur créé")) {
 
-                                Intent myIntent = new Intent(getBaseContext(), LoginActivity.class);
+                                Toast.makeText(SignUp.this, "Utilisateur bien crée", Toast.LENGTH_LONG).show();
+
+                                Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                 startActivity(myIntent);
+
+
                             }
 
 
-                            if (myResponse.equals("fail")) {
+                            if (myResponse.equals("erreur de création")) {
 
-                                Intent myIntent = new Intent(getBaseContext(), MesVoitures.class);
-                                startActivity(myIntent);
+                                Toast toast = Toast.makeText(SignUp.this, "Erreur de création de l'utilisateur", Toast.LENGTH_LONG);
+                                LinearLayout layout = (LinearLayout) toast.getView();
+                                if (layout.getChildCount() > 0) {
+                                    TextView tv = (TextView) layout.getChildAt(0);
+                                    tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                                }
+                                toast.show();
                             }
 
-                            if (myResponse.equals("isset login")) {
+                            if (myResponse.equals("User Already exist")) {
 
-                                Toast toast = Toast.makeText(SignUp.this, "Le login est deja pris !", Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(SignUp.this, "Il existe deja un utilisateur avec ce login  !", Toast.LENGTH_LONG);
                                 LinearLayout layout = (LinearLayout) toast.getView();
                                 if (layout.getChildCount() > 0) {
                                     TextView tv = (TextView) layout.getChildAt(0);
@@ -178,9 +189,7 @@ public class SignUp extends AppCompatActivity {
             });
 
 
-        }
-        else
-        {
+        } else {
             Toast toast = Toast.makeText(SignUp.this, "Les mots de passe ne sont pas identiques", Toast.LENGTH_LONG);
             LinearLayout layout = (LinearLayout) toast.getView();
             if (layout.getChildCount() > 0) {
@@ -190,5 +199,6 @@ public class SignUp extends AppCompatActivity {
             toast.show();
         }
 
+    }
 }
-}
+
