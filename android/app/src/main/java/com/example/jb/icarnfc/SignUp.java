@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,11 +114,15 @@ public class SignUp extends AppCompatActivity {
             FormBody.Builder formBuilder = new FormBody.Builder()
                     .add("UserName", nomtxt);
 
+            String passwordmd5=md5(passwordtxt);
+            System.out.println(passwordmd5);
+
+
 
             // dynamically add more parameter like this:
             formBuilder.add("UserSurname",prenomtxt);
             formBuilder.add("UserMail", emailtxt);
-            formBuilder.add("UserPassword", passwordtxt);
+            formBuilder.add("UserPassword", passwordmd5);
             formBuilder.add("UserStatut", status);
 
 
@@ -202,5 +208,28 @@ public class SignUp extends AppCompatActivity {
         }
 
     }
+
+
+    private static String md5(String s) { try {
+
+        // Create MD5 Hash
+        MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+        digest.update(s.getBytes());
+        byte messageDigest[] = digest.digest();
+
+        // Create Hex String
+        StringBuffer hexString = new StringBuffer();
+        for (int i=0; i<messageDigest.length; i++)
+            hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+        return hexString.toString();
+
+    } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+    }
+        return "";
+
+    }
+
+
 }
 
