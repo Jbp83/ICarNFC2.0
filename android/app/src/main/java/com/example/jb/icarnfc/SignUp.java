@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,14 +73,16 @@ public class SignUp extends AppCompatActivity {
 
 
 // déclare l'édit text, que l'on chercher à partir de son id
-        EditText login = (EditText) findViewById(R.id.login);
+        EditText nom = (EditText) findViewById(R.id.mail);
+        EditText prenom=(EditText) findViewById(R.id.prenom);
         EditText password = (EditText) findViewById(R.id.password);
         EditText confirmpassword = (EditText) findViewById(R.id.password2);
         EditText email = (EditText) findViewById(R.id.email);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
 // Récupére le text présent dans l'edit text
-        String logintxt = login.getText().toString();
+        String nomtxt = nom.getText().toString();
+        String prenomtxt=prenom.getText().toString();
         String passwordtxt = password.getText().toString();
         String passwordtxt2 = confirmpassword.getText().toString();
         String emailtxt = email.getText().toString();
@@ -92,7 +93,7 @@ public class SignUp extends AppCompatActivity {
 
         Log.i("email",email.toString());
 
-        if (passwordtxt.matches("") || passwordtxt2.matches("") || logintxt.matches("") || emailtxt.matches("")) {
+        if (passwordtxt.matches("") || passwordtxt2.matches("") || nomtxt.matches("") || emailtxt.matches("")  || prenomtxt.matches("") ) {
 
 
             Toast toast = Toast.makeText(SignUp.this, "Tous les champs ne sont pas remplis !", Toast.LENGTH_LONG);
@@ -109,10 +110,11 @@ public class SignUp extends AppCompatActivity {
 
         {
             FormBody.Builder formBuilder = new FormBody.Builder()
-                    .add("UserLogin", logintxt);
+                    .add("UserName", nomtxt);
 
 
             // dynamically add more parameter like this:
+            formBuilder.add("UserSurname",prenomtxt);
             formBuilder.add("UserMail", emailtxt);
             formBuilder.add("UserPassword", passwordtxt);
             formBuilder.add("UserStatut", status);
@@ -121,7 +123,7 @@ public class SignUp extends AppCompatActivity {
             RequestBody formBody = formBuilder.build();
 
             Request request = new Request.Builder()
-                    .url("http://127.0.0.1/subscribe")
+                    .url("http://192.168.1.15:8080/subscribe")
                     .post(formBody)
                     .build();
 
@@ -149,7 +151,7 @@ public class SignUp extends AppCompatActivity {
 
                             if (myResponse.equals("utilisateur créé")) {
 
-                                Toast.makeText(SignUp.this, "Utilisateur bien crée", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SignUp.this, "Utilisateur crée", Toast.LENGTH_LONG).show();
 
                                 Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                 startActivity(myIntent);
@@ -171,7 +173,7 @@ public class SignUp extends AppCompatActivity {
 
                             if (myResponse.equals("User Already exist")) {
 
-                                Toast toast = Toast.makeText(SignUp.this, "Il existe deja un utilisateur avec ce login  !", Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(SignUp.this, "Il existe deja un utilisateur avec cette adresse e-mail  !", Toast.LENGTH_LONG);
                                 LinearLayout layout = (LinearLayout) toast.getView();
                                 if (layout.getChildCount() > 0) {
                                     TextView tv = (TextView) layout.getChildAt(0);

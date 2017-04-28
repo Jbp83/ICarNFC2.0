@@ -28,7 +28,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/login")
-    public String Login(@RequestParam("UserLogin") String UserLogin,@RequestParam("UserPassword") String UserPassword)
+    public String Login(@RequestParam("UserMail") String UserMail,@RequestParam("UserPassword") String UserPassword)
     {
 
         //Connection à la base de donnée avec la variable conn
@@ -38,7 +38,7 @@ public class icarService {
         Statement statement;
         ResultSet resultats;
         String Req;
-        Req = "SELECT * FROM users WHERE login='"+UserLogin+"'AND password ='"+ UserPassword+ "' ;";
+        Req = "SELECT * FROM users WHERE mail='"+UserMail+"'AND password ='"+ UserPassword+ "' ;";
 
         try {
             statement =  conn.createStatement();
@@ -73,7 +73,7 @@ public class icarService {
         PreparedStatement PrepStat;
         ResultSet resultats;
         String Req;
-        Req = "SELECT * FROM users WHERE login='"+UserMail+ "' ;";
+        Req = "SELECT * FROM users WHERE mail='"+UserMail+ "' ;";
 
         try {
             statement =  conn.createStatement();
@@ -86,7 +86,7 @@ public class icarService {
             }
             else
             {
-                Req = "INSERT INTO users ( mail, nom, prenom, login, password, status) VALUES ( ?, ?, ?, ?, ?)";
+                Req = "INSERT INTO users ( mail, nom, prenom, password, status) VALUES ( ?, ?, ?, ?, ?)";
                 PrepStat = conn.prepareStatement(Req);
 
                 PrepStat.setString(1,UserMail);

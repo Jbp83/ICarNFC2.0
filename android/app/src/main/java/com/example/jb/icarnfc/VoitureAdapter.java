@@ -61,11 +61,11 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
     }
 
     private class VoitureClassHolder{
-        public TextView nomvoiture;
+        TextView nomvoiture;
         public TextView text;
-        public ImageView avatar;
-        public TextView immatriculation;
-        public TextView dateimat;
-        public TextView cv;
+        private ImageView avatar;
+        private TextView immatriculation;
+        private TextView dateimat;
+        private TextView cv;
     }
 }

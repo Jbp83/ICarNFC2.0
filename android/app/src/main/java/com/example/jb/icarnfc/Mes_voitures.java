@@ -35,7 +35,7 @@ public class Mes_voitures extends AppCompatActivity {
 
         List<Voiture> voituretest = genererVoitures();
 
-        VoitureAdapter adapter = new Voiture(Mes_voitures.this, voituretest);
+        VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voituretest);
         mList1View.setAdapter(adapter);
 
     }

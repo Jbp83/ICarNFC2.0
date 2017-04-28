@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    run();
+                    Authentification();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -75,18 +75,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    void run() throws IOException {
+    void Authentification() throws IOException {
 
 // déclare l'édit text, que l'on chercher à partir de son id
-        EditText login = (EditText) findViewById (R.id.login);
+        EditText mail = (EditText) findViewById (R.id.mail);
         EditText password = (EditText) findViewById (R.id.password);
 
 // Récupére le text présent dans l'edit text
-        String logintxt = login.getText().toString();
+        String mailtxt = mail.getText().toString();
         String passwordtxt = password.getText().toString();
 
 
-        if(logintxt.matches("") || passwordtxt.matches(""))
+        if(mailtxt.matches("") || passwordtxt.matches(""))
         {
 
            Toast.makeText(MainActivity.this, "Les champs ne sont pas tous remplis", Toast.LENGTH_LONG).show();
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         {
             FormBody.Builder formBuilder = new FormBody.Builder()
-                    .add("UserLogin", logintxt);
+                    .add("UserMail", mailtxt);
 
 // dynamically add more parameter like this:
             formBuilder.add("UserPassword", passwordtxt);
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             RequestBody formBody = formBuilder.build();
 
             Request request = new Request.Builder()
-                    .url("http://127.0.0.1:8080/login")
+                    .url("http://192.168.1.15:8080/login")
                     .post(formBody)
                     .build();
 
