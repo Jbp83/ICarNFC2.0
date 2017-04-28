@@ -10,9 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        txtString= (TextView)findViewById(R.id.txtString);
+        txtString= (TextView)findViewById(R.id.mail);
 
        TextView textview =(TextView) findViewById(R.id.inscription);
         textview.setOnClickListener(new View.OnClickListener()

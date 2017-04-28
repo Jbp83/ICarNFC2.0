@@ -8,47 +8,53 @@
 
     <ImageView
         android:id="@+id/avatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        tools:background="#AAA"
-        />
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        tools:background="#AAA" />
 
     <TextView
         android:id="@+id/nomvoiture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/avatar"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/avatar"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        tools:text="Pseudo" />
+        tools:text="Name : "
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/avatar"
+        android:layout_marginStart="19dp" />
 
     <TextView
         android:id="@+id/immatriculation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/nomvoiture"
-        android:layout_below="@+id/nomvoiture"
         android:textColor="@android:color/black"
-        tools:text="Texte de mon tweet" />
+        tools:text="Immatriculation"
+        android:layout_below="@+id/nomvoiture"
+        android:layout_alignStart="@+id/nomvoiture" />
 
     <TextView
         android:id="@+id/modele"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/dateimat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_alignStart="@+id/immatriculation"
+        android:layout_below="@+id/immatriculation"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        tools:text="Modèle : " />
 
     <TextView
         android:id="@+id/cv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/modele"
+        android:layout_below="@+id/modele"
+        android:textColor="@android:color/black"
+        tools:text="Cv :" />
+
+    <TextView
+        android:id="@+id/idproprio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/cv"
+        android:layout_below="@+id/cv"
         android:text="TextView" />
 
 </RelativeLayout>

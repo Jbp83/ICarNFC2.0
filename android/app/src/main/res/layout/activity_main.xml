@@ -13,13 +13,7 @@
     android:weightSum="1">
 
 
-drffds
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+    drffds
 
     <ImageView
         android:id="@+id/imageView"
@@ -39,12 +33,6 @@ drffds
             android:layout_height="wrap_content"
 
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txtString"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
