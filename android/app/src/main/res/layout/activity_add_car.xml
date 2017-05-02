@@ -57,6 +57,14 @@
             android:inputType="textPersonName"
            android:hint="Plaque d'immatriculation" />
 
+        <EditText
+            android:id="@+id/cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Nombre de chevaux" />
+
         <Button
             android:id="@+id/addcar"
             android:layout_width="match_parent"

@@ -43,11 +43,13 @@ public class Add_car extends GlobalVars {
         EditText marque = (EditText) findViewById (R.id.marque);
         EditText model = (EditText) findViewById (R.id.modele);
         EditText immat = (EditText) findViewById (R.id.immat);
+        EditText cv = (EditText) findViewById (R.id.cv);
 
         final String nomtxt = nom.getText().toString();
         final String marquetxt = marque.getText().toString();
         final String modeltxt = model.getText().toString();
         final String immattxt = immat.getText().toString();
+        final String cvtxt = cv.getText().toString();
 
         if(nomtxt.matches("") || marquetxt.matches("") || modeltxt.matches("") ||immattxt.matches("")  )
         {
@@ -59,12 +61,17 @@ public class Add_car extends GlobalVars {
         {
 
             FormBody.Builder formBuilder = new FormBody.Builder()
-                    .add("CarName", nomtxt);
+                    .add("GUID", "1");
 
             // dynamically add more parameter like this:
+            formBuilder.add("UserID", "11");
+            formBuilder.add("CarImmat", immattxt);
+            formBuilder.add("CarName", nomtxt);
             formBuilder.add("CarBrand", marquetxt);
             formBuilder.add("CarModel", modeltxt);
-            formBuilder.add("CarImmat", immattxt);
+            formBuilder.add("DateImmat", "2017-04-10");
+            formBuilder.add("CV","1000");
+
 
             RequestBody formBody = formBuilder.build();
 
@@ -93,13 +100,13 @@ public class Add_car extends GlobalVars {
                         @Override
                         public void run() {
 
-                            if (myResponse.equals("success")) {
+                            if (myResponse.equals("voiture crée")) {
 
                                 Toast.makeText(Add_car.this, "Voiture enregistré avec succés", Toast.LENGTH_LONG).show();
                                 Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
                                 //myIntent.putExtra("mailpro",mailtxt); // On transmet la variable à la nouvelle activité
                                 startActivity(myIntent);
-                            } else
+                            } if (myResponse.equals("erreur de création"))
                             {
                                 Toast.makeText(Add_car.this, "La voiture n'a pas été enregistré", Toast.LENGTH_LONG).show();
                             }
