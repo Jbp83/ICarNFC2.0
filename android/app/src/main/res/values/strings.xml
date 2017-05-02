@@ -28,5 +28,6 @@
     <string name="title_activity_test">Sign in</string>
     <string name="hello">Hello</string>
     <string name="scan">Scanner votre voiture</string>
+    <string name="addcar">Enregistrer la voiture</string>
 </resources>
 

@@ -35,14 +35,13 @@
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SignUp"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".Mes_voitures">
 
             <!--
@@ -53,22 +52,29 @@
             -->
         </activity>
         <activity android:name=".AndroidSelectImage">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity android:name=".Pro" />
         <activity android:name=".Infos_car" />
         <activity android:name=".ReadTag">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-               <!-- <action android:name="android.nfc.action.TAG_DISCOVERED"/>
-                <category android:name="android.intent.category.DEFAULT"/>-->
+                <!--
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                -->
             </intent-filter>
         </activity>
+        <activity android:name=".Add_car"></activity>
     </application>
 
 </manifest>
