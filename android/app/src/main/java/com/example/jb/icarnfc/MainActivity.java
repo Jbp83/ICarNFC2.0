@@ -142,6 +142,7 @@ public class MainActivity extends GlobalVars {
 
                                 Intent myIntent = new Intent(getBaseContext(), Pro.class);
                                 startActivity(myIntent);
+
                             }
 
 

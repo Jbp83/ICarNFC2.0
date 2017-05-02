@@ -1,17 +1,18 @@
 package com.example.jb.icarnfc;
 
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.ListView;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class Mes_voitures extends AppCompatActivity {
 
     ListView mListView;
+    final Context context = this;
 
 
     @Override
@@ -22,14 +23,39 @@ public class Mes_voitures extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listView);
         afficherListeVoitures();
 
+        ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
+        // set a onclick listener for when the button gets clicked
+
+
+    /*    poubelle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder
+                        .setTitle("Erase hard drive")
+                        .setMessage("Are you sure?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Yes button clicked, do something
+                                Toast.makeText(Mes_voitures.this, "Yes button pressed",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No", null)	//Do nothing on no
+                        .show();
+            }
+
+       });*/
     }
 
 
     private List<Voiture> genererVoitures() {
 
 
-        Calendar c = Calendar.getInstance();
-        Date date = c.getTime();
+       /* Calendar c = Calendar.getInstance();
+        Date date = c.getTime();*/
 
 
         List<Voiture> voituretest = new ArrayList<Voiture>();

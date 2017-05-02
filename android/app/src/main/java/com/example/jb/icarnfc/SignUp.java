@@ -13,13 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -27,8 +25,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import com.example.jb.icarnfc.common.GlobalVars;
 
-public class SignUp extends AppCompatActivity {
+public class SignUp extends GlobalVars {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +113,11 @@ public class SignUp extends AppCompatActivity {
             FormBody.Builder formBuilder = new FormBody.Builder()
                     .add("UserName", nomtxt);
 
-            String passwordmd5=md5(passwordtxt);
-            System.out.println(passwordmd5);
+
+            MD5 md5 = new MD5();
+            String passwordmd5=md5.crypt(passwordtxt);
+
+
 
 
 
@@ -129,7 +131,7 @@ public class SignUp extends AppCompatActivity {
             RequestBody formBody = formBuilder.build();
 
             Request request = new Request.Builder()
-                    .url("http://127.0.0.1:8080:8080/subscribe")
+                    .url(IPSERVEUR+"/subscribe")
                     .post(formBody)
                     .build();
 
