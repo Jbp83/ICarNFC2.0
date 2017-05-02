@@ -185,6 +185,7 @@ public class icarService {
                     jsonCar.put("Modèle",resultats.getString("Modèle"));
                     jsonCar.put("DateImmat",resultats.getDate("DateImmat"));
                     jsonCar.put("CV",resultats.getInt("CV"));
+                    jsonCar.put("urlimage",resultats.getString("urlimage"));
                     CarArray.put(jsonCar);
                 }
 
