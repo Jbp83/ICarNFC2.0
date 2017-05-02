@@ -207,6 +207,57 @@ public class icarService {
     }
 
 
+    @RequestMapping(method = RequestMethod.POST, value ="/addcar")
+    public String AddCar(@RequestParam("GUID") String GUID,@RequestParam("UserID") String UserId,@RequestParam("CarImmat") String CarImmat, @RequestParam("CarName") String CarName,@RequestParam("CarBrand") String CarBrand, @RequestParam("CarModel") String CarModel ,@RequestParam("DateImmat") String DateImmat,@RequestParam("CV") String CV)
+    {
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        PreparedStatement PrepStat;
+        ResultSet resultats;
+        String Req;
+        Req = "SELECT * FROM voiture WHERE GUID='"+GUID+ "' ;";
+
+        try {
+            statement =  conn.createStatement();
+            resultats = statement.executeQuery(Req);
+
+            if(resultats.next())
+            {
+                return "Car Already exist";
+            }
+            else
+            {
+                Req = "INSERT INTO voiture (guid,id_proprietaire, Immatriculation, nom, marque, modele, DateImmat,CV) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+                PrepStat = conn.prepareStatement(Req);
+
+                PrepStat.setString(1,GUID);
+                PrepStat.setString(2,UserId);
+                PrepStat.setString(3,CarImmat);
+                PrepStat.setString(4,CarName);
+                PrepStat.setString(5,CarBrand);
+                PrepStat.setString(6,CarModel);
+                PrepStat.setString(7,DateImmat);
+                PrepStat.setString(8,CV);
+
+
+                int created = PrepStat.executeUpdate();
+                if(created ==1)
+                    return "voiture crée";
+                else
+                    return "erreur de création";
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
     @RequestMapping("/")
     public String index() {
         return "Greetings from Spring Boot!";
