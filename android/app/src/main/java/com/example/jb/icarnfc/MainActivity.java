@@ -36,10 +36,6 @@ public class MainActivity extends GlobalVars {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
         Button button= (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +81,7 @@ public class MainActivity extends GlobalVars {
         EditText password = (EditText) findViewById (R.id.password);
 
 // Récupére le text présent dans l'edit text
-        String mailtxt = mail.getText().toString();
+        final String mailtxt = mail.getText().toString();
         String passwordtxt = password.getText().toString();
 
 
@@ -141,6 +137,7 @@ public class MainActivity extends GlobalVars {
                             if (myResponse.equals("Professionnel")) {
 
                                 Intent myIntent = new Intent(getBaseContext(), Pro.class);
+                                myIntent.putExtra("mailpro",mailtxt);
                                 startActivity(myIntent);
 
                             }
@@ -149,6 +146,7 @@ public class MainActivity extends GlobalVars {
                             if (myResponse.equals("Particulier")) {
 
                                 Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
+                                myIntent.putExtra("mailparticulier",mailtxt);
                                 startActivity(myIntent);
                             }
 

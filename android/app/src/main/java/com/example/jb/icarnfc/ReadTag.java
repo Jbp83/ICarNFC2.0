@@ -93,7 +93,7 @@ public class ReadTag extends AppCompatActivity {
             boolean isWritable = ndef.isWritable();
             boolean canMakeReadOnly = ndef.canMakeReadOnly();
 
-            
+
             Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             NdefMessage[] msgs;
             String message = null;
@@ -115,6 +115,7 @@ public class ReadTag extends AppCompatActivity {
             }
 
             Log.i("msg", message);
+
         }
 
 

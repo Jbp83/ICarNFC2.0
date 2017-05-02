@@ -6,4 +6,21 @@
     android:layout_height="match_parent"
     tools:context="com.example.jb.icarnfc.ReadTag">
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="327dp"
+        android:layout_height="422dp"
+        app:srcCompat="@drawable/scan"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="73dp" />
 </android.support.constraint.ConstraintLayout>

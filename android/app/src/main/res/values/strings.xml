@@ -27,5 +27,6 @@
     <string name="retour">Retour</string>
     <string name="title_activity_test">Sign in</string>
     <string name="hello">Hello</string>
+    <string name="scan">Scanner votre voiture</string>
 </resources>
 

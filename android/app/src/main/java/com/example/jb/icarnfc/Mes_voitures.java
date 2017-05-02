@@ -1,28 +1,13 @@
 package com.example.jb.icarnfc;
 
-
-import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.jb.icarnfc.common.GlobalVars;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -34,9 +19,11 @@ import okhttp3.Response;
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
+    EditText txtString;
     private static Response response;
     private static final String MAIN_URL = "http://pratikbutani.x10.mx/json_data.json";
     private static final String TAG = "TEST";
+    private static final String mailparticuler = null;
 
 
     @Override
@@ -45,10 +32,8 @@ public class Mes_voitures extends GlobalVars {
         setContentView(R.layout.activity_mes_voitures);
 
         mListView = (ListView) findViewById(R.id.listView);
-
+        String mailparticuler = (String) getIntent().getSerializableExtra("mailparticulier");
         afficherListeVoitures();
-
-
 
 
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
@@ -82,18 +67,18 @@ public class Mes_voitures extends GlobalVars {
     private void afficherListeVoitures() {
 
 
-        List<Voiture> voitures = genererVoitures();
+        List<Voiture> voitures = genererVoitures(mailparticuler);
 
         VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures);
         mListView.setAdapter(adapter);
     }
 
 
-    private List<Voiture> genererVoitures() {
+    private List<Voiture> genererVoitures(String mail) {
 
 
         FormBody.Builder formBuilder = new FormBody.Builder()
-                .add("UserMail", "mars8.6@hotmail.fr");
+                .add("UserMail", mail);
 
 // dynamically add more parameter like this:
 
@@ -126,9 +111,10 @@ public class Mes_voitures extends GlobalVars {
                     @Override
                     public void run() {
 
-                        String TAG="response";
-                        //txtString.setText(myResponse);
-                        String data=myResponse;
+                         String TAG="response";
+
+                        txtString.setText(myResponse);
+                        //String data=myResponse;
 
 
                     }
@@ -136,6 +122,8 @@ public class Mes_voitures extends GlobalVars {
 
             }
         });
+
+
 
         List<Voiture> voituretest = new ArrayList<Voiture>();
         voituretest.add(new Voiture(1, "Porsche Panamera", "789 LD 83", "Porsche",430));
