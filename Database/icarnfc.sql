@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 25 Avril 2017 à 16:18
+-- Généré le :  Mar 02 Mai 2017 à 17:42
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.4.24
 
@@ -98,20 +98,23 @@ CREATE TABLE IF NOT EXISTS `proprietaire` (
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `mail` varchar(50) NOT NULL,
-  `password` varchar(11) NOT NULL,
-  `status` varchar(11) NOT NULL,
-  `nom` varchar(30) NOT NULL,
+  `nom` varchar(11) NOT NULL,
   `prenom` varchar(30) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `mail` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `mail`, `password`, `status`, `nom`, `prenom`) VALUES
-(1, 'alex@alex.com', 'Alexlpb', 'Pro', 'Meyer', 'Alexandre');
+INSERT INTO `users` (`id`, `nom`, `prenom`, `password`, `status`, `mail`) VALUES
+(20, 'test', 'test', '202cb962ac59075b964b07152d234b70', 'Particulier', 'test'),
+(22, 'test', 'test', '202cb962ac5975b964b7152d234b70', 'Particulier', 'mars836@hot.fr'),
+(11, 'meyer', 'alex', '202cb962ac59075b964b07152d234b70', 'Particulier', 'mars8.6@hotmail.fr'),
+(23, 'mars', 'mars', '202cb962ac59075b964b07152d234b70', 'Particulier', 'mars86@hotmail.fr');
 
 -- --------------------------------------------------------
 
@@ -123,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `voiture` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_proprietaire` int(11) NOT NULL,
   `Immatriculation` varchar(11) NOT NULL,
-  `Modèle` varchar(11) NOT NULL,
+  `Modèle` varchar(50) NOT NULL,
   `DateImmat` date NOT NULL,
   `CV` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -134,8 +137,8 @@ CREATE TABLE IF NOT EXISTS `voiture` (
 --
 
 INSERT INTO `voiture` (`id`, `id_proprietaire`, `Immatriculation`, `Modèle`, `DateImmat`, `CV`) VALUES
-(1, 1, 'VE 333 TC', 'X5', '2010-12-12', 300),
-(2, 1, '88 12T 22', '207', '1999-05-05', 90);
+(1, 11, '4545BF', 'Panamera Turbo S', '2017-04-10', 53),
+(2, 11, '12ZZ83', 'Gt3 991.2', '2017-04-12', 28);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
