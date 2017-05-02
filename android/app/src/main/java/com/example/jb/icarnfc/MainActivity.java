@@ -2,7 +2,6 @@ package com.example.jb.icarnfc;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -12,9 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -22,18 +18,25 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import com.example.jb.icarnfc.common.GlobalVars;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends GlobalVars {
+
+
 
     private static final String TAG = "Password md5" ;
     TextView txtString;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
 
 
@@ -65,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             });
-
-
     }
 
     void SignUp() throws IOException
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         Intent myIntent = new Intent(getBaseContext(), SignUp.class);
         startActivity(myIntent);
     }
-
 
 
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             RequestBody formBody = formBuilder.build();
 
             Request request = new Request.Builder()
-                    .url("http://192.168.7.187:8080/login")
+                    .url(IPSERVEUR+"/login")
                     .post(formBody)
                     .build();
 

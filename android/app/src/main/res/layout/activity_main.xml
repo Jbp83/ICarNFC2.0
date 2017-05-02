@@ -13,8 +13,6 @@
     android:weightSum="1">
 
 
-    drffds
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
