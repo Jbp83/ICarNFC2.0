@@ -39,11 +39,8 @@ public class icarService {
         ResultSet resultats;
         String Req;
 
-        MD5 test = new MD5();
-        String md5password= test.crypt(UserPassword);
 
-
-        Req = "SELECT * FROM users WHERE mail='"+UserMail+"'AND password ='"+ md5password + "' ;";
+        Req = "SELECT * FROM users WHERE mail='"+UserMail+"'AND password ='"+ UserPassword + "' ;";
 
         try {
             statement =  conn.createStatement();
