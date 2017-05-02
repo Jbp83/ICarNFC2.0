@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 02 Mai 2017 à 17:42
+-- Généré le :  Mer 03 Mai 2017 à 00:16
 -- Version du serveur :  5.6.15-log
--- Version de PHP :  5.4.24
+-- Version de PHP :  5.5.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `status` varchar(30) NOT NULL,
   `mail` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Contenu de la table `users`
@@ -114,7 +114,8 @@ INSERT INTO `users` (`id`, `nom`, `prenom`, `password`, `status`, `mail`) VALUES
 (20, 'test', 'test', '202cb962ac59075b964b07152d234b70', 'Particulier', 'test'),
 (22, 'test', 'test', '202cb962ac5975b964b7152d234b70', 'Particulier', 'mars836@hot.fr'),
 (11, 'meyer', 'alex', '202cb962ac59075b964b07152d234b70', 'Particulier', 'mars8.6@hotmail.fr'),
-(23, 'mars', 'mars', '202cb962ac59075b964b07152d234b70', 'Particulier', 'mars86@hotmail.fr');
+(23, 'mars', 'mars', '202cb962ac59075b964b07152d234b70', 'Particulier', 'mars86@hotmail.fr'),
+(24, 'bonjour', 'bonjour', '202cb962ac59075b964b07152d234b70', 'Professionnel', 'bonjour@free.fr');
 
 -- --------------------------------------------------------
 
@@ -124,21 +125,27 @@ INSERT INTO `users` (`id`, `nom`, `prenom`, `password`, `status`, `mail`) VALUES
 
 CREATE TABLE IF NOT EXISTS `voiture` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `guid` varchar(30) NOT NULL,
   `id_proprietaire` int(11) NOT NULL,
   `Immatriculation` varchar(11) NOT NULL,
-  `Modèle` varchar(50) NOT NULL,
+  `nom` varchar(30) NOT NULL,
+  `marque` varchar(30) NOT NULL,
+  `modele` varchar(50) NOT NULL,
   `DateImmat` date NOT NULL,
   `CV` int(11) NOT NULL,
+  `urlimage` varchar(300) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `voiture`
 --
 
-INSERT INTO `voiture` (`id`, `id_proprietaire`, `Immatriculation`, `Modèle`, `DateImmat`, `CV`) VALUES
-(1, 11, '4545BF', 'Panamera Turbo S', '2017-04-10', 53),
-(2, 11, '12ZZ83', 'Gt3 991.2', '2017-04-12', 28);
+INSERT INTO `voiture` (`id`, `guid`, `id_proprietaire`, `Immatriculation`, `nom`, `marque`, `modele`, `DateImmat`, `CV`, `urlimage`) VALUES
+(1, '1234', 11, '4545BF', 'Lundi', 'Porsche', 'Panamera Turbo S', '2017-04-10', 53, 'https://pbs.twimg.com/profile_images/643385477131825152/ABq1D_PA.jpg'),
+(2, '4569', 11, '12ZZ83', 'Mardi', 'Porsche', 'Gt3 991.2', '2017-04-12', 28, 'https://is4-ssl.mzstatic.com/image/thumb/Purple22/v4/18/d1/f2/18d1f206-8c2c-819a-c470-0c7e479bf879/source/256x256bb.jpg'),
+(3, 'g', 0, 'hgf', 'hgf', 'hgf', 'hfg', '2017-05-23', 2, 'hfg'),
+(4, '1', 11, 'DB-458-83', 'Titine', 'Porsche', 'panamera4s', '2017-04-10', 300, NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
