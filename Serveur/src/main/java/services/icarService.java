@@ -153,7 +153,7 @@ public class icarService {
         return null;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value ="/userCars")
+    @RequestMapping(method = RequestMethod.GET, value ="/userCars")
     public String getCars(@RequestParam("UserMail") String UserMail)
     {
         JSONArray CarArray = new JSONArray();

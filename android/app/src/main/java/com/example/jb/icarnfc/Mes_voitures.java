@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +59,9 @@ public class Mes_voitures extends AppCompatActivity {
 
        /* Calendar c = Calendar.getInstance();
         Date date = c.getTime();*/
+
+        JSONArray jsonarray = new JSONArray();
+        
 
 
         List<Voiture> voituretest = new ArrayList<Voiture>();
