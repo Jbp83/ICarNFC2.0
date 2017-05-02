@@ -4,18 +4,21 @@ package com.example.jb.icarnfc;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class Mes_voitures extends AppCompatActivity {
 
     ListView mListView;
-    final Context context = this;
 
 
     @Override
@@ -24,7 +27,18 @@ public class Mes_voitures extends AppCompatActivity {
         setContentView(R.layout.activity_mes_voitures);
 
         mListView = (ListView) findViewById(R.id.listView);
-        afficherListeVoitures();
+
+
+        //afficherListeVoitures();
+
+        okhttpget example = new okhttpget();
+        String response = null;
+        try {
+            response = example.run("http://192.168.1.100:8080//userCars?UserMail=mars8.6@hotmail.fr");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(response);
 
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
         // set a onclick listener for when the button gets clicked
@@ -54,15 +68,15 @@ public class Mes_voitures extends AppCompatActivity {
     }
 
 
+    private void afficherListeVoitures() {
+        List<Voiture> voitures = genererVoitures();
+
+        VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures);
+        mListView.setAdapter(adapter);
+    }
+
+
     private List<Voiture> genererVoitures() {
-
-
-       /* Calendar c = Calendar.getInstance();
-        Date date = c.getTime();*/
-
-        JSONArray jsonarray = new JSONArray();
-        
-
 
         List<Voiture> voituretest = new ArrayList<Voiture>();
         voituretest.add(new Voiture(1, "Porsche Panamera", "789 LD 83", "Porsche",430));
@@ -72,10 +86,14 @@ public class Mes_voitures extends AppCompatActivity {
         return voituretest;
     }
 
-    private void afficherListeVoitures() {
-        List<Voiture> voitures = genererVoitures();
 
-        VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures);
-        mListView.setAdapter(adapter);
-    }
+
+
+
 }
+
+
+
+
+
+

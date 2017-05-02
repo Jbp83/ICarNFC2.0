@@ -62,11 +62,11 @@
 
     <ImageView
         android:id="@+id/poubelle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/idproprio"
-        android:layout_alignParentEnd="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="47dp"
-        app:srcCompat="@drawable/poubelle" />
+        app:srcCompat="@drawable/poubelle"
+        android:layout_below="@+id/immatriculation"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
