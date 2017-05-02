@@ -50,7 +50,7 @@ public class MainActivity extends GlobalVars {
 
         txtString= (TextView)findViewById(R.id.mail);
 
-       TextView textview =(TextView) findViewById(R.id.inscription);
+        TextView textview =(TextView) findViewById(R.id.inscription);
         textview.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -82,7 +82,7 @@ public class MainActivity extends GlobalVars {
 
 // Récupére le text présent dans l'edit text
         final String mailtxt = mail.getText().toString();
-        String passwordtxt = password.getText().toString();
+        final String passwordtxt = password.getText().toString();
 
 
 
