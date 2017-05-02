@@ -10,7 +10,9 @@
         android:id="@+id/avatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        tools:background="#AAA" />
+        tools:background="#AAA"
+        android:src="@drawable/porsche"
+        />
 
     <TextView
         android:id="@+id/nomvoiture"
