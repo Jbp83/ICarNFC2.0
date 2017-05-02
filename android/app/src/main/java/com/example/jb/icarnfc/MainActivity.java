@@ -3,6 +3,7 @@ package com.example.jb.icarnfc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -23,6 +27,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "Password md5" ;
     TextView txtString;
 
     @Override
@@ -84,6 +89,12 @@ public class MainActivity extends AppCompatActivity {
         String passwordtxt = password.getText().toString();
 
 
+
+        MD5 md5 = new MD5();
+        String pwdmd5=md5.crypt(passwordtxt);
+
+        Log.v(TAG,pwdmd5);
+
         if(mailtxt.matches("") || passwordtxt.matches(""))
         {
 
@@ -97,12 +108,12 @@ public class MainActivity extends AppCompatActivity {
                     .add("UserMail", mailtxt);
 
 // dynamically add more parameter like this:
-            formBuilder.add("UserPassword", passwordtxt);
+            formBuilder.add("UserPassword", pwdmd5);
 
             RequestBody formBody = formBuilder.build();
 
             Request request = new Request.Builder()
-                    .url("http://192.168.1.15:8080/login")
+                    .url("http://192.168.7.187:8080/login")
                     .post(formBody)
                     .build();
 
@@ -129,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if (myResponse.equals("Professionnel")) {
 
-                                Intent myIntent = new Intent(getBaseContext(), LoginActivity.class);
+                                Intent myIntent = new Intent(getBaseContext(), Pro.class);
                                 startActivity(myIntent);
                             }
 

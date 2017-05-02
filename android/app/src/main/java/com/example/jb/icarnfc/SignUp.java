@@ -129,7 +129,7 @@ public class SignUp extends AppCompatActivity {
             RequestBody formBody = formBuilder.build();
 
             Request request = new Request.Builder()
-                    .url("http://192.168.1.15:8080/subscribe")
+                    .url("http://127.0.0.1:8080:8080/subscribe")
                     .post(formBody)
                     .build();
 
