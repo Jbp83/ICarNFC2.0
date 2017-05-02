@@ -8,5 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 
 public class GlobalVars extends AppCompatActivity {
 
-    public static final String IPSERVEUR="http://192.168.7.187:8080";
+    public static final String IPSERVEUR="http://192.168.1.100:8080";
+
 }

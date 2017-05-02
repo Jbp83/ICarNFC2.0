@@ -111,7 +111,7 @@ public class icarService {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value ="/info")
+    @RequestMapping(method = RequestMethod.GET, value ="/info")
     public String getInfos(@RequestParam("UserMail") String UserMail)
     {
         JSONObject jsonInfo = new JSONObject();
