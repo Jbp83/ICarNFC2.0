@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.sql.*;
 
 @RestController
@@ -61,6 +62,86 @@ public class icarService {
 
 
     }
+
+    @RequestMapping(method = RequestMethod.GET, value ="/ficheEntretien")
+    public String getEntretien(@RequestParam("UserMail") String UserMail,@RequestParam("id_etablissement") String id_etablissement)
+    {
+        JSONObject jsonFiche = new JSONObject();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonNOM = new JSONArray();
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultat;
+        String Req;
+        Req = "SELECT * FROM entretien WHERE   `id_utilisateur`= (SELECT `id`  FROM `users` WHERE `mail` = '"+UserMail+"') AND `id_etablissement` = '"+id_etablissement+"';";
+
+        try {
+            statement = conn.createStatement();
+            resultat = statement.executeQuery(Req);
+
+            while (resultat.next()) {
+                jsonFiche = new JSONObject();
+                jsonFiche.put("id", resultat.getInt("id"));
+                jsonFiche.put("date", resultat.getDate("date_creation"));
+                jsonFiche.put("id_voiture", resultat.getInt("id_voiture"));
+                jsonFiche.put("id_etablissement", resultat.getInt("id_etablissement"));
+                jsonFiche.put("id_utilisateur", resultat.getInt("id_utilisateur"));
+                jsonFiche.put("IdDetailEntretien", resultat.getInt("IdDetailEntretien"));
+                jsonNOM.put(jsonFiche);
+                jsonArray.put("Fiches",jsonNOM);
+            }
+
+            return jsonArray.toString();
+            } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+         catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value ="/ficheEntretien")
+    public String PostEntretiens(@RequestParam("UserMail") String UserMail,@RequestParam("date_creation") Date date_creation, @RequestParam("id_voiture") int id_voiture,@RequestParam("id_etablissement") int id_etablissement,@RequestParam("id_utilisateur") int id_utilisateur,@RequestParam("idDetailEntretien") int idDetailEntretien)
+    {
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        PreparedStatement PrepStat;
+        String Req;
+
+        Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur, idDetailEntretien) VALUES ( ?, ?, ?, ?, ?)";
+
+        try {
+
+            PrepStat = conn.prepareStatement(Req);
+
+            PrepStat.setDate(1,date_creation);
+            PrepStat.setInt(2,id_voiture);
+            PrepStat.setInt(3,id_etablissement);
+            PrepStat.setInt(4,id_utilisateur);
+            PrepStat.setInt(5,idDetailEntretien);
+
+            int created = PrepStat.executeUpdate();
+            if(created ==1)
+                return "entretien créé";
+            else
+                return "erreur de création";
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 
     @RequestMapping(method = RequestMethod.POST, value ="/subscribe")
     public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut)
