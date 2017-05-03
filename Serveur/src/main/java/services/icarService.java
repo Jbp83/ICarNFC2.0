@@ -181,7 +181,7 @@ public class icarService {
                     jsonCar.put("id",resultats.getInt("id"));
                     jsonCar.put("id_proprietaire",resultats.getInt("id_proprietaire"));
                     jsonCar.put("Immatriculation",resultats.getString("Immatriculation"));
-                    jsonCar.put("Modèle",resultats.getString("Modèle"));
+                    jsonCar.put("modele",resultats.getString("modele"));
                     jsonCar.put("DateImmat",resultats.getDate("DateImmat"));
                     jsonCar.put("CV",resultats.getInt("CV"));
                     jsonCar.put("urlimage",resultats.getString("urlimage"));
