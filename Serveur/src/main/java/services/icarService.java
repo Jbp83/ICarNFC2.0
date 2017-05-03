@@ -18,7 +18,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","");
+            connection = DriverManager.getConnection(url,"root","root");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
