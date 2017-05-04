@@ -84,7 +84,6 @@ public class icarService {
             resultat = statement.executeQuery(Req);
 
             while (resultat.next()) {
-                jsonFiche = new JSONObject();
                 jsonFiche.put("id", resultat.getInt("id"));
                 jsonFiche.put("date", resultat.getDate("date_creation"));
                 jsonFiche.put("id_voiture", resultat.getInt("id_voiture"));
@@ -195,6 +194,8 @@ public class icarService {
     public String getInfos(@RequestParam("UserMail") String UserMail)
     {
         JSONObject jsonInfo = new JSONObject();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonNOM = new JSONArray();
 
         //Connection à la base de donnée avec la variable conn
         Connection  conn = getConnection();
@@ -215,9 +216,9 @@ public class icarService {
                 jsonInfo.put("prenom", resultats.getString("prenom"));
                 jsonInfo.put("mail", resultats.getString("mail"));
                 jsonInfo.put("status", resultats.getString("status"));
-                return jsonInfo.toString();
-
-
+                jsonNOM.put(jsonInfo);
+                jsonArray.put("User",jsonNOM);
+                return jsonArray.toString();
             }
             else
             {
@@ -236,7 +237,10 @@ public class icarService {
     @RequestMapping(method = RequestMethod.GET, value ="/userCars")
     public String getCars(@RequestParam("UserMail") String UserMail)
     {
+
         JSONArray CarArray = new JSONArray();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonNOM = new JSONArray();
 
 
         //Connection à la base de donnée avec la variable conn
@@ -267,9 +271,11 @@ public class icarService {
                     jsonCar.put("CV",resultats.getInt("CV"));
                     jsonCar.put("urlimage",resultats.getString("urlimage"));
                     CarArray.put(jsonCar);
+                    jsonNOM.put(jsonCar);
+                    jsonArray.put("Cars",jsonNOM);
                 }
 
-               return CarArray.toString();
+               return jsonArray.toString();
             }
             else
             {
