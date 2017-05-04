@@ -85,12 +85,6 @@ public class MainActivity extends GlobalVars {
         final String passwordtxt = password.getText().toString();
 
 
-
-        MD5 md5 = new MD5();
-        String pwdmd5=md5.crypt(passwordtxt);
-
-        Log.v(TAG,pwdmd5);
-
         if(mailtxt.matches("") || passwordtxt.matches(""))
         {
 
@@ -100,6 +94,12 @@ public class MainActivity extends GlobalVars {
         } else
 
         {
+
+            MD5 md5 = new MD5();
+            String pwdmd5=md5.crypt(passwordtxt);
+
+            Log.v(TAG,pwdmd5);
+
             FormBody.Builder formBuilder = new FormBody.Builder()
                     .add("UserMail", mailtxt);
 
