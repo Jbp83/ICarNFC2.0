@@ -1,7 +1,9 @@
 package com.example.jb.icarnfc;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -28,19 +30,27 @@ public class MainActivity extends GlobalVars {
 
     private static final String TAG = "Password md5" ;
     TextView txtString;
-
+    /*SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+    SharedPreferences.Editor editor = pref.edit();*/
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
 
         Button button= (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
+
                     Authentification();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -136,9 +146,10 @@ public class MainActivity extends GlobalVars {
 
                             if (myResponse.equals("Professionnel")) {
 
-                                Intent myIntent = new Intent(getBaseContext(), Pro.class);
-                                myIntent.putExtra("mailpro",mailtxt);
-                                startActivity(myIntent);
+                                     Intent myIntent = new Intent(getBaseContext(), Pro.class);
+                                     myIntent.putExtra("mailpro",mailtxt);
+                                     startActivity(myIntent);
+                                     //finish();
 
                             }
 
@@ -148,9 +159,12 @@ public class MainActivity extends GlobalVars {
                                 Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
                                 myIntent.putExtra("mailparticulier",mailtxt);
                                 startActivity(myIntent);
+                                //finish();
                             }
 
                             if (myResponse.equals("fail to login")) {
+
+                                //alert.showAlertDialog(LoginActivity.this, "Login failed..", "Please enter username and password", false);
 
                                 Toast toast = Toast.makeText(MainActivity.this, "Nom d'utilisateur ou mot de passe incorrect !", Toast.LENGTH_LONG);
                                 LinearLayout layout = (LinearLayout) toast.getView();

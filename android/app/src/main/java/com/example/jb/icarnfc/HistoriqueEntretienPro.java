@@ -1,6 +1,6 @@
 package com.example.jb.icarnfc;
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import com.example.jb.icarnfc.Requests.RequestsHistoriquePro;
@@ -19,7 +19,7 @@ public class HistoriqueEntretienPro extends GlobalVars {
 
     private static final String TAG ="dateentretien" ;
     private final OkHttpClient client = new OkHttpClient();
-    String date,id_voiture,id_etablissement,id_utilisateur,idjson,IdDetailEntretien;
+    String date,id_voiture,id_etablissement,id_utilisateur,idjson,IdDetailEntretien,mail;
 
 
     @Override
@@ -27,12 +27,16 @@ public class HistoriqueEntretienPro extends GlobalVars {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historique_entretien_pro);
         getProfilInfos();
+
+        Intent intent = getIntent();
+        mail = intent.getStringExtra("mailpro");
+        Log.v("MaiUSER",mail);
     }
 
     private void getProfilInfos() {
         try {
             RequestsHistoriquePro historiquepro = new RequestsHistoriquePro();
-            historiquepro.getInfos(new Callback() {
+            historiquepro.getInfos(mail,new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();

@@ -1,7 +1,11 @@
 package com.example.jb.icarnfc.common;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import okhttp3.OkHttpClient;
 
@@ -12,21 +16,25 @@ import okhttp3.OkHttpClient;
 public class GlobalVars extends AppCompatActivity {
 
     public static final String IPSERVEUR="http://192.168.1.100:8080";
-    public SharedPreferences.Editor editor;
-    public SharedPreferences sharedPreferences;
 
     public OkHttpClient okHttpClient = new OkHttpClient();
 
+    public static final String PREFS_MAIL = "mail";
+    //public String mail="mars";
+    public SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences;
 
-   /* public String username, token, partyId, partyName, firstname, name, email, pseudo, avatar;
-
-    sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-    editor = sharedPreferences.edit();
 
 
-    username = sharedPreferences.getString(PREFS_USERNAME, null);
-    token = sharedPreferences.getString(PREFS_TOKEN, null);
-    partyId = sharedPreferences.getString(PREFS_PARTY_ID, null);
-    partyName = sharedPreferences.getString(PREFS_PARTY_NAME, null);
-    avatar = sharedPreferences.getString(PREFS_PLAYER_AVATAR, null);*/
-}
+
+    public String getData(String key) {
+        if (sharedPreferences!= null) {
+            return sharedPreferences.getString(key, "");
+        }
+        return "";
+    }
+
+
+    }
+
+
