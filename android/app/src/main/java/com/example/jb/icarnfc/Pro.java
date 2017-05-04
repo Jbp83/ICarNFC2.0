@@ -41,7 +41,5 @@ public class Pro extends GlobalVars {
             }
         });
 
-
-
     }
 }
