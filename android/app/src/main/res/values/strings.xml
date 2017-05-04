@@ -29,5 +29,8 @@
     <string name="hello">Hello</string>
     <string name="scan">Scanner votre voiture</string>
     <string name="addcar">Enregistrer la voiture</string>
+    <string name="scanpro">Scanner la voiture</string>
+    <string name="addentretien">Ajouter un entretien</string>
+    <string name="historique">Historique des entretiens</string>
 </resources>
 

@@ -23,7 +23,7 @@ public class Add_car extends GlobalVars {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
 
-        Button button= (Button) findViewById(R.id.addcar);
+        Button button= (Button) findViewById(R.id.addfiche);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

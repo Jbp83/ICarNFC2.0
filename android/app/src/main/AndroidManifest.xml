@@ -41,7 +41,7 @@
         </activity>
         <activity
             android:name=".SignUp"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Mes_voitures">
 
             <!--
@@ -74,7 +74,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Add_car" />
-        <activity android:name=".Pro"></activity>
+        <activity android:name=".Pro" />
+        <activity android:name=".AddFicheEntretien" />
+        <activity android:name=".HistoriqueEntretienPro"></activity>
     </application>
 
 </manifest>
