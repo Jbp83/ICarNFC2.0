@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -51,16 +54,23 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
         viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
         viewHolder.cv.setText(String.valueOf(voiture.getCV()));
         viewHolder.idproprio.setText(String.valueOf(voiture.getId_proprietaire()));
+        viewHolder.marque.setText(String.valueOf(voiture.getMarque()));
+        viewHolder.DateImmat.setText(String.valueOf(voiture.getDateImmat()));
+        viewHolder.id.setText(String.valueOf(voiture.getId()));
+
 
         return convertView;
     }
 
     private class VoitureClassHolder{
+        public TextView id;
         public TextView idproprio;
         public TextView nomvoiture;
         public TextView modele;
         public ImageView avatar;
         public TextView immatriculation;
         public TextView cv;
+        public TextView marque;
+        public TextView DateImmat;
     }
 }

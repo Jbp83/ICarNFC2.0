@@ -14,15 +14,24 @@ import java.util.Date;
         private String nom;
         private String immatriculation;
         private String modele;
+        private String marque;
+        private String DateImmat;
+        private String urlimage;
         private int CV;
+        private int id;
 
 
-    public Voiture(int id_proprietaire, String nom, String immatriculation, String modele, int cv) {
+
+    public Voiture(int id_proprietaire, String nom, String immatriculation, String modele, String marque, String dateImmat, String urlimage, int cv, int id) {
         this.id_proprietaire = id_proprietaire;
         this.nom = nom;
         this.immatriculation = immatriculation;
         this.modele = modele;
+        this.marque = marque;
+        this.DateImmat = dateImmat;
+        this.urlimage = urlimage;
         CV = cv;
+        this.id = id;
     }
 
 
@@ -65,6 +74,38 @@ import java.util.Date;
 
     public void setCV(int CV) {
         this.CV = CV;
+    }
+
+    public String getMarque() {
+        return marque;
+    }
+
+    public void setMarque(String marque) {
+        this.marque = marque;
+    }
+
+    public String getDateImmat() {
+        return DateImmat;
+    }
+
+    public void setDateImmat(String dateImmat) {
+        DateImmat = dateImmat;
+    }
+
+    public String getUrlimage() {
+        return urlimage;
+    }
+
+    public void setUrlimage(String urlimage) {
+        this.urlimage = urlimage;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
 
