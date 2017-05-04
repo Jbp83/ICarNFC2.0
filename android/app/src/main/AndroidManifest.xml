@@ -61,7 +61,6 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".Pro" />
         <activity android:name=".Infos_car" />
         <activity android:name=".ReadTag">
             <intent-filter>
@@ -74,7 +73,8 @@
                 -->
             </intent-filter>
         </activity>
-        <activity android:name=".Add_car"></activity>
+        <activity android:name=".Add_car" />
+        <activity android:name=".Pro"></activity>
     </application>
 
 </manifest>

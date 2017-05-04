@@ -15,6 +15,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import com.example.jb.icarnfc.Requests.RequestCarsUser;
 
 public class Mes_voitures extends GlobalVars {
 
@@ -35,32 +36,8 @@ public class Mes_voitures extends GlobalVars {
         String mailparticuler = (String) getIntent().getSerializableExtra("mailparticulier");
         afficherListeVoitures();
 
-
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
-        // set a onclick listener for when the button gets clicked
 
-
-    /*    poubelle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder
-                        .setTitle("Erase hard drive")
-                        .setMessage("Are you sure?")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                //Yes button clicked, do something
-                                Toast.makeText(Mes_voitures.this, "Yes button pressed",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("No", null)	//Do nothing on no
-                        .show();
-            }
-
-       });*/
     }
 
 
@@ -76,55 +53,7 @@ public class Mes_voitures extends GlobalVars {
 
     private List<Voiture> genererVoitures(String mail) {
 
-
-        FormBody.Builder formBuilder = new FormBody.Builder()
-                .add("UserMail", mail);
-
-// dynamically add more parameter like this:
-
-
-        RequestBody formBody = formBuilder.build();
-
-        Request request = new Request.Builder()
-                .url(IPSERVEUR+"/userCars")
-                .post(formBody)
-                .build();
-
-        OkHttpClient client = new OkHttpClient();
-
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-
-                call.cancel();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-                final String myResponse = response.body().string();
-
-
-                Mes_voitures.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                         String TAG="response";
-
-                        txtString.setText(myResponse);
-                        //String data=myResponse;
-
-
-                    }
-                });
-
-            }
-        });
-
-
-
+        
         List<Voiture> voituretest = new ArrayList<Voiture>();
         voituretest.add(new Voiture(1, "Porsche Panamera", "789 LD 83", "Porsche",430));
         voituretest.add(new Voiture(2, "Porsche Turbo S", "859 LD 83", "Porsche",246));
