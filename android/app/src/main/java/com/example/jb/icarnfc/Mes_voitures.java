@@ -1,10 +1,14 @@
 package com.example.jb.icarnfc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.jb.icarnfc.Requests.RequestListCar;
 import com.example.jb.icarnfc.common.GlobalVars;
@@ -27,7 +31,8 @@ public class Mes_voitures extends GlobalVars {
     private static Response response;
     private static final String TAG = "TEST";
     String mailparticuler ;
-    String modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque;
+    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,cvfinal;
+
     int cv,id;
 
 
@@ -35,12 +40,17 @@ public class Mes_voitures extends GlobalVars {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mes_voitures);
         mListView = (ListView) findViewById(R.id.listView);
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
         String mailparticuler = (String) getIntent().getSerializableExtra("mailparticulier");
         //getCarUser();
+
+
         try {
             afficherListeVoitures();
         } catch (InterruptedException e) {
@@ -50,15 +60,20 @@ public class Mes_voitures extends GlobalVars {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*try {
-            GenererVoiture();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                Object o = mListView.getItemAtPosition(position);
+                Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
+                startActivity(myIntent);
+
+                //Toast.makeText(Mes_voitures.this, "VOus avez cliquer ", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
     }
 
@@ -110,6 +125,7 @@ public class Mes_voitures extends GlobalVars {
                     for (int i = 0; i < Jarray.length(); i++)
                     {
                         JSONObject object     = Jarray.getJSONObject(i);
+                        nom=object.getString("nom");
                         cv=object.getInt("CV");
                         modele = object.getString("modele");
                         marque= object.getString("marque");
@@ -122,12 +138,13 @@ public class Mes_voitures extends GlobalVars {
 
                         Log.v(getClass().getName(), String.format("value = %d", cv));
                         Log.v(getClass().getName(), String.format("value = %d", id));
+                        Log.v("1",nom);
                         Log.v("2",modele);
                         Log.v("3",immatriculation);
                         Log.v("4",urlimage);
                         Log.v("6",DateImmat);
                         Log.v("7",id_proprietaire);
-                        voituretest.add(new Voiture(i,immatriculation,modele,modele, marque, DateImmat, urlimage, cv, id));
+                        voituretest.add(new Voiture(i,nom,immatriculation,modele, marque, DateImmat, urlimage,cv, id));
 
                     }
 

@@ -263,6 +263,7 @@ public class icarService {
                 
                 while(resultats.next()) {
                     JSONObject jsonCar = new JSONObject();
+                    jsonCar.put("nom",resultats.getString("nom"));
                     jsonCar.put("id",resultats.getInt("id"));
                     jsonCar.put("id_proprietaire",resultats.getInt("id_proprietaire"));
                     jsonCar.put("Immatriculation",resultats.getString("Immatriculation"));

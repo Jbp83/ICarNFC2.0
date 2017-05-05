@@ -22,15 +22,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".DisplayMessageActivity"
-            android:parentActivityName=".test_next">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".test_next" />
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>

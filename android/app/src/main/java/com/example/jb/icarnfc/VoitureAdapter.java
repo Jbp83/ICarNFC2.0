@@ -35,14 +35,14 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
         VoitureClassHolder viewHolder = (VoitureClassHolder) convertView.getTag();
         if(viewHolder == null){
             viewHolder = new VoitureClassHolder();
-            viewHolder.nomvoiture = (TextView) convertView.findViewById(R.id.nomvoiture);
+            //viewHolder.nomvoiture = (TextView) convertView.findViewById(R.id.nomvoiture);
             viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
             viewHolder.immatriculation = (TextView) convertView.findViewById(R.id.immatriculation);
-            viewHolder.cv = (TextView) convertView.findViewById(R.id.cv);
+            //viewHolder.cv = (TextView) convertView.findViewById(R.id.cv);
             viewHolder.marque= (TextView) convertView.findViewById(R.id.marque);
             viewHolder.modele= (TextView) convertView.findViewById(R.id.modele);
-            viewHolder.idproprio = (TextView) convertView.findViewById(R.id.idproprio);
-            viewHolder.DateImmat = (TextView) convertView.findViewById(R.id.DateImmat);
+            //viewHolder.idproprio = (TextView) convertView.findViewById(R.id.idproprio);
+            //viewHolder.DateImmat = (TextView) convertView.findViewById(R.id.DateImmat);
             viewHolder.id = (TextView) convertView.findViewById(R.id.idvoiture);
             convertView.setTag(viewHolder);
         }
@@ -51,14 +51,14 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
         Voiture voiture = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
-        viewHolder.nomvoiture.setText(voiture.getNom());
+       // viewHolder.nomvoiture.setText(voiture.getNom());
         viewHolder.modele.setText(voiture.getModele());
         viewHolder.immatriculation.setText(voiture.getImmatriculation());
         viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
-        viewHolder.cv.setText(String.valueOf(voiture.getCV()));
-        viewHolder.idproprio.setText(String.valueOf(voiture.getId_proprietaire()));
+        //viewHolder.cv.setText(String.valueOf(voiture.getCV()));
+        //viewHolder.idproprio.setText(String.valueOf(voiture.getId_proprietaire()));
+        //viewHolder.DateImmat.setText(String.valueOf(voiture.getDateImmat()));
         viewHolder.marque.setText(String.valueOf(voiture.getMarque()));
-        viewHolder.DateImmat.setText(String.valueOf(voiture.getDateImmat()));
         viewHolder.id.setText(String.valueOf(voiture.getId()));
 
 
@@ -67,12 +67,12 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
 
     private class VoitureClassHolder{
         public TextView id;
-        public TextView idproprio;
-        public TextView nomvoiture;
+       // public TextView idproprio;
+       // public TextView nomvoiture;
         public TextView modele;
         public ImageView avatar;
         public TextView immatriculation;
-        public TextView cv;
+        //public TextView cv;
         public TextView marque;
         public TextView DateImmat;
     }

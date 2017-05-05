@@ -16,81 +16,53 @@
         />
 
     <TextView
-        android:id="@+id/nomvoiture"
+        android:id="@+id/marque"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Name : "
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/avatar"
-        android:layout_marginStart="19dp" />
-
-    <TextView
-        android:id="@+id/immatriculation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/idvoiture"
+        android:text="TextView"
         android:textColor="@android:color/black"
-        tools:text="Immatriculation"
-        android:layout_below="@+id/nomvoiture"
-        android:layout_alignStart="@+id/nomvoiture" />
+        tools:text="Marque :" />
 
     <TextView
         android:id="@+id/modele"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/immatriculation"
-        android:layout_below="@+id/immatriculation"
         android:text="TextView"
         android:textColor="@android:color/black"
-        tools:text="Modèle : " />
-
-    <TextView
-        android:id="@+id/cv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/modele"
-        android:layout_below="@+id/modele"
-        android:textColor="@android:color/black"
-        tools:text="Cv :" />
-
-    <TextView
-        android:id="@+id/idproprio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/cv"
-        android:layout_below="@+id/cv"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/marque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/cv"
-        android:layout_below="@+id/cv"
-        android:text="marque" />
-
-    <TextView
-        android:id="@+id/DateImmat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/cv"
-        android:layout_below="@+id/cv"
-        android:text="DateImmat" />
+        tools:text="Modèle : "
+        android:layout_below="@+id/marque"
+        android:layout_alignStart="@+id/immatriculation"
+        android:layout_marginTop="12dp" />
 
     <TextView
         android:id="@+id/idvoiture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/cv"
-        android:layout_below="@+id/cv"
-        android:text="idvoiture" />
+        android:layout_alignStart="@+id/modele"
+        android:layout_below="@+id/modele"
+        android:text="TextView"
+        tools:text="idvoiture" />
+
+    <TextView
+        android:id="@+id/immatriculation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/avatar"
+        android:layout_marginBottom="11dp"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/avatar"
+        android:textColor="@android:color/black"
+        tools:text="Immatriculation" />
 
     <ImageView
         android:id="@+id/poubelle"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="47dp"
+        android:layout_marginEnd="46dp"
         app:srcCompat="@drawable/poubelle"
-        android:layout_below="@+id/immatriculation"
+        android:layout_above="@+id/immatriculation"
         android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
