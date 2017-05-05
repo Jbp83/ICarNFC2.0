@@ -19,7 +19,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","");
+            connection = DriverManager.getConnection(url,"root","root");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -266,6 +266,7 @@ public class icarService {
                     jsonCar.put("id",resultats.getInt("id"));
                     jsonCar.put("id_proprietaire",resultats.getInt("id_proprietaire"));
                     jsonCar.put("Immatriculation",resultats.getString("Immatriculation"));
+                    jsonCar.put("marque",resultats.getString("marque"));
                     jsonCar.put("modele",resultats.getString("modele"));
                     jsonCar.put("DateImmat",resultats.getDate("DateImmat"));
                     jsonCar.put("CV",resultats.getInt("CV"));
