@@ -60,6 +60,30 @@
         android:layout_below="@+id/cv"
         android:text="TextView" />
 
+    <TextView
+        android:id="@+id/marque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/cv"
+        android:layout_below="@+id/cv"
+        android:text="marque" />
+
+    <TextView
+        android:id="@+id/DateImmat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/cv"
+        android:layout_below="@+id/cv"
+        android:text="DateImmat" />
+
+    <TextView
+        android:id="@+id/idvoiture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/cv"
+        android:layout_below="@+id/cv"
+        android:text="idvoiture" />
+
     <ImageView
         android:id="@+id/poubelle"
         android:layout_width="30dp"

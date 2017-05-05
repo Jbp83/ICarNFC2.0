@@ -39,8 +39,11 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
             viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
             viewHolder.immatriculation = (TextView) convertView.findViewById(R.id.immatriculation);
             viewHolder.cv = (TextView) convertView.findViewById(R.id.cv);
+            viewHolder.marque= (TextView) convertView.findViewById(R.id.marque);
             viewHolder.modele= (TextView) convertView.findViewById(R.id.modele);
             viewHolder.idproprio = (TextView) convertView.findViewById(R.id.idproprio);
+            viewHolder.DateImmat = (TextView) convertView.findViewById(R.id.DateImmat);
+            viewHolder.id = (TextView) convertView.findViewById(R.id.idvoiture);
             convertView.setTag(viewHolder);
         }
 
