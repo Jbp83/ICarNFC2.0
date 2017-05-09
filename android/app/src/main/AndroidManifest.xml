@@ -32,7 +32,8 @@
 
         <activity
             android:name=".SignUp"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:label="Inscription"/>
 
         <activity android:name=".Mes_voitures">
 

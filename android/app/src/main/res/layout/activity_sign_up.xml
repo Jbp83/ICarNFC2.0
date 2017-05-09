@@ -19,11 +19,11 @@
         android:visibility="invisible"
         app:srcCompat="@drawable/ad" />
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/tvStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView" />-->
 
     <ScrollView
         android:id="@+id/login_form"
@@ -114,12 +114,11 @@
 
             <Button
                 android:id="@+id/butonsignup"
-                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_up"
-                android:textStyle="bold" />
+                />
 
         </LinearLayout>
     </ScrollView>

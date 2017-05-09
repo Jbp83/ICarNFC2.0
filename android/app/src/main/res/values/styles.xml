@@ -47,6 +47,11 @@
             name="android:textColor">@color/opaque_grey</item>
     </style>
 
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/indigo</item>
+        <item name="colorButtonNormal">@color/pink</item>
+    </style>
+
 </resources>
 
 

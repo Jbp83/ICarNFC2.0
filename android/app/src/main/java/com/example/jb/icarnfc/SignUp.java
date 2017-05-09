@@ -251,7 +251,7 @@ public class SignUp extends GlobalVars {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ImageView mImageView = (ImageView) findViewById(R.id.Avatar);
-        TextView textView = (TextView) findViewById(R.id.tvStatus);
+        //TextView textViewstatus = (TextView) findViewById(R.id.tvStatus);
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
@@ -276,12 +276,12 @@ public class SignUp extends GlobalVars {
                     Log.v("Encoded64",encoded);
 
 
-                    //Renseigner les informations status
-                    textView.setText("");
-                    textView.append("Fichier: " + path);
-                    textView.append(System.getProperty("line.separator"));
-                    textView.append("Taille: " + bitmap.getWidth() + "px X " + bitmap.getHeight() + " px");
-                    break;
+                   /* //On renseigne les informations sur la photo séléctionné
+                    textViewstatus.setText("");
+                    textViewstatus.append("Fichier: " + path);
+                    textViewstatus.append(System.getProperty("line.separator"));
+                    textViewstatus.append("Taille: " + bitmap.getWidth() + "px X " + bitmap.getHeight() + " px");
+                    break;*/
             }
         }
     }
