@@ -1,18 +1,26 @@
 package com.example.jb.icarnfc;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -26,8 +34,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.example.jb.icarnfc.common.GlobalVars;
+import com.example.jb.icarnfc.common.Base64Convertor;
 
 public class SignUp extends GlobalVars {
+
+    final static int SELECT_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +69,16 @@ public class SignUp extends GlobalVars {
         exempleList.add("Professionnel");
 
 
+        Button bt_avatar = (Button)findViewById(R.id.AddAvatar) ;
+
+        bt_avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btGalleryClick(v);
+            }
+        });
+
+
         ArrayAdapter adapter = new ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
@@ -67,6 +88,17 @@ public class SignUp extends GlobalVars {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Enfin on passe l'adapter au Spinner et c'est tout
         spinner.setAdapter(adapter);
+
+
+
+    }
+
+    public void btGalleryClick(View v) {
+        //Création puis ouverture de la boite de dialogue
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
     }
 
 
@@ -209,6 +241,60 @@ public class SignUp extends GlobalVars {
             toast.show();
         }
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ImageView mImageView = (ImageView) findViewById(R.id.Avatar);
+        TextView textView = (TextView) findViewById(R.id.tvStatus);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case SELECT_PICTURE:
+                    String path = getRealPathFromURI(data.getData());
+                    Log.d("Choose Picture", path);
+                    //Transformer la photo en Bitmap
+                    Bitmap bitmap = BitmapFactory.decodeFile(path);
+                    //Afficher le Bitmap
+                    mImageView.setVisibility(View.VISIBLE);
+                    mImageView.setImageBitmap(bitmap);
+
+
+                   /* Base64Convertor convertavatar = new Base64Convertor();
+                    convertavatar.encodeTobase64(android.graphics.bitmap);*/
+
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                    byte[] byteArray = byteArrayOutputStream .toByteArray();
+                    String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+                    Log.v("Encoded64",encoded);
+
+
+                    //Renseigner les informations status
+                    textView.setText("");
+                    textView.append("Fichier: " + path);
+                    textView.append(System.getProperty("line.separator"));
+                    textView.append("Taille: " + bitmap.getWidth() + "px X " + bitmap.getHeight() + " px");
+                    break;
+            }
+        }
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
     }
 
 

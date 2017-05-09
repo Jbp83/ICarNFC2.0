@@ -1,14 +1,11 @@
 package com.example.jb.icarnfc;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,7 +22,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.UserSessionManager;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,15 +30,10 @@ import org.json.JSONObject;
 public class MainActivity extends GlobalVars {
 
 
-
     private static final String TAG = "Password md5" ;
     TextView txtString;
     UserSessionManager session;
     String status,idjson;
-
-
-
-
 
 
     @Override
@@ -61,6 +52,8 @@ public class MainActivity extends GlobalVars {
         // On verifie si l'utilisateur est logué ou non
        /* if(session.checkLogin())
             finish();*/
+
+
 
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
@@ -121,6 +114,8 @@ public class MainActivity extends GlobalVars {
 
             });
     }
+
+
 
     void SignUp() throws IOException
     {
@@ -254,7 +249,7 @@ public class MainActivity extends GlobalVars {
                                 e.printStackTrace();
                             }
 
-                            if (myResponse.equals("fail to login")) {
+                            if (myResponse.equals("error user not found")) {
 
                                 //alert.showAlertDialog(LoginActivity.this, "Login failed..", "Please enter username and password", false);
 
