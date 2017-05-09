@@ -118,6 +118,7 @@ public class icarService {
 
         Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur) VALUES ( ?, ?, ?, ?)";
         // todo Faire la requete pour l'insertion du memo dans la table memo 
+
         try {
 
             PrepStat = conn.prepareStatement(Req);

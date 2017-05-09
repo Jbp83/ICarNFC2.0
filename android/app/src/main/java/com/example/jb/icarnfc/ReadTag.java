@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -86,7 +87,9 @@ public class ReadTag extends AppCompatActivity {
             byte[] id = tag.getId();
             String strr = byteArrayToHexString(id);
             String str = new String(id, "UTF-8"); // for UTF-8 encoding
-            Log.i("GUID", strr + " / " + String.valueOf(strr));
+
+            Toast.makeText(ReadTag.this, strr, Toast.LENGTH_LONG).show();
+            //Log.i("GUID", strr + " / " + String.valueOf(strr));
             String[] technologies = tag.getTechList();
             int content = tag.describeContents();
             Ndef ndef = Ndef.get(tag);

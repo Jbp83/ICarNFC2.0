@@ -22,7 +22,7 @@ public class AddFicheEntretien extends GlobalVars {
         Date actuelle = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); // Recupération de la date pour l'ajout d'une fiche d'entretien
         String dat = dateFormat.format(actuelle);
-        
+
         result = (TextView) findViewById(R.id.resultat);
         result.setText("\nil est " +dat);
     }
