@@ -32,5 +32,6 @@
     <string name="scanpro">Scanner la voiture</string>
     <string name="addentretien">Ajouter un entretien</string>
     <string name="historique">Historique des entretiens</string>
+    <string name="title_activity_code_recup">Sign in</string>
 </resources>
 

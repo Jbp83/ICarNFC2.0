@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -87,7 +88,7 @@ public class MainActivity extends GlobalVars {
     void Authentification() throws IOException {
 
 // déclare l'édit text, que l'on chercher à partir de son id
-        EditText mail = (EditText) findViewById (R.id.mail);
+        EditText mail = (EditText) findViewById (R.id.email);
         EditText password = (EditText) findViewById (R.id.password);
 
 // Récupére le text présent dans l'edit text
