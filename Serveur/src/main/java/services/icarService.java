@@ -19,7 +19,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","root");
+            connection = DriverManager.getConnection(url,"root","");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -107,7 +107,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/ficheEntretien")
-    public String PostEntretiens(@RequestParam("UserMail") String UserMail,@RequestParam("date_creation") Date date_creation, @RequestParam("id_voiture") int id_voiture,@RequestParam("id_etablissement") int id_etablissement,@RequestParam("id_utilisateur") int id_utilisateur,@RequestParam("idDetailEntretien") int idDetailEntretien)
+    public String PostEntretiens(@RequestParam("UserMail") String UserMail,@RequestParam("date_creation") Date date_creation, @RequestParam("id_voiture") int id_voiture,@RequestParam("id_etablissement") int id_etablissement,@RequestParam("id_utilisateur") int id_utilisateur,@RequestParam("type_entretien") String type_entretien)
     {
         //Connection à la base de donnée avec la variable conn
         Connection  conn = getConnection();
@@ -116,7 +116,7 @@ public class icarService {
         PreparedStatement PrepStat;
         String Req;
 
-        Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur, idDetailEntretien) VALUES ( ?, ?, ?, ?, ?)";
+        Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur) VALUES ( ?, ?, ?, ?)";
         // todo Faire la requete pour l'insertion du memo dans la table memo 
         try {
 
@@ -126,11 +126,21 @@ public class icarService {
             PrepStat.setInt(2,id_voiture);
             PrepStat.setInt(3,id_etablissement);
             PrepStat.setInt(4,id_utilisateur);
-            PrepStat.setInt(5,idDetailEntretien);
 
             int created = PrepStat.executeUpdate();
             if(created ==1)
-                return "entretien créé";
+            {
+                Req = "INSERT INTO detail_entretien (type_entretien ) VALUES (?)";
+                PrepStat = conn.prepareStatement(Req);
+                PrepStat.setString(1,type_entretien);
+               int ajoutdetail = PrepStat.executeUpdate();
+
+                if(ajoutdetail ==1)
+                    return "entretien créé";
+                else
+                    return "erreur de création";  
+            }
+
             else
                 return "erreur de création";
         }
