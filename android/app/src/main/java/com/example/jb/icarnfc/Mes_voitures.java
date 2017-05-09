@@ -66,11 +66,16 @@ public class Mes_voitures extends GlobalVars {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Object o = mListView.getItemAtPosition(position);
-                Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
-                startActivity(myIntent);
+
+                //Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
+                //startActivity(myIntent);
 
                 //Toast.makeText(Mes_voitures.this, "VOus avez cliquer ", Toast.LENGTH_LONG).show();
+
+                String selectedFromList = (mListView.getItemAtPosition(position).toString());
+                Toast.makeText(Mes_voitures.this, selectedFromList, Toast.LENGTH_LONG).show();
+
+
             }
         });
 
