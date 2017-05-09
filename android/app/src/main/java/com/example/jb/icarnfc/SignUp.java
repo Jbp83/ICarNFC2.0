@@ -34,11 +34,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.example.jb.icarnfc.common.GlobalVars;
-import com.example.jb.icarnfc.common.Base64Convertor;
+
 
 public class SignUp extends GlobalVars {
 
     final static int SELECT_PICTURE = 1;
+  String encoded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +159,8 @@ public class SignUp extends GlobalVars {
             formBuilder.add("UserMail", emailtxt);
             formBuilder.add("UserPassword", passwordmd5);
             formBuilder.add("UserStatut", status);
+            formBuilder.add("Blob", encoded);
+
 
 
             RequestBody formBody = formBuilder.build();
@@ -268,7 +271,7 @@ public class SignUp extends GlobalVars {
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                     byte[] byteArray = byteArrayOutputStream .toByteArray();
-                    String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                    encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
                     Log.v("Encoded64",encoded);
 
