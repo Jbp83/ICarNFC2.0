@@ -1,11 +1,13 @@
 package com.example.jb.icarnfc;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.nfc.NfcManager;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Parcelable;
@@ -31,11 +33,24 @@ public class ReadTag extends AppCompatActivity {
 
             nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
         }
 
         public void onResume() {
+
             super.onResume();
-            nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
+
+            NfcManager manager = (NfcManager) getBaseContext().getSystemService(Context.NFC_SERVICE);
+            NfcAdapter adapter = manager.getDefaultAdapter();
+            if (adapter != null && adapter.isEnabled()) {
+
+                Toast.makeText(ReadTag.this, "NFC disponible", Toast.LENGTH_LONG).show();
+                nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, null);
+            } else
+            {
+                Toast.makeText(ReadTag.this, "Veuillez activer votre NFC dans vos Réglages", Toast.LENGTH_LONG).show();
+            }
+
         }
 
 

@@ -24,38 +24,32 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden">
-            <intent-filter>
+          <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
+
         <activity
             android:name=".SignUp"
             android:windowSoftInputMode="stateHidden" />
+
         <activity android:name=".Mes_voitures">
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
+
         <activity android:name=".AndroidSelectImage">
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
-        <activity android:name=".Infos_car" />
+
+        <activity android:name=".Infos_car" ></activity>
 
         <activity android:name=".ReadTag">
             <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.nfc.action.TAG_DISCOVERED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
