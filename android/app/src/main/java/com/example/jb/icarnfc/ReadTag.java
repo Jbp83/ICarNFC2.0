@@ -104,6 +104,12 @@ public class ReadTag extends AppCompatActivity {
             String str = new String(id, "UTF-8"); // for UTF-8 encoding
 
             Toast.makeText(ReadTag.this, strr, Toast.LENGTH_LONG).show();
+
+            Intent myIntent = new Intent(getBaseContext(), Add_car.class);
+            myIntent.putExtra("guid",strr);
+            startActivity(myIntent);
+
+
             //Log.i("GUID", strr + " / " + String.valueOf(strr));
             String[] technologies = tag.getTechList();
             int content = tag.describeContents();

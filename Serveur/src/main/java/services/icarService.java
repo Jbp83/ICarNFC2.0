@@ -19,7 +19,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","root");
+            connection = DriverManager.getConnection(url,"root","");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -54,6 +54,43 @@ public class icarService {
             else
             {
                 return "fail to login";
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value ="/checkguid")
+    public String getguid(@RequestParam("GUID") String Guid)
+    {
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultats;
+        String Req;
+
+
+        Req = "SELECT * FROM voiture WHERE guid='"+Guid+"'";
+
+        try {
+            statement =  conn.createStatement();
+            resultats = statement.executeQuery(Req);
+
+            if(resultats.next()) {
+
+
+                return "exist";
+            }
+            else
+            {
+                return "not exist";
             }
         }
         catch (SQLException e) {

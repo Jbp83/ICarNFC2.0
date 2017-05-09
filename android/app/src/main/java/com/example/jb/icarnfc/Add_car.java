@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.jb.icarnfc.common.GlobalVars;
+
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,6 +28,7 @@ public class Add_car extends GlobalVars {
         setContentView(R.layout.activity_add_car);
 
         Button button= (Button) findViewById(R.id.addfiche);
+        TextView textView =(TextView)findViewById(R.id.guid);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,23 +40,29 @@ public class Add_car extends GlobalVars {
             }
         });
 
+        String str = (String) getIntent().getSerializableExtra("guid");
+        textView.setText(str);
+
+
     }
 
     void AddCar() throws IOException
     {
+        TextView result_guid =(TextView)findViewById(R.id.guid);
         EditText nom = (EditText) findViewById (R.id.nom);
         EditText marque = (EditText) findViewById (R.id.marque);
         EditText model = (EditText) findViewById (R.id.modele);
         EditText immat = (EditText) findViewById (R.id.immat);
         EditText cv = (EditText) findViewById (R.id.cv);
 
+        final String guidtxt = result_guid.getText().toString();
         final String nomtxt = nom.getText().toString();
         final String marquetxt = marque.getText().toString();
         final String modeltxt = model.getText().toString();
         final String immattxt = immat.getText().toString();
         final String cvtxt = cv.getText().toString();
 
-        if(nomtxt.matches("") || marquetxt.matches("") || modeltxt.matches("") ||immattxt.matches("")  )
+        if(nomtxt.matches("") || marquetxt.matches("") || modeltxt.matches("") ||immattxt.matches("") ||guidtxt.matches("") )
         {
 
             Toast.makeText(Add_car.this, "Les champs ne sont pas tous remplis", Toast.LENGTH_LONG).show();
@@ -61,7 +72,7 @@ public class Add_car extends GlobalVars {
         {
 
             FormBody.Builder formBuilder = new FormBody.Builder()
-                    .add("GUID", "1");
+                    .add("GUID", guidtxt);
 
             // dynamically add more parameter like this:
             formBuilder.add("UserID", "11");
@@ -70,7 +81,7 @@ public class Add_car extends GlobalVars {
             formBuilder.add("CarBrand", marquetxt);
             formBuilder.add("CarModel", modeltxt);
             formBuilder.add("DateImmat", "2017-04-10");
-            formBuilder.add("CV","1000");
+            formBuilder.add("CV",cvtxt);
 
 
             RequestBody formBody = formBuilder.build();

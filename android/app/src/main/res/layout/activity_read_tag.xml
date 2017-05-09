@@ -18,9 +18,9 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="327dp"
-        android:layout_height="422dp"
+        android:layout_width="263dp"
+        android:layout_height="328dp"
         app:srcCompat="@drawable/scan"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="73dp" />
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="91dp" />
 </android.support.constraint.ConstraintLayout>
