@@ -47,12 +47,12 @@ import com.example.jb.icarnfc.MainActivity;
         }
 
         //Create login session
-        public void createUserLoginSession(String name, String email){
+        public void createUserLoginSession(String id, String email){
             // Storing login value as TRUE
             editor.putBoolean(IS_USER_LOGIN, true);
 
             // Storing name in pref
-            editor.putString(KEY_ID, name);
+            editor.putString(KEY_ID, id);
 
             // Storing email in pref
             editor.putString(KEY_EMAIL, email);
@@ -101,7 +101,7 @@ import com.example.jb.icarnfc.MainActivity;
             user.put(KEY_ID, pref.getString(KEY_ID, null));
 
             // user email id
-            user.put(KEY_ID, pref.getString(KEY_ID, null));
+            user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 
             // return user
             return user;

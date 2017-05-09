@@ -26,6 +26,10 @@ import okhttp3.Response;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.UserSessionManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class MainActivity extends GlobalVars {
 
@@ -34,6 +38,8 @@ public class MainActivity extends GlobalVars {
     private static final String TAG = "Password md5" ;
     TextView txtString;
     UserSessionManager session;
+    String status,id;
+
 
 
 
@@ -55,15 +61,13 @@ public class MainActivity extends GlobalVars {
             finish();*/
 
         // get user data from session
-        HashMap<String, String> user = session.getUserDetails();
+        HashMap< String, String> user = session.getUserDetails();
 
         // get id User
         String id = user.get(UserSessionManager.KEY_ID);
 
         // get email
         String email = user.get(UserSessionManager.KEY_EMAIL);
-
-
 
 
 
@@ -166,7 +170,7 @@ public class MainActivity extends GlobalVars {
                         @Override
                         public void run() {
 
-                            if (myResponse.equals("Professionnel")) {
+                       /*     if (myResponse.equals("Professionnel")) {
 
                                      Intent myIntent = new Intent(getBaseContext(), Pro.class);
                                      myIntent.putExtra("mailpro",mailtxt);
@@ -184,6 +188,49 @@ public class MainActivity extends GlobalVars {
                                 startActivity(myIntent);
                                 session.createUserLoginSession("1",mailtxt);
                                 finish();
+                            }*/
+
+
+
+                            try {
+
+                                JSONObject Jobject = new JSONObject(myResponse);
+                                JSONArray Jarray = Jobject.getJSONArray("User");
+
+                                for (int i = 0; i < Jarray.length(); i++)
+                                {
+                                    JSONObject object     = Jarray.getJSONObject(i);
+                                    id=object.getString("id");
+                                    status=object.getString("status");
+
+                                    Log.v("id", id);
+                                    Log.v("status",status);
+
+
+                                }
+
+
+                                if(status.equals("Particulier"))
+                                {
+                                    Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
+                                    myIntent.putExtra("mailparticulier",mailtxt);
+                                    session.createUserLoginSession(id,mailtxt);
+                                    startActivity(myIntent);
+                                    finish();
+                                }
+
+                                if(status.equals("Professionnel"))
+                                {
+                                    Intent myIntent = new Intent(getBaseContext(), Pro.class);
+                                    myIntent.putExtra("mailpro",mailtxt);
+                                    session.createUserLoginSession(id,mailtxt);
+                                    startActivity(myIntent);
+                                    finish();
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
 
                             if (myResponse.equals("fail to login")) {
