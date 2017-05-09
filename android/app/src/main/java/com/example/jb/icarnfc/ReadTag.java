@@ -17,15 +17,27 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.jb.icarnfc.Requests.RequestCheckGuid;
+import com.example.jb.icarnfc.Requests.RequestsHistoriquePro;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class ReadTag extends AppCompatActivity {
 
         IntentFilter[] intentFiltersArray = null;
         NfcAdapter nfcAdapter;
         PendingIntent pendingIntent;
+        String strr;
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -100,14 +112,12 @@ public class ReadTag extends AppCompatActivity {
 
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             byte[] id = tag.getId();
-            String strr = byteArrayToHexString(id);
+            strr = byteArrayToHexString(id);
             String str = new String(id, "UTF-8"); // for UTF-8 encoding
 
             Toast.makeText(ReadTag.this, strr, Toast.LENGTH_LONG).show();
 
-            Intent myIntent = new Intent(getBaseContext(), Add_car.class);
-            myIntent.putExtra("guid",strr);
-            startActivity(myIntent);
+            CheckGuidBDD(strr);
 
 
             //Log.i("GUID", strr + " / " + String.valueOf(strr));
@@ -140,6 +150,38 @@ public class ReadTag extends AppCompatActivity {
 
             Log.i("msg", message);
 
+        }
+
+        private void CheckGuidBDD(String guid)
+        {
+            try {
+                RequestCheckGuid checkGuid = new RequestCheckGuid();
+                checkGuid.checkguid(guid,new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String Reponse = response.body().string();
+
+
+                        if(Reponse =="exist")
+                        {
+                            Toast.makeText(ReadTag.this, "Cette voiture appartient deja à un propretaire", Toast.LENGTH_LONG).show();
+                        } else
+                        {
+                            Intent myIntent = new Intent(getBaseContext(), Add_car.class);
+                            myIntent.putExtra("guid",strr);
+                            startActivity(myIntent);
+                        }
+
+                    }
+                });
+            } catch (InterruptedException | IOException | NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
         }
 
 

@@ -64,7 +64,7 @@ public class icarService {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value ="/checkguid")
+    @RequestMapping(method = RequestMethod.GET, value ="/checkguid")
     public String getguid(@RequestParam("GUID") String Guid)
     {
 
