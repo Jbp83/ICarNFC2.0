@@ -145,12 +145,12 @@ public class Mes_voitures extends GlobalVars {
 
                         Log.v(getClass().getName(), String.format("value = %d", cv));
                         Log.v(getClass().getName(), String.format("value = %d", id));
-                        Log.v("1",nom);
-                        Log.v("2",modele);
-                        Log.v("3",immatriculation);
-                        Log.v("4",urlimage);
-                        Log.v("6",DateImmat);
-                        Log.v("7",id_proprietaire);
+                        Log.v("Nom : ",nom);
+                        Log.v("Modele :",modele);
+                        Log.v("Immatriculation: ",immatriculation);
+                        Log.v("ulrimage: ",urlimage);
+                        Log.v("DateImmat :",DateImmat);
+                        Log.v("id_proprietaire : ",id_proprietaire);
                         voituretest.add(new Voiture(i,nom,immatriculation,modele, marque, DateImmat, urlimage,cv, id));
 
                     }

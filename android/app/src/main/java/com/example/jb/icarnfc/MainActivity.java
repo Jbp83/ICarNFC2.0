@@ -38,7 +38,9 @@ public class MainActivity extends GlobalVars {
     private static final String TAG = "Password md5" ;
     TextView txtString;
     UserSessionManager session;
-    String status,id;
+    String status,idjson;
+
+
 
 
 
@@ -50,18 +52,18 @@ public class MainActivity extends GlobalVars {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         // User Session Manager
         session = new UserSessionManager(getApplicationContext());
 
 
-        // Check user login (this is the important point)
-        // If User is not logged in , This will redirect user to LoginActivity
-        // and finish current activity from activity stack.
-        /*if(session.checkLogin())
+        // On verifie si l'utilisateur est logué ou non
+       /* if(session.checkLogin())
             finish();*/
 
         // get user data from session
-        HashMap< String, String> user = session.getUserDetails();
+        HashMap<String, String> user = session.getUserDetails();
 
         // get id User
         String id = user.get(UserSessionManager.KEY_ID);
@@ -69,6 +71,13 @@ public class MainActivity extends GlobalVars {
         // get email
         String email = user.get(UserSessionManager.KEY_EMAIL);
 
+
+        TextView lblName = (TextView) findViewById(R.id.lblName);
+        TextView lblEmail = (TextView) findViewById(R.id.lblEmail);
+        //btnLogout = (Button) findViewById(R.id.btnLogout);
+
+        lblName.setText(Html.fromHtml("Name: <b>" + id + "</b>"));
+        lblEmail.setText(Html.fromHtml("Email: <b>" + email + "</b>"));
 
 
         Button button= (Button) findViewById(R.id.button);
@@ -83,6 +92,17 @@ public class MainActivity extends GlobalVars {
                 }
             }
         });
+
+       /* btnLogout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                // Clear the User session data
+                // and redirect user to LoginActivity
+                session.logoutUser();
+            }
+        });*/
 
         txtString= (TextView)findViewById(R.id.mail);
 
@@ -164,6 +184,7 @@ public class MainActivity extends GlobalVars {
                 public void onResponse(Call call, Response response) throws IOException {
 
                     final String myResponse = response.body().string();
+                    Log.v("json", myResponse);
 
 
                     MainActivity.this.runOnUiThread(new Runnable() {
@@ -200,10 +221,10 @@ public class MainActivity extends GlobalVars {
                                 for (int i = 0; i < Jarray.length(); i++)
                                 {
                                     JSONObject object     = Jarray.getJSONObject(i);
-                                    id=object.getString("id");
+                                    idjson=object.getString("id");
                                     status=object.getString("status");
 
-                                    Log.v("id", id);
+                                    Log.v("id", idjson);
                                     Log.v("status",status);
 
 
@@ -214,18 +235,18 @@ public class MainActivity extends GlobalVars {
                                 {
                                     Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
                                     myIntent.putExtra("mailparticulier",mailtxt);
-                                    session.createUserLoginSession(id,mailtxt);
+                                    session.createUserLoginSession(idjson,mailtxt);
                                     startActivity(myIntent);
-                                    finish();
+                                    //finish();
                                 }
 
                                 if(status.equals("Professionnel"))
                                 {
                                     Intent myIntent = new Intent(getBaseContext(), Pro.class);
                                     myIntent.putExtra("mailpro",mailtxt);
-                                    session.createUserLoginSession(id,mailtxt);
+                                    session.createUserLoginSession(idjson,mailtxt);
                                     startActivity(myIntent);
-                                    finish();
+                                    //finish();
                                 }
 
 

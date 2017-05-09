@@ -51,7 +51,7 @@ public class icarService {
 
             if(resultats.next()) {
 
-                jsonLogin.put("id", resultats.getInt("id"));
+                jsonLogin.put("id", resultats.getString("id"));
                 jsonLogin.put("status", resultats.getString("status"));
                 jsonUser.put(jsonLogin);
                 jsonArray.put("User",jsonUser);
