@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
+import java.util.HashMap;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -22,7 +24,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.example.jb.icarnfc.common.GlobalVars;
-
+import com.example.jb.icarnfc.common.UserSessionManager;
 
 
 public class MainActivity extends GlobalVars {
@@ -31,8 +33,8 @@ public class MainActivity extends GlobalVars {
 
     private static final String TAG = "Password md5" ;
     TextView txtString;
-    /*SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-    SharedPreferences.Editor editor = pref.edit();*/
+    UserSessionManager session;
+
 
 
     @Override
@@ -41,6 +43,25 @@ public class MainActivity extends GlobalVars {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // User Session Manager
+        session = new UserSessionManager(getApplicationContext());
+
+
+        // Check user login (this is the important point)
+        // If User is not logged in , This will redirect user to LoginActivity
+        // and finish current activity from activity stack.
+        /*if(session.checkLogin())
+            finish();*/
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // get id User
+        String id = user.get(UserSessionManager.KEY_ID);
+
+        // get email
+        String email = user.get(UserSessionManager.KEY_EMAIL);
 
 
 
@@ -150,8 +171,9 @@ public class MainActivity extends GlobalVars {
                                      Intent myIntent = new Intent(getBaseContext(), Pro.class);
                                      myIntent.putExtra("mailpro",mailtxt);
                                      startActivity(myIntent);
-                                     //finish();
 
+                                     session.createUserLoginSession("1",mailtxt);
+                                     finish();
                             }
 
 
@@ -160,7 +182,8 @@ public class MainActivity extends GlobalVars {
                                 Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
                                 myIntent.putExtra("mailparticulier",mailtxt);
                                 startActivity(myIntent);
-                                //finish();
+                                session.createUserLoginSession("1",mailtxt);
+                                finish();
                             }
 
                             if (myResponse.equals("fail to login")) {

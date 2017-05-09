@@ -28,11 +28,14 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/login")
-    public String Login(@RequestParam("UserMail") String UserMail,@RequestParam("UserPassword") String UserPassword)
-    {
+    public String Login(@RequestParam("UserMail") String UserMail,@RequestParam("UserPassword") String UserPassword) {
+
+        JSONObject jsonLogin = new JSONObject();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonUser = new JSONArray();
 
         //Connection à la base de donnée avec la variable conn
-        Connection  conn = getConnection();
+        Connection conn = getConnection();
 
         // On déclare les variables à utiliser
         Statement statement;
@@ -40,7 +43,7 @@ public class icarService {
         String Req;
 
 
-        Req = "SELECT * FROM users WHERE mail='"+UserMail+"'AND password ='"+ UserPassword + "' ;";
+        Req = "SELECT * FROM users WHERE mail='" + UserMail + "'AND password ='" + UserPassword + "' ;";
 
         try {
             statement =  conn.createStatement();
@@ -48,23 +51,28 @@ public class icarService {
 
             if(resultats.next()) {
 
-
-                return resultats.getString("status");
+                jsonLogin.put("id", resultats.getInt("id"));
+                jsonLogin.put("status", resultats.getString("status"));
+                jsonUser.put(jsonLogin);
+                jsonArray.put("User",jsonUser);
+                return jsonArray.toString();
             }
             else
             {
-                return "fail to login";
+                return "error user not found";
             }
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-
+        return null;
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value ="/checkguid")
+        @RequestMapping(method = RequestMethod.GET, value ="/checkguid")
     public String getguid(@RequestParam("GUID") String Guid)
     {
 

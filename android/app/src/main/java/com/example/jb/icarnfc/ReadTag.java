@@ -65,7 +65,6 @@ public class ReadTag extends AppCompatActivity {
 
         }
 
-
         public void onPause() {
             super.onPause();
             nfcAdapter.disableForegroundDispatch(this);
@@ -176,7 +175,6 @@ public class ReadTag extends AppCompatActivity {
                             myIntent.putExtra("guid",strr);
                             startActivity(myIntent);
                         }
-
                     }
                 });
             } catch (InterruptedException | IOException | NoSuchAlgorithmException e) {
