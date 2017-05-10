@@ -8,10 +8,12 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jb.icarnfc.Requests.RequestListCar;
@@ -32,15 +34,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.jb.icarnfc.R.id.result;
+
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
     String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession,photo;
     UserSessionManager session;
     //ImageView photovoiture;
-
-
-    int cv,id;
+    int cv,idjson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,13 +104,14 @@ public class Mes_voitures extends GlobalVars {
                                     int position, long id) {
 
 
+               TextView textView = (TextView) findViewById(R.id.idvoiture);
+                String test= textView.getText().toString();
+
                 Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
-                myIntent.putExtra("id", id);
+
                 startActivity(myIntent);
 
 
-                /*String selectedFromList = (mListView.getItemAtPosition(position).toString());
-                Toast.makeText(Mes_voitures.this, selectedFromList, Toast.LENGTH_LONG).show();*/
             }
         });
 
@@ -170,7 +173,7 @@ public class Mes_voitures extends GlobalVars {
                         marque= object.getString("marque");
                         immatriculation= object.getString("Immatriculation");
                         urlimage = object.getString("Blob");
-                        id = object.getInt("id");
+                        idjson = object.getInt("id");
                         DateImmat = object.getString("DateImmat");
                         id_proprietaire = object.getString("id_proprietaire");
                         photo=object.getString("Blob");
@@ -190,15 +193,15 @@ public class Mes_voitures extends GlobalVars {
                         avatar.setImageBitmap(decodedByte);*/
 
 
-                        Log.v(getClass().getName(), String.format("value = %d", cv));
-                        Log.v(getClass().getName(), String.format("value = %d", id));
+                        Log.v(getClass().getName(), String.format("cv = %d", cv));
+                        Log.v(getClass().getName(), String.format("id = %d", idjson));
                         Log.v("Nom : ",nom);
                         Log.v("Modele :",modele);
                         Log.v("Immatriculation: ",immatriculation);
                         Log.v("blob: ",urlimage);
                         Log.v("DateImmat :",DateImmat);
                         Log.v("id_proprietaire : ",id_proprietaire);
-                        voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat,urlimage,cv,id));
+                        voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat,urlimage,cv,idjson));
 
                     }
 

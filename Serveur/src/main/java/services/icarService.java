@@ -298,6 +298,8 @@ public class icarService {
 
 
 
+
+
     @RequestMapping(method = RequestMethod.GET, value ="/info")
     public String getInfos(@RequestParam("UserMail") String UserMail)
     {
@@ -455,6 +457,12 @@ public class icarService {
         }
 
     }
+
+
+
+
+
+
 
 
     @RequestMapping("/")

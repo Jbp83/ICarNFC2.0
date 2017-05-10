@@ -66,6 +66,7 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
     }
 
     private class VoitureClassHolder{
+
         public TextView id;
        // public TextView idproprio;
        // public TextView nomvoiture;

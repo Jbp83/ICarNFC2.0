@@ -186,27 +186,6 @@ public class MainActivity extends GlobalVars {
                         @Override
                         public void run() {
 
-                       /*     if (myResponse.equals("Professionnel")) {
-
-                                     Intent myIntent = new Intent(getBaseContext(), Pro.class);
-                                     myIntent.putExtra("mailpro",mailtxt);
-                                     startActivity(myIntent);
-
-                                     session.createUserLoginSession("1",mailtxt);
-                                     finish();
-                            }
-
-
-                            if (myResponse.equals("Particulier")) {
-
-                                Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
-                                myIntent.putExtra("mailparticulier",mailtxt);
-                                startActivity(myIntent);
-                                session.createUserLoginSession("1",mailtxt);
-                                finish();
-                            }*/
-
-
 
                             try {
 

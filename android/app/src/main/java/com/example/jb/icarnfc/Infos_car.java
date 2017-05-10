@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 public class Infos_car extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -16,9 +17,13 @@ public class Infos_car extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        final String idextra = intent.getStringExtra("id");
-        TextView textView= (TextView) findViewById(R.id.result);
-        textView.setText(idextra);
+        final String idea = intent.getStringExtra("id");
+        TextView textView = (TextView) findViewById(R.id.result123);
+        textView.setText(idea);
+
+        String id ="1";
+
+
 
     }
 
