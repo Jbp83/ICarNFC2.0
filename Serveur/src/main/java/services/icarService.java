@@ -152,7 +152,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/addEntretien")
-    public String PostEntretiens(@RequestParam("UserMail") String UserMail,@RequestParam("date_creation") Date date_creation, @RequestParam("id_voiture") int id_voiture,@RequestParam("id_etablissement") int id_etablissement,@RequestParam("id_utilisateur") int id_utilisateur,@RequestParam("type_entretien") String type_entretien)
+    public String PostEntretiens(@RequestParam("date_creation") Date date_creation, @RequestParam("id_voiture") int id_voiture,@RequestParam("id_etablissement") int id_etablissement,@RequestParam("id_utilisateur") int id_utilisateur,@RequestParam("description") String description)
     {
         //Connection à la base de donnée avec la variable conn
         Connection  conn = getConnection();
@@ -162,7 +162,7 @@ public class icarService {
         String Req;
 
         Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur) VALUES ( ?, ?, ?, ?)";
-        // todo Faire la requete pour l'insertion du memo dans la table memo 
+
 
         try {
 
@@ -173,12 +173,13 @@ public class icarService {
             PrepStat.setInt(3,id_etablissement);
             PrepStat.setInt(4,id_utilisateur);
 
+
             int created = PrepStat.executeUpdate();
             if(created ==1)
             {
-                Req = "INSERT INTO detail_entretien (type_entretien ) VALUES (?)";
+                Req = "INSERT INTO detail_entretien (description) VALUES (?)";
                 PrepStat = conn.prepareStatement(Req);
-                PrepStat.setString(1,type_entretien);
+                PrepStat.setString(1,description);
                int ajoutdetail = PrepStat.executeUpdate();
 
                 if(ajoutdetail ==1)

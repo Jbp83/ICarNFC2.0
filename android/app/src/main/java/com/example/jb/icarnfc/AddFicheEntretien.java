@@ -1,5 +1,6 @@
 package com.example.jb.icarnfc;
 
+import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
@@ -62,11 +63,17 @@ public class AddFicheEntretien extends GlobalVars {
 
     private void InsererFicheEntretien() throws IOException{
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinnervoiture);
+        /*Spinner spinner = (Spinner) findViewById(R.id.spinnervoiture);
         String voitureentretien = spinner.getSelectedItem().toString();
 
         TextView result = (TextView)findViewById(R.id.result);
-        result.setText(voitureentretien);
+        result.setText(voitureentretien);*/
+
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"mars8.6@hotmail.fr"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Bonjour");
+        startActivity(Intent.createChooser(i, "Test:"));
     }
 
 

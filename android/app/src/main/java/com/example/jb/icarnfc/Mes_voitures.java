@@ -99,7 +99,7 @@ public class Mes_voitures extends GlobalVars {
                 //Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
                 //startActivity(myIntent);
 
-                //Toast.makeText(Mes_voitures.this, "VOus avez cliquer ", Toast.LENGTH_LONG).show();
+                Toast.makeText(Mes_voitures.this, "VOus avez cliquer ", Toast.LENGTH_LONG).show();
 
                 String selectedFromList = (mListView.getItemAtPosition(position).toString());
                 Toast.makeText(Mes_voitures.this, selectedFromList, Toast.LENGTH_LONG).show();
