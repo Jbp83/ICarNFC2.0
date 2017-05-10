@@ -161,7 +161,7 @@ public class icarService {
         PreparedStatement PrepStat;
         String Req;
 
-        Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur) VALUES ( ?, ?, ?, ?)";
+        Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur, detail_entretien) VALUES ( ?, ?, ?, ?,?)";
 
 
         try {
@@ -172,22 +172,14 @@ public class icarService {
             PrepStat.setInt(2,id_voiture);
             PrepStat.setInt(3,id_etablissement);
             PrepStat.setInt(4,id_utilisateur);
+            PrepStat.setString(5,description);
 
 
             int created = PrepStat.executeUpdate();
             if(created ==1)
             {
-                Req = "INSERT INTO detail_entretien (description) VALUES (?)";
-                PrepStat = conn.prepareStatement(Req);
-                PrepStat.setString(1,description);
-               int ajoutdetail = PrepStat.executeUpdate();
-
-                if(ajoutdetail ==1)
                     return "entretien créé";
-                else
-                    return "erreur de création";  
             }
-
             else
                 return "erreur de création";
         }
