@@ -2,6 +2,7 @@ package com.example.jb.icarnfc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,6 +83,7 @@ public class Add_car extends GlobalVars {
             formBuilder.add("CarModel", modeltxt);
             formBuilder.add("DateImmat", "2017-04-10");
             formBuilder.add("CV",cvtxt);
+            formBuilder.add("Photo","Photovoiture");
 
 
             RequestBody formBody = formBuilder.build();
@@ -105,6 +107,7 @@ public class Add_car extends GlobalVars {
                 public void onResponse(Call call, Response response) throws IOException {
 
                     final String myResponse = response.body().string();
+                    Log.v("Voiture",myResponse);
 
 
                     Add_car.this.runOnUiThread(new Runnable() {
@@ -117,8 +120,8 @@ public class Add_car extends GlobalVars {
                                 Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
                                 //myIntent.putExtra("mailpro",mailtxt); // On transmet la variable à la nouvelle activité
                                 startActivity(myIntent);
-                            } if (myResponse.equals("erreur de création"))
-                            {
+                            }
+                            if (myResponse.equals("erreur de création")) {
                                 Toast.makeText(Add_car.this, "La voiture n'a pas été enregistré", Toast.LENGTH_LONG).show();
                             }
 

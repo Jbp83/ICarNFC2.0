@@ -19,7 +19,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","");
+            connection = DriverManager.getConnection(url,"root","root");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -405,7 +405,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/addcar")
-    public String AddCar(@RequestParam("GUID") String GUID,@RequestParam("UserID") String UserId,@RequestParam("CarImmat") String CarImmat, @RequestParam("CarName") String CarName,@RequestParam("CarBrand") String CarBrand, @RequestParam("CarModel") String CarModel ,@RequestParam("DateImmat") String DateImmat,@RequestParam("CV") String CV)
+    public String AddCar(@RequestParam("GUID") String GUID,@RequestParam("UserID") String UserId,@RequestParam("CarImmat") String CarImmat, @RequestParam("CarName") String CarName,@RequestParam("CarBrand") String CarBrand, @RequestParam("CarModel") String CarModel ,@RequestParam("DateImmat") String DateImmat,@RequestParam("CV") String CV,@RequestParam("Photo") String Photo)
     {
 
         //Connection à la base de donnée avec la variable conn
@@ -428,7 +428,7 @@ public class icarService {
             }
             else
             {
-                Req = "INSERT INTO voiture (guid,id_proprietaire, Immatriculation, nom, marque, modele, DateImmat,CV) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+                Req = "INSERT INTO voiture (guid,id_proprietaire, Immatriculation, nom, marque, modele, DateImmat,CV,Photo) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ,?)";
                 PrepStat = conn.prepareStatement(Req);
 
                 PrepStat.setString(1,GUID);
@@ -439,6 +439,7 @@ public class icarService {
                 PrepStat.setString(6,CarModel);
                 PrepStat.setString(7,DateImmat);
                 PrepStat.setString(8,CV);
+                PrepStat.setString(9,Photo);
 
 
                 int created = PrepStat.executeUpdate();

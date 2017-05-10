@@ -160,9 +160,11 @@ public class SignUp extends GlobalVars {
             formBuilder.add("UserMail", emailtxt);
             formBuilder.add("UserPassword", passwordmd5);
             formBuilder.add("UserStatut", "Particulier");
-            formBuilder.add("Blob", encoded);
 
-
+            String img= "data:image/png;base64,"+encoded;
+            Log.v("cul",img);
+            formBuilder.add("Avatar", img);
+            
 
             RequestBody formBody = formBuilder.build();
 

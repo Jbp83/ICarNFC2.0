@@ -153,11 +153,12 @@ public class SignUpPro extends GlobalVars {
             formBuilder.add("UserMail", emailtxt);
             formBuilder.add("UserPassword", passwordmd5);
             formBuilder.add("UserStatut", "Professionnel");
-           // formBuilder.add("id_etablissement","1");
-            formBuilder.add("Blob", encoded);
+
 
             String img= "data:image/png;base64,"+encoded;
-            formBuilder.add("Blob", img);
+            Log.v("cul",img);
+
+            formBuilder.add("Avatar", img);
 
 
 
@@ -299,7 +300,7 @@ public class SignUpPro extends GlobalVars {
     }
 
 
-    private static String md5(String s) { try {
+  /*  private static String md5(String s) { try {
 
         // Create MD5 Hash
         MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
@@ -317,6 +318,6 @@ public class SignUpPro extends GlobalVars {
     }
         return "";
 
-    }
+    }*/
 
 }
