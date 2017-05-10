@@ -19,7 +19,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","root");
+            connection = DriverManager.getConnection(url,"root","");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -246,6 +246,64 @@ public class icarService {
         }
 
     }
+
+    @RequestMapping(method = RequestMethod.GET, value ="/entreprises")
+    public String getEntreprise()
+    {
+
+        JSONArray EtablissementArray = new JSONArray();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonNOM = new JSONArray();
+
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultats;
+        String Req;
+        Req = "SELECT * FROM etablissement;";
+
+        try {
+            statement =  conn.createStatement();
+            resultats = statement.executeQuery(Req);
+
+
+            if(resultats.next())
+            {
+                resultats.previous();
+
+                while(resultats.next()) {
+                    JSONObject jsonEnt = new JSONObject();
+                    jsonEnt.put("id",resultats.getString("id"));
+                    jsonEnt.put("Nom",resultats.getString("Nom"));
+                    jsonEnt.put("Siren",resultats.getString("Siren"));
+                    jsonEnt.put("Adresse",resultats.getString("Adresse"));
+                    jsonEnt.put("Telephone",resultats.getString("Telephone"));
+                    EtablissementArray.put(jsonEnt);
+                    jsonNOM.put(jsonEnt);
+                    jsonArray.put("Entreprise",jsonNOM);
+                }
+
+                return jsonArray.toString();
+            }
+            else
+            {
+                return "error cannot load cars";
+            }
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return "fail to load cars";
+    }
+
 
 
     @RequestMapping(method = RequestMethod.GET, value ="/info")
