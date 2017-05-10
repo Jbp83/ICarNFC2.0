@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -72,10 +76,18 @@
             android:hint="Nombre de chevaux" />
 
         <Button
+            android:id="@+id/AddPhotoCar"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:text="Ajouter une photo" />
+
+        <Button
             android:id="@+id/addfiche"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:text="@string/addcar" />
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+    </RelativeLayout>
+</ScrollView>

@@ -50,11 +50,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Add_car" />
+        <activity android:name=".Add_car"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".Pro" />
         <activity
             android:name=".AddFicheEntretien"
-            android:label="Fiche entretien">
+            android:label="Fiche entretien"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
         <activity android:name=".HistoriqueEntretienPro" />

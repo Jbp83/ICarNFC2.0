@@ -371,6 +371,7 @@ public class icarService {
                 
                 while(resultats.next()) {
                     JSONObject jsonCar = new JSONObject();
+                    jsonCar.put("guid",resultats.getString("guid"));
                     jsonCar.put("nom",resultats.getString("nom"));
                     jsonCar.put("id",resultats.getInt("id"));
                     jsonCar.put("id_proprietaire",resultats.getInt("id_proprietaire"));
@@ -379,7 +380,7 @@ public class icarService {
                     jsonCar.put("modele",resultats.getString("modele"));
                     jsonCar.put("DateImmat",resultats.getDate("DateImmat"));
                     jsonCar.put("CV",resultats.getInt("CV"));
-                    jsonCar.put("Blob",resultats.getBlob("Photo"));
+                    jsonCar.put("Blob",resultats.getString("Photo"));
                     CarArray.put(jsonCar);
                     jsonNOM.put(jsonCar);
                     jsonArray.put("Cars",jsonNOM);

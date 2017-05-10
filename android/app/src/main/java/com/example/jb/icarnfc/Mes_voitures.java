@@ -1,7 +1,10 @@
 package com.example.jb.icarnfc;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.jb.icarnfc.Requests.RequestListCar;
+import com.example.jb.icarnfc.common.Base64Convertor;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.UserSessionManager;
 
@@ -31,7 +35,7 @@ import org.json.JSONObject;
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
-    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession;
+    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession,photo;
     UserSessionManager session;
 
     int cv,id;
@@ -47,7 +51,9 @@ public class Mes_voitures extends GlobalVars {
         setContentView(R.layout.activity_mes_voitures);
 
 
+
         session = new UserSessionManager(getApplicationContext());
+
 
         Button button= (Button) findViewById(R.id.addcar);
         button.setOnClickListener(new View.OnClickListener() {
@@ -61,11 +67,9 @@ public class Mes_voitures extends GlobalVars {
             }
         });
         mListView = (ListView) findViewById(R.id.listView);
+
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
         String mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
-
-
-        //getCarUser();
 
 
         // get user data from session
@@ -76,8 +80,6 @@ public class Mes_voitures extends GlobalVars {
 
         // get email
         emailsession = user.get(UserSessionManager.KEY_EMAIL);
-
-
 
 
         try {
@@ -99,7 +101,7 @@ public class Mes_voitures extends GlobalVars {
                 //Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
                 //startActivity(myIntent);
 
-                Toast.makeText(Mes_voitures.this, "VOus avez cliquer ", Toast.LENGTH_LONG).show();
+                Toast.makeText(Mes_voitures.this, "VOus avez cliquer", Toast.LENGTH_LONG).show();
 
                 String selectedFromList = (mListView.getItemAtPosition(position).toString());
                 Toast.makeText(Mes_voitures.this, selectedFromList, Toast.LENGTH_LONG).show();
@@ -127,6 +129,9 @@ public class Mes_voitures extends GlobalVars {
     private List <Voiture> GenererVoiture() throws InterruptedException, NoSuchAlgorithmException, IOException
 
     {
+
+
+
         final List<Voiture> voituretest = new ArrayList<Voiture>();
         RequestListCar test = new RequestListCar();
         test.getCarsUser(emailsession, new Callback() {
@@ -159,6 +164,30 @@ public class Mes_voitures extends GlobalVars {
                         id = object.getInt("id");
                         DateImmat = object.getString("DateImmat");
                         id_proprietaire = object.getString("id_proprietaire");
+                        photo=object.getString("Blob");
+
+
+                        /*String[] separated = photo.split(",");
+                        final String s = separated[1];// this will contain "Fruit"
+
+                        Log.v("coup",s);
+
+                        byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);*/
+
+                        //Log.v("Bitmap",decodedByte);
+
+
+                        String encodedDataString = photo;
+                        String encdoedDataString = encodedDataString.replace("data:image/png;base64,","");
+                        ImageView photovoiture = (ImageView) findViewById(R.id.avatar);
+
+                        byte[] imageAsBytes = Base64.decode(encdoedDataString.getBytes(), 0);
+                       photovoiture.setImageBitmap(BitmapFactory.decodeByteArray(
+                                imageAsBytes, 0, imageAsBytes.length));
+
+
+                        //avatar.setImageBitmap(decodedByte);
 
 
                         Log.v(getClass().getName(), String.format("value = %d", cv));
@@ -169,7 +198,7 @@ public class Mes_voitures extends GlobalVars {
                         Log.v("blob: ",urlimage);
                         Log.v("DateImmat :",DateImmat);
                         Log.v("id_proprietaire : ",id_proprietaire);
-                        voituretest.add(new Voiture(i,nom,immatriculation,modele, marque, DateImmat, urlimage,cv, id));
+                        voituretest.add(new Voiture(i,nom,immatriculation,modele, marque, DateImmat, urlimage,cv,id));
 
                     }
 
@@ -181,6 +210,8 @@ public class Mes_voitures extends GlobalVars {
         });
        return voituretest;
     }
+
+
 
 }
 

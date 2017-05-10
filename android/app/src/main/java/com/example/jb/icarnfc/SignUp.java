@@ -38,8 +38,8 @@ import com.example.jb.icarnfc.common.GlobalVars;
 
 public class SignUp extends GlobalVars {
 
-    final static int SELECT_PICTURE = 1;
   String encoded;
+   final static int SELECT_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +164,7 @@ public class SignUp extends GlobalVars {
             String img= "data:image/png;base64,"+encoded;
             Log.v("cul",img);
             formBuilder.add("Avatar", img);
-            
+
 
             RequestBody formBody = formBuilder.build();
 
