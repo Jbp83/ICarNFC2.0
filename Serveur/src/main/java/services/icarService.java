@@ -19,7 +19,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","root");
+            connection = DriverManager.getConnection(url,"root","");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -192,7 +192,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/subscribe")
-    public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut,@RequestParam("Blob") String Blob)
+    public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut,@RequestParam("Avatar") String avatar)
     {
 
         //Connection à la base de donnée avec la variable conn
@@ -224,7 +224,7 @@ public class icarService {
                 PrepStat.setString(3,UserSurname);
                 PrepStat.setString(4,UserPassword);
                 PrepStat.setString(5,UserStatut);
-                PrepStat.setString(6,Blob);
+                PrepStat.setString(6,avatar);
 
                 int created = PrepStat.executeUpdate();
                 if(created ==1)

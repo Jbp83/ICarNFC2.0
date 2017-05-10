@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 10 Mai 2017 à 15:51
+-- Généré le :  Mer 10 Mai 2017 à 20:32
 -- Version du serveur :  5.6.15-log
--- Version de PHP :  5.4.24
+-- Version de PHP :  5.5.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -32,18 +32,22 @@ CREATE TABLE IF NOT EXISTS `entretien` (
   `id_voiture` int(11) NOT NULL,
   `id_etablissement` int(11) NOT NULL,
   `id_utilisateur` int(11) NOT NULL,
-  `IdDetailEntretien` int(11) NOT NULL,
-  `detail_entretien` varchar(150) NOT NULL,
+  `IdDetailEntretien` int(11) DEFAULT NULL,
+  `detail_entretien` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `entretien`
 --
 
 INSERT INTO `entretien` (`id`, `date_creation`, `id_voiture`, `id_etablissement`, `id_utilisateur`, `IdDetailEntretien`, `detail_entretien`) VALUES
-(1, '1995-05-05', 2, 1, 11, 1, ''),
-(2, '2015-02-01', 1, 1, 11, 1, '');
+(1, '1995-05-05', 2, 1, 11, 0, NULL),
+(2, '2015-02-01', 1, 1, 11, 1, NULL),
+(3, '2015-05-24', 1, 2, 3, NULL, 'vidange faite'),
+(4, '2015-05-24', 1, 2, 3, NULL, 'vidange faite'),
+(5, '2015-05-24', 1, 2, 3, NULL, 'vidange faite'),
+(6, '2015-05-24', 1, 2, 3, NULL, 'vidange faite');
 
 -- --------------------------------------------------------
 
@@ -109,20 +113,24 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(50) NOT NULL,
   `status` varchar(30) NOT NULL,
   `mail` varchar(30) NOT NULL,
-  `avatar` blob NOT NULL,
+  `avatar` mediumtext NOT NULL,
+  `id_etablissement` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `nom`, `prenom`, `password`, `status`, `mail`, `avatar`) VALUES
-(20, 'test', 'test', '202cb962ac59075b964b07152d234b70', 'Particulier', 'test', ''),
-(22, 'test', 'test', '202cb962ac5975b964b7152d234b70', 'Particulier', 'mars836@hot.fr', ''),
-(11, 'meyer', 'alex', '202cb962ac59075b964b07152d234b70', 'Particulier', 'mars8.6@hotmail.fr', ''),
-(23, 'mars', 'mars', '202cb962ac59075b964b07152d234b70', 'Particulier', 'mars86@hotmail.fr', ''),
-(24, 'bonjour', 'bonjour', '202cb962ac59075b964b07152d234b70', 'Professionnel', 'bonjour@free.fr', '');
+INSERT INTO `users` (`id`, `nom`, `prenom`, `password`, `status`, `mail`, `avatar`, `id_etablissement`) VALUES
+(20, 'test', 'test', '202cb962ac59075b964b07152d234b70', 'Particulier', 'test', '', NULL),
+(22, 'test', 'test', '202cb962ac5975b964b7152d234b70', 'Particulier', 'mars836@hot.fr', '', NULL),
+(11, 'meyer', 'alex', '202cb962ac59075b964b07152d234b70', 'Particulier', 'mars8.6@hotmail.fr', '', NULL),
+(23, 'mars', 'mars', '202cb962ac59075b964b07152d234b70', 'Particulier', 'mars86@hotmail.fr', '', NULL),
+(24, 'bonjour', 'bonjour', '202cb962ac59075b964b07152d234b70', 'Professionnel', 'bonjour@free.fr', '', NULL),
+(25, 'mars', '123', '123', 'pro', '123', '1264', NULL),
+(26, 'meyer', 'alex', '202cb962ac59075b964b07152d234b70', 'Professionnel', '1234', 'ceciestunblob', NULL),
+(27, 'mars12', '123', '123', 'pro', '1234656+', '1264', NULL);
 
 -- --------------------------------------------------------
 
@@ -140,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `voiture` (
   `modele` varchar(50) NOT NULL,
   `DateImmat` date NOT NULL,
   `CV` int(11) NOT NULL,
-  `Photo` blob,
+  `Photo` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
@@ -149,10 +157,10 @@ CREATE TABLE IF NOT EXISTS `voiture` (
 --
 
 INSERT INTO `voiture` (`id`, `guid`, `id_proprietaire`, `Immatriculation`, `nom`, `marque`, `modele`, `DateImmat`, `CV`, `Photo`) VALUES
-(1, '1234', 11, '4545BF', 'Lundi', 'Porsche', 'Panamera Turbo S', '2017-04-10', 53, 0x70686f746f31),
-(2, '4569', 11, '12ZZ83', 'Mardi', 'Porsche', 'Gt3 9912', '2017-04-12', 28, 0x70686f746f32),
-(3, 'g', 0, 'hgf', 'hgf', 'hgf', 'hfg', '2017-05-23', 2, 0x70686f746f33),
-(4, '1', 11, 'DB-458-83', 'Titine', 'Porsche', 'panamera4s', '2017-04-10', 300, 0x70686f746f34);
+(1, '1234', 11, '4545BF', 'Lundi', 'Porsche', 'Panamera Turbo S', '2017-04-10', 53, 'photo1'),
+(2, '4569', 11, '12ZZ83', 'Mardi', 'Porsche', 'Gt3 9912', '2017-04-12', 28, 'photo2'),
+(3, 'g', 0, 'hgf', 'hgf', 'hgf', 'hfg', '2017-05-23', 2, 'photo3'),
+(4, '1', 11, 'DB-458-83', 'Titine', 'Porsche', 'panamera4s', '2017-04-10', 300, 'photo4');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
