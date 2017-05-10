@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 10 Mai 2017 à 00:07
+-- Généré le :  Mer 10 Mai 2017 à 15:51
 -- Version du serveur :  5.6.15-log
--- Version de PHP :  5.5.8
+-- Version de PHP :  5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,24 +23,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `detail_entretien`
---
-
-CREATE TABLE IF NOT EXISTS `detail_entretien` (
-  `id` int(11) NOT NULL,
-  `type_entretien` varchar(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `detail_entretien`
---
-
-INSERT INTO `detail_entretien` (`id`, `type_entretien`) VALUES
-(0, 'la voiture ');
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `entretien`
 --
 
@@ -51,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `entretien` (
   `id_etablissement` int(11) NOT NULL,
   `id_utilisateur` int(11) NOT NULL,
   `IdDetailEntretien` int(11) NOT NULL,
+  `detail_entretien` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -58,9 +41,9 @@ CREATE TABLE IF NOT EXISTS `entretien` (
 -- Contenu de la table `entretien`
 --
 
-INSERT INTO `entretien` (`id`, `date_creation`, `id_voiture`, `id_etablissement`, `id_utilisateur`, `IdDetailEntretien`) VALUES
-(1, '1995-05-05', 2, 1, 11, 1),
-(2, '2015-02-01', 1, 1, 11, 1);
+INSERT INTO `entretien` (`id`, `date_creation`, `id_voiture`, `id_etablissement`, `id_utilisateur`, `IdDetailEntretien`, `detail_entretien`) VALUES
+(1, '1995-05-05', 2, 1, 11, 1, ''),
+(2, '2015-02-01', 1, 1, 11, 1, '');
 
 -- --------------------------------------------------------
 
@@ -75,14 +58,15 @@ CREATE TABLE IF NOT EXISTS `etablissement` (
   `Adresse` varchar(20) NOT NULL,
   `Telephone` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `etablissement`
 --
 
 INSERT INTO `etablissement` (`id`, `Nom`, `Siren`, `Adresse`, `Telephone`) VALUES
-(1, 'pegeot', '11221213', 'Cuers', '06060606');
+(1, 'pegeot', '11221213', 'Cuers', '06060606'),
+(2, 'auto bricole', 'D15654SRE465', '71 impasse bel horiz', '04 94 68 85 77');
 
 -- --------------------------------------------------------
 
