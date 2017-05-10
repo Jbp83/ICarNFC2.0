@@ -61,10 +61,10 @@ public class SignUp extends GlobalVars {
         });
 
 
-        //Récupération du Spinner déclaré dans le fichier main.xml de res/layout
+        
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
-        //Création d'une liste d'élément à mettre dans le Spinner(pour l'exemple)
+        //Création d'une liste d'élément à mettre dans le Spinner
         List exempleList = new ArrayList();
         exempleList.add("Particulier");
         exempleList.add("Professionnel");
@@ -80,11 +80,7 @@ public class SignUp extends GlobalVars {
         });
 
 
-        ArrayAdapter adapter = new ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                exempleList
-        );
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exempleList);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Enfin on passe l'adapter au Spinner et c'est tout
@@ -120,10 +116,7 @@ public class SignUp extends GlobalVars {
         String passwordtxt = password.getText().toString();
         String passwordtxt2 = confirmpassword.getText().toString();
         String emailtxt = email.getText().toString();
-
-
-        String status;
-        status = spinner.getSelectedItem().toString();
+        String status = spinner.getSelectedItem().toString();
 
         Log.i("email",email.toString());
 
@@ -149,9 +142,6 @@ public class SignUp extends GlobalVars {
 
             MD5 md5 = new MD5();
             String passwordmd5=md5.crypt(passwordtxt);
-
-
-
 
 
             // dynamically add more parameter like this:
@@ -195,7 +185,6 @@ public class SignUp extends GlobalVars {
                             if (myResponse.equals("utilisateur créé")) {
 
                                 Toast.makeText(SignUp.this, "Utilisateur crée", Toast.LENGTH_LONG).show();
-
                                 Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                 startActivity(myIntent);
 

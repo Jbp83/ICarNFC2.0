@@ -58,7 +58,8 @@
 
         <activity android:name=".Add_car" />
         <activity android:name=".Pro" />
-        <activity android:name=".AddFicheEntretien" />
+        <activity android:name=".AddFicheEntretien"
+            android:label="Ajout d'une fiche d'entretien"/>
         <activity android:name=".HistoriqueEntretienPro" />
 
     </application>
