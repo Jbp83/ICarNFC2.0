@@ -134,7 +134,7 @@ public class icarService {
                 jsonFiche.put("id_voiture", resultat.getInt("id_voiture"));
                 jsonFiche.put("id_etablissement", resultat.getInt("id_etablissement"));
                 jsonFiche.put("id_utilisateur", resultat.getInt("id_utilisateur"));
-                jsonFiche.put("IdDetailEntretien", resultat.getInt("IdDetailEntretien"));
+                jsonFiche.put("detail_entretien", resultat.getString("detail_entretien"));
                 jsonNOM.put(jsonFiche);
                 jsonArray.put("Fiches",jsonNOM);
             }
