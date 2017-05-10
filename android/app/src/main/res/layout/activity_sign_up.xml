@@ -94,13 +94,6 @@
                 android:hint="Confirmation mot de passe"
                 android:inputType="textPassword" />
 
-            <TextView
-                android:id="@+id/editStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Votre Status :"
-                android:textAlignment="center" />
-
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="351dp"

@@ -155,7 +155,7 @@ public class Mes_voitures extends GlobalVars {
                         modele = object.getString("modele");
                         marque= object.getString("marque");
                         immatriculation= object.getString("Immatriculation");
-                        urlimage = object.getString("urlimage");
+                        urlimage = object.getString("Blob");
                         id = object.getInt("id");
                         DateImmat = object.getString("DateImmat");
                         id_proprietaire = object.getString("id_proprietaire");
@@ -166,7 +166,7 @@ public class Mes_voitures extends GlobalVars {
                         Log.v("Nom : ",nom);
                         Log.v("Modele :",modele);
                         Log.v("Immatriculation: ",immatriculation);
-                        Log.v("ulrimage: ",urlimage);
+                        Log.v("blob: ",urlimage);
                         Log.v("DateImmat :",DateImmat);
                         Log.v("id_proprietaire : ",id_proprietaire);
                         voituretest.add(new Voiture(i,nom,immatriculation,modele, marque, DateImmat, urlimage,cv, id));

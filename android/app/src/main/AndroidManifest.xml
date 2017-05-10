@@ -32,7 +32,7 @@
         </activity>
         <activity
             android:name=".SignUp"
-            android:label="Inscription"
+            android:label="Inscription Particulier"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Mes_voitures" />
         <activity android:name=".AndroidSelectImage" />
@@ -54,12 +54,19 @@
         <activity android:name=".Pro" />
         <activity
             android:name=".AddFicheEntretien"
-            android:label="Fiche d&apos;entretien"></activity>
+            android:label="Fiche entretien">
+
+        </activity>
         <activity android:name=".HistoriqueEntretienPro" />
         <activity
             android:name=".SelectStatus"
-            android:label="Selection du status"></activity>
-        <activity android:name=".SignUpPro"></activity>
+            android:label="Selection du status">
+
+        </activity>
+        <activity android:name=".SignUpPro"
+            android:label="Inscription Profesionnel">
+
+        </activity>
     </application>
 
 </manifest>

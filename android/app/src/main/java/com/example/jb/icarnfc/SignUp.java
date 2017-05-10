@@ -288,6 +288,7 @@ public class SignUp extends GlobalVars {
 
     private String getRealPathFromURI(Uri contentURI) {
         String result;
+
         Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
         if (cursor == null) {
             result = contentURI.getPath();
