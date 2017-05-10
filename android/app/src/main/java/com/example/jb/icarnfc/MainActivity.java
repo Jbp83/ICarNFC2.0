@@ -119,7 +119,7 @@ public class MainActivity extends GlobalVars {
 
     void SignUp() throws IOException
     {
-        Intent myIntent = new Intent(getBaseContext(), SignUp.class);
+        Intent myIntent = new Intent(getBaseContext(), SelectStatus.class);
         startActivity(myIntent);
     }
 

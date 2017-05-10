@@ -26,42 +26,40 @@
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SignUp"
-            android:windowSoftInputMode="stateHidden"
-            android:label="Inscription"/>
-
-        <activity android:name=".Mes_voitures">
-
-        </activity>
-
-        <activity android:name=".AndroidSelectImage">
-
-        </activity>
-
-        <activity android:name=".Infos_car" ></activity>
-
+            android:label="Inscription"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".Mes_voitures" />
+        <activity android:name=".AndroidSelectImage" />
+        <activity android:name=".Infos_car" />
         <activity android:name=".ReadTag">
             <intent-filter>
 
-             <!--   <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />-->
+                <!--
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                -->
 
-                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Add_car" />
         <activity android:name=".Pro" />
-        <activity android:name=".AddFicheEntretien"
-            android:label="Ajout d'une fiche d'entretien"/>
+        <activity
+            android:name=".AddFicheEntretien"
+            android:label="Fiche d&apos;entretien"></activity>
         <activity android:name=".HistoriqueEntretienPro" />
-
+        <activity
+            android:name=".SelectStatus"
+            android:label="Selection du status"></activity>
+        <activity android:name=".SignUpPro"></activity>
     </application>
 
 </manifest>
