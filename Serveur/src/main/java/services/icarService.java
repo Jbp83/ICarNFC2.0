@@ -19,7 +19,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","");
+            connection = DriverManager.getConnection(url,"root","root");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -151,7 +151,7 @@ public class icarService {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value ="/ficheEntretien")
+    @RequestMapping(method = RequestMethod.POST, value ="/addEntretien")
     public String PostEntretiens(@RequestParam("UserMail") String UserMail,@RequestParam("date_creation") Date date_creation, @RequestParam("id_voiture") int id_voiture,@RequestParam("id_etablissement") int id_etablissement,@RequestParam("id_utilisateur") int id_utilisateur,@RequestParam("type_entretien") String type_entretien)
     {
         //Connection à la base de donnée avec la variable conn

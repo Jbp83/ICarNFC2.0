@@ -24,7 +24,7 @@ public class AddFicheEntretien extends GlobalVars {
         String dat = dateFormat.format(actuelle);
 
         result = (TextView) findViewById(R.id.resultat);
-        result.setText("\nil est " +dat);
+        result.setText("Bonjour nous sommes le :  " +dat);
     }
 
 

@@ -13,9 +13,12 @@ import android.widget.Toast;
 
 import com.example.jb.icarnfc.Requests.RequestListCar;
 import com.example.jb.icarnfc.common.GlobalVars;
+import com.example.jb.icarnfc.common.UserSessionManager;
+
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,12 +31,8 @@ import org.json.JSONObject;
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
-    EditText txtString;
-    private static Response response;
-    private static final String TAG = "TEST";
-    String mailparticuler ;
-    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,cvfinal;
-    Button button;
+    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession;
+    UserSessionManager session;
 
     int cv,id;
 
@@ -48,6 +47,8 @@ public class Mes_voitures extends GlobalVars {
         setContentView(R.layout.activity_mes_voitures);
 
 
+        session = new UserSessionManager(getApplicationContext());
+
         Button button= (Button) findViewById(R.id.addcar);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,13 +56,28 @@ public class Mes_voitures extends GlobalVars {
 
                 Intent myIntent = new Intent(getBaseContext(), ReadTag.class);
                 startActivity(myIntent);
+                finish();
 
             }
         });
         mListView = (ListView) findViewById(R.id.listView);
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
-        String mailparticuler = (String) getIntent().getSerializableExtra("mailparticulier");
+        String mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
+
+
         //getCarUser();
+
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // get id User
+        idsession = user.get(UserSessionManager.KEY_ID);
+
+        // get email
+        emailsession = user.get(UserSessionManager.KEY_EMAIL);
+
+
 
 
         try {
@@ -96,6 +112,8 @@ public class Mes_voitures extends GlobalVars {
     }
 
 
+
+
   private void afficherListeVoitures() throws InterruptedException, NoSuchAlgorithmException, IOException {
 
 
@@ -111,7 +129,7 @@ public class Mes_voitures extends GlobalVars {
     {
         final List<Voiture> voituretest = new ArrayList<Voiture>();
         RequestListCar test = new RequestListCar();
-        test.getCarsUser(mailparticuler, new Callback() {
+        test.getCarsUser(emailsession, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -122,7 +140,7 @@ public class Mes_voitures extends GlobalVars {
             public void onResponse(Call call, Response response) throws IOException {
 
                 String infosProfil = response.body().string();
-                Log.v(TAG,infosProfil);
+                Log.v("InfosProfil",infosProfil);
 
                 try {
 

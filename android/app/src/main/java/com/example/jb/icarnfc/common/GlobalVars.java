@@ -15,9 +15,10 @@ import okhttp3.OkHttpClient;
 
 public class GlobalVars extends AppCompatActivity {
 
-    public static final String IPSERVEUR="http://192.168.1.100:8080";
+    public static final String IPSERVEUR="http://192.168.1.23:8080";
 
     public OkHttpClient okHttpClient = new OkHttpClient();
+
 
     public static final String PREFS_MAIL = "mail";
     //public String mail="mars";

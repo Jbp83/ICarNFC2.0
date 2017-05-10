@@ -32,8 +32,8 @@ public class MainActivity extends GlobalVars {
 
     private static final String TAG = "Password md5" ;
     TextView txtString;
-    UserSessionManager session;
     String status,idjson;
+    UserSessionManager session;
 
 
     @Override
