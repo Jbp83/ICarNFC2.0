@@ -37,10 +37,10 @@ public class Mes_voitures extends GlobalVars {
     ListView mListView;
     String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession,photo;
     UserSessionManager session;
+    //ImageView photovoiture;
+
 
     int cv,id;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,8 @@ public class Mes_voitures extends GlobalVars {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mes_voitures);
-
+        //setContentView(R.layout.row_car);
+        //ImageView photovoiture = (ImageView) findViewById(R.id.avatar);
 
 
         session = new UserSessionManager(getApplicationContext());
@@ -69,6 +70,9 @@ public class Mes_voitures extends GlobalVars {
         mListView = (ListView) findViewById(R.id.listView);
 
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
+
+
+
         String mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
 
 
@@ -98,21 +102,24 @@ public class Mes_voitures extends GlobalVars {
                                     int position, long id) {
 
 
-                //Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
-                //startActivity(myIntent);
-
-                Toast.makeText(Mes_voitures.this, "VOus avez cliquer", Toast.LENGTH_LONG).show();
-
-                String selectedFromList = (mListView.getItemAtPosition(position).toString());
-                Toast.makeText(Mes_voitures.this, selectedFromList, Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
+                myIntent.putExtra("id", id);
+                startActivity(myIntent);
 
 
+                /*String selectedFromList = (mListView.getItemAtPosition(position).toString());
+                Toast.makeText(Mes_voitures.this, selectedFromList, Toast.LENGTH_LONG).show();*/
             }
         });
 
 
     }
 
+    public void DeleteCar(View v)
+    {
+
+        Toast.makeText(v.getContext(), "The favorite list would appear on clicking this icon", Toast.LENGTH_LONG).show();
+    }
 
 
 
@@ -122,6 +129,8 @@ public class Mes_voitures extends GlobalVars {
         List<Voiture> voitures = GenererVoiture();
         VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures);
         mListView.setAdapter(adapter);
+
+
     }
 
 
@@ -173,21 +182,12 @@ public class Mes_voitures extends GlobalVars {
                         Log.v("coup",s);
 
                         byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);*/
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-                        //Log.v("Bitmap",decodedByte);
-
-
-                        String encodedDataString = photo;
-                        String encdoedDataString = encodedDataString.replace("data:image/png;base64,","");
-                        ImageView photovoiture = (ImageView) findViewById(R.id.avatar);
-
-                        byte[] imageAsBytes = Base64.decode(encdoedDataString.getBytes(), 0);
-                       photovoiture.setImageBitmap(BitmapFactory.decodeByteArray(
-                                imageAsBytes, 0, imageAsBytes.length));
+                        Log.v("Bitmap",decodedByte);
 
 
-                        //avatar.setImageBitmap(decodedByte);
+                        avatar.setImageBitmap(decodedByte);*/
 
 
                         Log.v(getClass().getName(), String.format("value = %d", cv));
@@ -198,7 +198,7 @@ public class Mes_voitures extends GlobalVars {
                         Log.v("blob: ",urlimage);
                         Log.v("DateImmat :",DateImmat);
                         Log.v("id_proprietaire : ",id_proprietaire);
-                        voituretest.add(new Voiture(i,nom,immatriculation,modele, marque, DateImmat, urlimage,cv,id));
+                        voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat,urlimage,cv,id));
 
                     }
 
