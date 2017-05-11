@@ -19,7 +19,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jb.icarnfc.Requests.RequestEtablissement;
+import com.example.jb.icarnfc.Requests.RequestInfoCar;
 import com.example.jb.icarnfc.common.GlobalVars;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -40,7 +46,7 @@ public class SignUpPro extends GlobalVars {
 
     final static int SELECT_PICTURE = 1;
 
-    String encoded;
+    String encoded,adresse,telephone,siren,nometablissement;
 
 
     @Override
@@ -72,6 +78,16 @@ public class SignUpPro extends GlobalVars {
             }
         });
 
+        SignUpPro.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                GetEtablissement();
+
+            }
+
+        });
+
         Spinner spinner = (Spinner)findViewById(R.id.entreprise);
 
         //Création d'une liste d'élément à mettre dans le Spinner
@@ -92,6 +108,7 @@ public class SignUpPro extends GlobalVars {
         //Enfin on passe l'adapter au Spinner et c'est tout
         spinner.setAdapter(adapter);
 
+
     }
 
     public void btGalleryClick(View v) {
@@ -101,6 +118,58 @@ public class SignUpPro extends GlobalVars {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
     }
+
+    private void GetEtablissement(){
+        try {
+            RequestEtablissement etablissement = new RequestEtablissement();
+            etablissement.getEtablissement(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String etablissementjson = response.body().string();
+
+                    Log.v("id", etablissementjson);
+
+
+                    try {
+
+                        JSONObject Jobject = new JSONObject(etablissementjson);
+                        JSONArray Jarray = Jobject.getJSONArray("Entreprise");
+
+                        for (int i = 0; i < Jarray.length(); i++)
+                        {
+                            JSONObject object     = Jarray.getJSONObject(i);
+                            nometablissement=object.getString("Nom");
+                            telephone=object.getString("Telephone");
+                            siren = object.getString("Siren");
+                            adresse= object.getString("Adresse");
+
+                            System.out.println("--------------------");
+                            Log.v("Etablissement : ",nometablissement);
+                            Log.v("Téléphone :",telephone);
+                            Log.v("Siren :",siren);
+                            Log.v("Adresse: ",adresse);
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+
+
+                }
+            });
+        } catch (InterruptedException | IOException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     void Inscription() throws IOException {

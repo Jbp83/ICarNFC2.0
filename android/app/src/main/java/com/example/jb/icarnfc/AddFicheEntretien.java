@@ -1,8 +1,7 @@
 package com.example.jb.icarnfc;
 
 import android.content.Intent;
-import android.icu.text.DateFormat;
-import android.icu.text.SimpleDateFormat;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -15,6 +14,8 @@ import android.widget.TextView;
 import com.example.jb.icarnfc.common.GlobalVars;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +29,10 @@ public class AddFicheEntretien extends GlobalVars {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fiche_entretien);
+
+
+
+
 
 
        // Affichage de la date dans un textview
@@ -73,15 +78,13 @@ public class AddFicheEntretien extends GlobalVars {
 
         EditText description = (EditText) findViewById(R.id.decription);
 
-
         Date actuelle = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); // Recupération de la date pour l'ajout d'une fiche d'entretien
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String dat = dateFormat.format(actuelle);
 
-        Log.v("Dateactuelle",dat);
-
-
+        System.out.println("Date"+dat);
         String descriptiontxt = description.getText().toString();
+        Log.v("Description",descriptiontxt);
 
         // Voiture à recuperer avec le spinner
 

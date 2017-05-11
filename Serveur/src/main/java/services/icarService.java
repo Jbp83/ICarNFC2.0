@@ -16,7 +16,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","");
+            connection = DriverManager.getConnection(url,"root","root");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -170,7 +170,6 @@ public class icarService {
       try {
           PrepStat =  conn.prepareStatement(Req);
             resultat = PrepStat.executeUpdate();
-
 
               if(resultat == 1)
               {
@@ -451,7 +450,7 @@ public class icarService {
             if(resultats.next())
             {
                 resultats.previous();
-                
+
                 while(resultats.next()) {
                     JSONObject jsonCar = new JSONObject();
                     jsonCar.put("guid",resultats.getString("guid"));

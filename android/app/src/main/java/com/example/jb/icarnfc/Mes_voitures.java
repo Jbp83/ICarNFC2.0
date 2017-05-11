@@ -218,6 +218,19 @@ public class Mes_voitures extends GlobalVars {
                         photo=object.getString("Blob");
 
 
+
+
+                        System.out.println("----------------------------");
+                        Log.v(getClass().getName(), String.format("cv = %d", cv));
+                        Log.v(getClass().getName(), String.format("id = %d", idjson));
+                        Log.v("Nom : ",nom);
+                        Log.v("Modele :",modele);
+                        Log.v("Immatriculation: ",immatriculation);
+                        Log.v("blob: ",urlimage);
+                        Log.v("DateImmat :",DateImmat);
+                        Log.v("id_proprietaire : ",id_proprietaire);
+                        voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat,urlimage,cv,idjson));
+
                         /*String[] separated = photo.split(",");
                         final String s = separated[1];// this will contain "Fruit"
 
@@ -232,15 +245,6 @@ public class Mes_voitures extends GlobalVars {
                         avatar.setImageBitmap(decodedByte);*/
 
 
-                        Log.v(getClass().getName(), String.format("cv = %d", cv));
-                        Log.v(getClass().getName(), String.format("id = %d", idjson));
-                        Log.v("Nom : ",nom);
-                        Log.v("Modele :",modele);
-                        Log.v("Immatriculation: ",immatriculation);
-                        Log.v("blob: ",urlimage);
-                        Log.v("DateImmat :",DateImmat);
-                        Log.v("id_proprietaire : ",id_proprietaire);
-                        voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat,urlimage,cv,idjson));
 
                     }
 

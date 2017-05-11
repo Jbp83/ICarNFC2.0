@@ -45,7 +45,6 @@ tools:context="com.example.jb.icarnfc.MainActivity">
             android:layout_height="wrap_content">
 
 
-
             <AutoCompleteTextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -53,7 +52,8 @@ tools:context="com.example.jb.icarnfc.MainActivity">
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="mars8.6@hotmail.fr" />
 
 
 
@@ -74,7 +74,8 @@ tools:context="com.example.jb.icarnfc.MainActivity">
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="123" />
 
         </android.support.design.widget.TextInputLayout>
 

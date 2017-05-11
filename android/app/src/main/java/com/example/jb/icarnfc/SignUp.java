@@ -147,6 +147,7 @@ public class SignUp extends GlobalVars {
 
 
         {
+
             FormBody.Builder formBuilder = new FormBody.Builder()
                     .add("UserName", nomtxt);
 
@@ -162,8 +163,10 @@ public class SignUp extends GlobalVars {
             formBuilder.add("UserStatut", "Particulier");
 
             String img= "data:image/png;base64,"+encoded;
-            Log.v("cul",img);
+           // Log.v("cul",img);
             formBuilder.add("Avatar", img);
+
+
 
 
             RequestBody formBody = formBuilder.build();
@@ -200,8 +203,6 @@ public class SignUp extends GlobalVars {
                                 Toast.makeText(SignUp.this, "Utilisateur crée", Toast.LENGTH_LONG).show();
                                 Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                 startActivity(myIntent);
-
-
                             }
 
 
@@ -267,11 +268,8 @@ public class SignUp extends GlobalVars {
                     mImageView.setImageBitmap(bitmap);
 
 
-                   /* Base64Convertor convertavatar = new Base64Convertor();
-                    convertavatar.encodeTobase64(android.graphics.bitmap);*/
-
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
                     byte[] byteArray = byteArrayOutputStream .toByteArray();
                     encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 

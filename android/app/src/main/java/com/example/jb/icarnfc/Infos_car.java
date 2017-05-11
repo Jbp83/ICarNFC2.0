@@ -51,7 +51,7 @@ public class Infos_car extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.photo);
 
-        String id ="1";
+        //String id ="1";
 
         Infos_car.this.runOnUiThread(new Runnable() {
             @Override
@@ -98,17 +98,37 @@ public class Infos_car extends AppCompatActivity {
                             photo=object.getString("Photo");
 
 
-                        String[] separated = photo.split("data:image/png;base64,"); // on recupere tout les donnes apres ces caractères.
-                        final String s = separated[1];
+                            if(photo.matches(""))
+                            {
+                                Log.v("Photo","Pas de photo");
+                            }
 
-                        Log.v("coup",s);
-
-                        byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            else {
 
 
-                        imageView.setImageBitmap(decodedByte);
 
+
+
+                                Infos_car.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        String[] separated = photo.split(","); // on recupere tout les donnes apres ces caractères.
+                                        final String s = separated[1];
+
+                                        Log.v("coup",s);
+
+                                        byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
+                                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                        imageView.setImageBitmap(decodedByte);
+
+                                    }
+
+                                });
+
+
+
+                            }
 
                             Log.v(getClass().getName(), String.format("cv = %d", cv));
                             Log.v(getClass().getName(), String.format("id = %d", idjson));
@@ -116,7 +136,7 @@ public class Infos_car extends AppCompatActivity {
                             Log.v("Modele :",modele);
                             Log.v("Modele :",marque);
                             Log.v("Immatriculation: ",immatriculation);
-                            Log.v("blob: ",urlimage);
+                            Log.v("Photo: ",photo);
                             Log.v("DateImmat :",DateImmat);
                             Log.v("id_proprietaire : ",id_proprietaire);
 
