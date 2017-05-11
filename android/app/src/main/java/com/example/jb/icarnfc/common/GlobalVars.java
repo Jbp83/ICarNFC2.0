@@ -15,27 +15,16 @@ import okhttp3.OkHttpClient;
 
 public class GlobalVars extends AppCompatActivity {
 
-    public static final String IPSERVEUR="http://192.168.1.23:8080";
+
+    public static final String IPSERVEUR="http://172.20.10.12:8080";
+
+
 
     public OkHttpClient okHttpClient = new OkHttpClient();
 
 
     public static final String PREFS_MAIL = "mail";
     //public String mail="mars";
-    public SharedPreferences.Editor editor;
-    SharedPreferences sharedPreferences;
-
-
-
-
-    public String getData(String key) {
-        if (sharedPreferences!= null) {
-            return sharedPreferences.getString(key, "");
-        }
-        return "";
-    }
 
 
     }
-
-

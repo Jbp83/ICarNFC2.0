@@ -32,7 +32,7 @@
         </activity>
         <activity
             android:name=".SignUp"
-            android:label="Inscription"
+            android:label="Inscription Particulier"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Mes_voitures" />
         <activity android:name=".AndroidSelectImage" />
@@ -50,16 +50,25 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Add_car" />
+        <activity android:name=".Add_car"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".Pro" />
         <activity
             android:name=".AddFicheEntretien"
-            android:label="Fiche d&apos;entretien"></activity>
+            android:label="Fiche entretien"
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
         <activity android:name=".HistoriqueEntretienPro" />
         <activity
             android:name=".SelectStatus"
-            android:label="Selection du status"></activity>
-        <activity android:name=".SignUpPro"></activity>
+            android:label="Selection du status">
+
+        </activity>
+        <activity android:name=".SignUpPro"
+            android:label="Inscription Profesionnel">
+
+        </activity>
     </application>
 
 </manifest>

@@ -38,8 +38,8 @@ import com.example.jb.icarnfc.common.GlobalVars;
 
 public class SignUp extends GlobalVars {
 
-    final static int SELECT_PICTURE = 1;
   String encoded;
+   final static int SELECT_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +51,29 @@ public class SignUp extends GlobalVars {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
 
-                    Inscription();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                SignUp.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            Inscription();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                });
+
+
             }
         });
 
 
         
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+       // Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         //Création d'une liste d'élément à mettre dans le Spinner
         List exempleList = new ArrayList();
@@ -80,11 +91,11 @@ public class SignUp extends GlobalVars {
         });
 
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exempleList);
+       /* ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exempleList);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Enfin on passe l'adapter au Spinner et c'est tout
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter);*/
 
 
 
@@ -108,7 +119,7 @@ public class SignUp extends GlobalVars {
         EditText password = (EditText) findViewById(R.id.password);
         EditText confirmpassword = (EditText) findViewById(R.id.password2);
         EditText email = (EditText) findViewById(R.id.email);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+       // Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
 // Récupére le text présent dans l'edit text
         String nomtxt = nom.getText().toString();
@@ -116,7 +127,7 @@ public class SignUp extends GlobalVars {
         String passwordtxt = password.getText().toString();
         String passwordtxt2 = confirmpassword.getText().toString();
         String emailtxt = email.getText().toString();
-        String status = spinner.getSelectedItem().toString();
+        //String status = spinner.getSelectedItem().toString();
 
         Log.i("email",email.toString());
 
@@ -148,9 +159,11 @@ public class SignUp extends GlobalVars {
             formBuilder.add("UserSurname",prenomtxt);
             formBuilder.add("UserMail", emailtxt);
             formBuilder.add("UserPassword", passwordmd5);
-            formBuilder.add("UserStatut", status);
-            formBuilder.add("Blob", encoded);
+            formBuilder.add("UserStatut", "Particulier");
 
+            String img= "data:image/png;base64,"+encoded;
+            Log.v("cul",img);
+            formBuilder.add("Avatar", img);
 
 
             RequestBody formBody = formBuilder.build();
@@ -277,6 +290,7 @@ public class SignUp extends GlobalVars {
 
     private String getRealPathFromURI(Uri contentURI) {
         String result;
+
         Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
         if (cursor == null) {
             result = contentURI.getPath();

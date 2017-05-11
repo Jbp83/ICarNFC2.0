@@ -17,6 +17,7 @@ import java.util.Date;
         private String marque;
         private String DateImmat;
         private String urlimage;
+        private String photo;
         private int CV;
         private int id;
 
@@ -32,6 +33,7 @@ import java.util.Date;
         this.urlimage = urlimage;
         CV = cv;
         this.id = id;
+        this.photo=photo;
     }
 
 
@@ -106,6 +108,14 @@ import java.util.Date;
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
 

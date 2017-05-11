@@ -16,7 +16,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","");
+            connection = DriverManager.getConnection(url,"root","root");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -233,7 +233,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/subscribe")
-    public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut,@RequestParam("Blob") String Blob)
+    public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut,@RequestParam("Avatar") String avatar)
     {
 
         //Connection à la base de donnée avec la variable conn
@@ -265,7 +265,7 @@ public class icarService {
                 PrepStat.setString(3,UserSurname);
                 PrepStat.setString(4,UserPassword);
                 PrepStat.setString(5,UserStatut);
-                PrepStat.setString(6,Blob);
+                PrepStat.setString(6,avatar);
 
                 int created = PrepStat.executeUpdate();
                 if(created ==1)
@@ -336,6 +336,8 @@ public class icarService {
 
         return "fail to load cars";
     }
+
+
 
 
 
@@ -412,6 +414,7 @@ public class icarService {
                 
                 while(resultats.next()) {
                     JSONObject jsonCar = new JSONObject();
+                    jsonCar.put("guid",resultats.getString("guid"));
                     jsonCar.put("nom",resultats.getString("nom"));
                     jsonCar.put("id",resultats.getInt("id"));
                     jsonCar.put("id_proprietaire",resultats.getInt("id_proprietaire"));
@@ -420,7 +423,7 @@ public class icarService {
                     jsonCar.put("modele",resultats.getString("modele"));
                     jsonCar.put("DateImmat",resultats.getDate("DateImmat"));
                     jsonCar.put("CV",resultats.getInt("CV"));
-                    jsonCar.put("urlimage",resultats.getString("urlimage"));
+                    jsonCar.put("Blob",resultats.getString("Photo"));
                     CarArray.put(jsonCar);
                     jsonNOM.put(jsonCar);
                     jsonArray.put("Cars",jsonNOM);
@@ -446,7 +449,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/addcar")
-    public String AddCar(@RequestParam("GUID") String GUID,@RequestParam("UserID") String UserId,@RequestParam("CarImmat") String CarImmat, @RequestParam("CarName") String CarName,@RequestParam("CarBrand") String CarBrand, @RequestParam("CarModel") String CarModel ,@RequestParam("DateImmat") String DateImmat,@RequestParam("CV") String CV)
+    public String AddCar(@RequestParam("GUID") String GUID,@RequestParam("UserID") String UserId,@RequestParam("CarImmat") String CarImmat, @RequestParam("CarName") String CarName,@RequestParam("CarBrand") String CarBrand, @RequestParam("CarModel") String CarModel ,@RequestParam("DateImmat") String DateImmat,@RequestParam("CV") String CV,@RequestParam("Photo") String Photo)
     {
 
         //Connection à la base de donnée avec la variable conn
@@ -469,7 +472,7 @@ public class icarService {
             }
             else
             {
-                Req = "INSERT INTO voiture (guid,id_proprietaire, Immatriculation, nom, marque, modele, DateImmat,CV) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+                Req = "INSERT INTO voiture (guid,id_proprietaire, Immatriculation, nom, marque, modele, DateImmat,CV,Photo) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ,?)";
                 PrepStat = conn.prepareStatement(Req);
 
                 PrepStat.setString(1,GUID);
@@ -480,6 +483,7 @@ public class icarService {
                 PrepStat.setString(6,CarModel);
                 PrepStat.setString(7,DateImmat);
                 PrepStat.setString(8,CV);
+                PrepStat.setString(9,Photo);
 
 
                 int created = PrepStat.executeUpdate();
@@ -494,6 +498,12 @@ public class icarService {
         }
 
     }
+
+
+
+
+
+
 
 
     @RequestMapping("/")

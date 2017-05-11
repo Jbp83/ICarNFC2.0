@@ -1,9 +1,13 @@
 package com.example.jb.icarnfc.Requests;
 
+import android.util.Log;
+
 import com.example.jb.icarnfc.common.GlobalVars;
+import com.example.jb.icarnfc.common.UserSessionManager;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 import okhttp3.Callback;
 import okhttp3.Request;
@@ -16,6 +20,24 @@ public class RequestListCar  extends GlobalVars{
 
     public void getCarsUser(String mail,Callback callback) throws NoSuchAlgorithmException, IOException, InterruptedException {
         // Les données qui vont etre envoyées
+
+        /*UserSessionManager session;
+
+        session = new UserSessionManager(getApplicationContext());
+
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // get id User
+        String id = user.get(UserSessionManager.KEY_ID);
+
+        // get email
+        String email = user.get(UserSessionManager.KEY_EMAIL);
+
+        Log.v("id",id);
+        Log.v("email",email);*/
+
 
 
         mail="mars8.6@hotmail.fr";

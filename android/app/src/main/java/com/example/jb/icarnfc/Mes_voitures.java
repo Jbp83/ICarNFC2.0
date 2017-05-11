@@ -1,17 +1,23 @@
 package com.example.jb.icarnfc;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jb.icarnfc.Requests.RequestListCar;
+import com.example.jb.icarnfc.common.Base64Convertor;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.UserSessionManager;
 
@@ -28,15 +34,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.jb.icarnfc.R.id.result;
+
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
-    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession;
+    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession,photo;
     UserSessionManager session;
-
-    int cv,id;
-
-
+    //ImageView photovoiture;
+    int cv,idjson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +51,12 @@ public class Mes_voitures extends GlobalVars {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mes_voitures);
+        //setContentView(R.layout.row_car);
+        //ImageView photovoiture = (ImageView) findViewById(R.id.avatar);
 
 
         session = new UserSessionManager(getApplicationContext());
+
 
         Button button= (Button) findViewById(R.id.addcar);
         button.setOnClickListener(new View.OnClickListener() {
@@ -61,11 +70,12 @@ public class Mes_voitures extends GlobalVars {
             }
         });
         mListView = (ListView) findViewById(R.id.listView);
+
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
+
+
+
         String mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
-
-
-        //getCarUser();
 
 
         // get user data from session
@@ -76,8 +86,6 @@ public class Mes_voitures extends GlobalVars {
 
         // get email
         emailsession = user.get(UserSessionManager.KEY_EMAIL);
-
-
 
 
         try {
@@ -96,13 +104,12 @@ public class Mes_voitures extends GlobalVars {
                                     int position, long id) {
 
 
-                //Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
-                //startActivity(myIntent);
+               TextView textView = (TextView) findViewById(R.id.idvoiture);
+                String test= textView.getText().toString();
 
-                Toast.makeText(Mes_voitures.this, "VOus avez cliquer ", Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
 
-                String selectedFromList = (mListView.getItemAtPosition(position).toString());
-                Toast.makeText(Mes_voitures.this, selectedFromList, Toast.LENGTH_LONG).show();
+                startActivity(myIntent);
 
 
             }
@@ -111,6 +118,11 @@ public class Mes_voitures extends GlobalVars {
 
     }
 
+    public void DeleteCar(View v)
+    {
+
+        Toast.makeText(v.getContext(), "The favorite list would appear on clicking this icon", Toast.LENGTH_LONG).show();
+    }
 
 
 
@@ -120,6 +132,8 @@ public class Mes_voitures extends GlobalVars {
         List<Voiture> voitures = GenererVoiture();
         VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures);
         mListView.setAdapter(adapter);
+
+
     }
 
 
@@ -127,6 +141,9 @@ public class Mes_voitures extends GlobalVars {
     private List <Voiture> GenererVoiture() throws InterruptedException, NoSuchAlgorithmException, IOException
 
     {
+
+
+
         final List<Voiture> voituretest = new ArrayList<Voiture>();
         RequestListCar test = new RequestListCar();
         test.getCarsUser(emailsession, new Callback() {
@@ -155,21 +172,36 @@ public class Mes_voitures extends GlobalVars {
                         modele = object.getString("modele");
                         marque= object.getString("marque");
                         immatriculation= object.getString("Immatriculation");
-                        urlimage = object.getString("urlimage");
-                        id = object.getInt("id");
+                        urlimage = object.getString("Blob");
+                        idjson = object.getInt("id");
                         DateImmat = object.getString("DateImmat");
                         id_proprietaire = object.getString("id_proprietaire");
+                        photo=object.getString("Blob");
 
 
-                        Log.v(getClass().getName(), String.format("value = %d", cv));
-                        Log.v(getClass().getName(), String.format("value = %d", id));
+                        /*String[] separated = photo.split(",");
+                        final String s = separated[1];// this will contain "Fruit"
+
+                        Log.v("coup",s);
+
+                        byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                        Log.v("Bitmap",decodedByte);
+
+
+                        avatar.setImageBitmap(decodedByte);*/
+
+
+                        Log.v(getClass().getName(), String.format("cv = %d", cv));
+                        Log.v(getClass().getName(), String.format("id = %d", idjson));
                         Log.v("Nom : ",nom);
                         Log.v("Modele :",modele);
                         Log.v("Immatriculation: ",immatriculation);
-                        Log.v("ulrimage: ",urlimage);
+                        Log.v("blob: ",urlimage);
                         Log.v("DateImmat :",DateImmat);
                         Log.v("id_proprietaire : ",id_proprietaire);
-                        voituretest.add(new Voiture(i,nom,immatriculation,modele, marque, DateImmat, urlimage,cv, id));
+                        voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat,urlimage,cv,idjson));
 
                     }
 
@@ -181,6 +213,8 @@ public class Mes_voitures extends GlobalVars {
         });
        return voituretest;
     }
+
+
 
 }
 
