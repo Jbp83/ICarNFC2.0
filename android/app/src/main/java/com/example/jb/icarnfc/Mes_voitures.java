@@ -118,6 +118,10 @@ public class Mes_voitures extends GlobalVars {
         });*/
 
 
+
+
+
+
     }
 
     public void DeleteCar(View v)
@@ -172,9 +176,8 @@ public class Mes_voitures extends GlobalVars {
 
 
         List<Voiture> voitures = GenererVoiture();
-        VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures);
+        VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures,this);
         mListView.setAdapter(adapter);
-
 
     }
 
@@ -218,7 +221,8 @@ public class Mes_voitures extends GlobalVars {
                         id_proprietaire = object.getString("id_proprietaire");
                         photo=object.getString("Blob");
 
-                        
+
+
                         System.out.println("----------------------------");
                         Log.v(getClass().getName(), String.format("cv = %d", cv));
                         Log.v("idjson", idjson);
