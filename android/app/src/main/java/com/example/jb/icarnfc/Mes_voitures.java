@@ -100,7 +100,7 @@ public class Mes_voitures extends GlobalVars {
         }
 
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
@@ -108,13 +108,14 @@ public class Mes_voitures extends GlobalVars {
                TextView textView = (TextView) findViewById(R.id.idvoiture);
                 String test= textView.getText().toString();
 
+
                 Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
 
                 startActivity(myIntent);
 
 
             }
-        });
+        });*/
 
 
     }

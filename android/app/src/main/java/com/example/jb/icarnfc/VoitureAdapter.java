@@ -1,10 +1,12 @@
 package com.example.jb.icarnfc;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,11 +46,12 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
             //viewHolder.idproprio = (TextView) convertView.findViewById(R.id.idproprio);
             //viewHolder.DateImmat = (TextView) convertView.findViewById(R.id.DateImmat);
             viewHolder.id = (TextView) convertView.findViewById(R.id.idvoiture);
+            viewHolder.BtnInfo = (Button) convertView.findViewById(R.id.btnInfo);
             convertView.setTag(viewHolder);
         }
 
         //getItem(position) va récupérer l'item [position] de la List<Voiture> voiture
-        Voiture voiture = getItem(position);
+        final Voiture voiture = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
        // viewHolder.nomvoiture.setText(voiture.getNom());
@@ -61,12 +64,21 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
         viewHolder.marque.setText(String.valueOf(voiture.getMarque()));
         viewHolder.id.setText(String.valueOf(voiture.getId()));
 
+        viewHolder.BtnInfo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("bouton appuyé","id : "+voiture.getId());
+
+
+            }
+        });
+
+
 
         return convertView;
     }
 
-    private class VoitureClassHolder{
-
+    private class VoitureClassHolder
+    {
         public TextView id;
        // public TextView idproprio;
        // public TextView nomvoiture;
@@ -76,5 +88,6 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
         //public TextView cv;
         public TextView marque;
         public TextView DateImmat;
+        public Button BtnInfo;
     }
 }

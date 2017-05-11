@@ -60,10 +60,17 @@
         android:id="@+id/poubelle"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="46dp"
         app:srcCompat="@drawable/poubelle"
-        android:layout_above="@+id/immatriculation"
-        android:layout_alignParentEnd="true"
-        android:onClick="DeleteCar"/>
+        android:onClick="DeleteCar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/btnInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/immatriculation"
+        android:layout_toStartOf="@+id/poubelle"
+        android:text="Info" />
 
 </RelativeLayout>
