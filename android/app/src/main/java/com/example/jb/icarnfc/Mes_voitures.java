@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jb.icarnfc.Requests.RequestInfoCar;
 import com.example.jb.icarnfc.Requests.RequestListCar;
 import com.example.jb.icarnfc.common.Base64Convertor;
 import com.example.jb.icarnfc.common.GlobalVars;
@@ -122,6 +123,46 @@ public class Mes_voitures extends GlobalVars {
     {
 
         Toast.makeText(v.getContext(), "The favorite list would appear on clicking this icon", Toast.LENGTH_LONG).show();
+
+
+    }
+
+
+    private void DeleteCar(String id) {
+        try {
+            RequestInfoCar infocar = new RequestInfoCar();
+            infocar.getInfosCar(id, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String ReponseReq = response.body().string();
+
+                    Log.v("id", ReponseReq);
+
+                    if (ReponseReq.equals("Supprimer"))
+                    {
+                        Toast.makeText(Mes_voitures.this, "Voiture Supprimer", Toast.LENGTH_LONG).show();
+                        //Rediriger ensuite vers mes voitures
+                    }
+
+                    if (ReponseReq.equals("error"))
+                    {
+                        Toast.makeText(Mes_voitures.this, "Erreur lors de la suppression", Toast.LENGTH_LONG).show();
+                        //Rediriger ensuite vers mes voitures
+                    }
+
+                        }
+
+
+
+            });
+        } catch (InterruptedException | IOException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -141,8 +182,6 @@ public class Mes_voitures extends GlobalVars {
     private List <Voiture> GenererVoiture() throws InterruptedException, NoSuchAlgorithmException, IOException
 
     {
-
-
 
         final List<Voiture> voituretest = new ArrayList<Voiture>();
         RequestListCar test = new RequestListCar();

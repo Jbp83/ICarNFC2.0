@@ -154,6 +154,46 @@ public class icarService {
     }
 
 
+    @RequestMapping(method = RequestMethod.GET, value ="/deleteCar/{idVoiture}")
+    public String deleteUserCar(@PathVariable("idVoiture") String idVoiture)
+    {
+
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultat;
+
+        String Req = "DELETE FROM voiture WHERE `id`="+idVoiture +";";
+
+       //Chercher pour sql java delete 
+
+/*        try {
+            statement =  conn.createStatement();
+            resultat = statement.executeQuery(Req);
+
+            if(resultat.next()) {
+
+
+                return "exist";
+            }
+            else
+            {
+                return "not exist";
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }*/
+
+
+        return null;
+
+    }
+
+
     @RequestMapping(method = RequestMethod.GET, value ="/ficheEntretien")
     public String getEntretien(@RequestParam("UserMail") String UserMail,@RequestParam("id_etablissement") String id_etablissement)
     {

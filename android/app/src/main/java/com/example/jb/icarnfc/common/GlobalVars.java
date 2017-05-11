@@ -16,7 +16,7 @@ import okhttp3.OkHttpClient;
 public class GlobalVars extends AppCompatActivity {
 
 
-    public static final String IPSERVEUR="http://172.20.10.12:8080";
+    public static final String IPSERVEUR="http://127.0.0.1:8080";
 
 
 

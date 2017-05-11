@@ -6,6 +6,7 @@ import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,20 +29,18 @@ public class AddFicheEntretien extends GlobalVars {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fiche_entretien);
 
-        Date actuelle = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); // Recupération de la date pour l'ajout d'une fiche d'entretien
-        String dat = dateFormat.format(actuelle);
 
-        result = (TextView) findViewById(R.id.resultat);
-        result.setText("Bonjour nous sommes le :  " +dat);
-
-
+       // Affichage de la date dans un textview
+        /*result = (TextView) findViewById(R.id.resultat);
+        result.setText("Bonjour nous sommes le :  " +dat);*/
 
         //Création d'une liste d'élément à mettre dans le Spinner
         List exempleList = new ArrayList();
         exempleList.add("Porsche GT3RS");
         exempleList.add("Megane RS");
 
+
+        // Il faut recuperer toute les voitures afin de la selectionner lors de l'ajout
 
 
 
@@ -69,11 +68,33 @@ public class AddFicheEntretien extends GlobalVars {
         TextView result = (TextView)findViewById(R.id.result);
         result.setText(voitureentretien);*/
 
+
+        // Recuperer tous les champs dans la fonction directemenrt
+
+        EditText description = (EditText) findViewById(R.id.decription);
+
+
+        Date actuelle = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); // Recupération de la date pour l'ajout d'une fiche d'entretien
+        String dat = dateFormat.format(actuelle);
+
+        Log.v("Dateactuelle",dat);
+
+
+        String descriptiontxt = description.getText().toString();
+
+        // Voiture à recuperer avec le spinner
+
+
+
+        /*//Methode pour envoyer un mail quand on crée une fiche d'entretien
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("text/plain");
         i.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"mars8.6@hotmail.fr"});
         i.putExtra(Intent.EXTRA_SUBJECT, "Bonjour");
-        startActivity(Intent.createChooser(i, "Test:"));
+        startActivity(Intent.createChooser(i, "Test:"));*/
+
+
     }
 
 

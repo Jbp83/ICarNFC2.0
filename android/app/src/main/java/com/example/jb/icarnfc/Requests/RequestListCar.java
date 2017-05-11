@@ -1,14 +1,9 @@
 package com.example.jb.icarnfc.Requests;
 
-import android.util.Log;
 
 import com.example.jb.icarnfc.common.GlobalVars;
-import com.example.jb.icarnfc.common.UserSessionManager;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-
 import okhttp3.Callback;
 import okhttp3.Request;
 
