@@ -40,10 +40,10 @@ import static com.example.jb.icarnfc.R.id.result;
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
-    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession,photo;
+    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession,photo,idjson;
     UserSessionManager session;
     //ImageView photovoiture;
-    int cv,idjson;
+    int cv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,17 +213,15 @@ public class Mes_voitures extends GlobalVars {
                         marque= object.getString("marque");
                         immatriculation= object.getString("Immatriculation");
                         urlimage = object.getString("Blob");
-                        idjson = object.getInt("id");
+                        idjson = object.getString("id");
                         DateImmat = object.getString("DateImmat");
                         id_proprietaire = object.getString("id_proprietaire");
                         photo=object.getString("Blob");
 
-
-
-
+                        
                         System.out.println("----------------------------");
                         Log.v(getClass().getName(), String.format("cv = %d", cv));
-                        Log.v(getClass().getName(), String.format("id = %d", idjson));
+                        Log.v("idjson", idjson);
                         Log.v("Nom : ",nom);
                         Log.v("Modele :",modele);
                         Log.v("Immatriculation: ",immatriculation);

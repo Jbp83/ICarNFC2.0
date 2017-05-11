@@ -68,6 +68,10 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
             public void onClick(View v) {
                 Log.d("bouton appuyé","id : "+voiture.getId());
 
+                String idselect= voiture.getId();
+
+                Log.v("coucou",idselect);
+
 
             }
         });

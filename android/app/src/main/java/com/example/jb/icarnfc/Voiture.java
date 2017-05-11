@@ -19,11 +19,11 @@ import java.util.Date;
         private String urlimage;
         private String photo;
         private int CV;
-        private int id;
+        private String id;
 
 
 
-    public Voiture(int id_proprietaire, String nom, String immatriculation, String modele, String marque, String dateImmat, String urlimage, int cv, int id) {
+    public Voiture(int id_proprietaire, String nom, String immatriculation, String modele, String marque, String dateImmat, String urlimage, int cv, String id) {
         this.id_proprietaire = id_proprietaire;
         this.nom = nom;
         this.immatriculation = immatriculation;
@@ -102,11 +102,11 @@ import java.util.Date;
         this.urlimage = urlimage;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
