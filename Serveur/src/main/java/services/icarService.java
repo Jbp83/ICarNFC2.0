@@ -109,6 +109,8 @@ public class icarService {
     public String getVoiture(@PathVariable("idVoiture") String idVoiture)
     {
         JSONObject jsonVoiture = new JSONObject();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonvVoitureArray = new JSONArray();
 
 
         //Connection à la base de donnée avec la variable conn
@@ -135,6 +137,9 @@ public class icarService {
                 jsonVoiture.put("DateImmat", resultat.getDate("DateImmat"));
                 jsonVoiture.put("CV", resultat.getString("CV"));
                 jsonVoiture.put("Photo", resultat.getString("Photo"));
+                jsonvVoitureArray.put(jsonVoiture);
+                jsonArray.put("Voiture",jsonvVoitureArray);
+                return jsonArray.toString();
             }
 
             return jsonVoiture.toString();
