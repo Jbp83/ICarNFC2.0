@@ -16,7 +16,7 @@ public class icarService {
     public static Connection getConnection() {
         try {
             String url = "jdbc:mysql://localhost:3306/icarnfc";
-            connection = DriverManager.getConnection(url,"root","root");
+            connection = DriverManager.getConnection(url,"root","");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -154,42 +154,37 @@ public class icarService {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value ="/deleteCar/{idVoiture}")
+    @RequestMapping(method = RequestMethod.POST, value ="/deleteCar/{idVoiture}")
     public String deleteUserCar(@PathVariable("idVoiture") String idVoiture)
     {
-
 
         //Connection à la base de donnée avec la variable conn
         Connection  conn = getConnection();
 
         // On déclare les variables à utiliser
-        Statement statement;
-        ResultSet resultat;
+        PreparedStatement PrepStat;
+        int resultat;
 
         String Req = "DELETE FROM voiture WHERE `id`="+idVoiture +";";
 
-       //Chercher pour sql java delete 
-
-/*        try {
-            statement =  conn.createStatement();
-            resultat = statement.executeQuery(Req);
-
-            if(resultat.next()) {
+      try {
+          PrepStat =  conn.prepareStatement(Req);
+            resultat = PrepStat.executeUpdate();
 
 
-                return "exist";
+              if(resultat == 1)
+              {
+                return "deleted";
             }
             else
             {
-                return "not exist";
+                return "erreur";
             }
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
-
-        return null;
 
     }
 
