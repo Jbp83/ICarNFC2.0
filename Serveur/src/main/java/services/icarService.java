@@ -3,10 +3,7 @@ package services;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
 
@@ -107,6 +104,50 @@ public class icarService {
 
 
     }
+
+    @RequestMapping(method = RequestMethod.GET, value ="/voiture/{idVoiture}")
+    public String getVoiture(@PathVariable("idVoiture") String idVoiture)
+    {
+        JSONObject jsonVoiture = new JSONObject();
+
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultat;
+        String Req;
+        Req = "SELECT * FROM voiture WHERE `id`="+idVoiture +";";
+
+        try {
+            statement = conn.createStatement();
+            resultat = statement.executeQuery(Req);
+
+            while (resultat.next()) {
+                jsonVoiture.put("id", resultat.getInt("id"));
+                jsonVoiture.put("guid", resultat.getString("guid"));
+                jsonVoiture.put("id_proprietaire", resultat.getInt("id_proprietaire"));
+                jsonVoiture.put("Immatriculation", resultat.getString("Immatriculation"));
+                jsonVoiture.put("nom", resultat.getString("nom"));
+                jsonVoiture.put("marque", resultat.getString("marque"));
+                jsonVoiture.put("modele", resultat.getString("modele"));
+                jsonVoiture.put("DateImmat", resultat.getDate("DateImmat"));
+                jsonVoiture.put("CV", resultat.getString("CV"));
+                jsonVoiture.put("Photo", resultat.getString("Photo"));
+            }
+
+            return jsonVoiture.toString();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     @RequestMapping(method = RequestMethod.GET, value ="/ficheEntretien")
     public String getEntretien(@RequestParam("UserMail") String UserMail,@RequestParam("id_etablissement") String id_etablissement)
