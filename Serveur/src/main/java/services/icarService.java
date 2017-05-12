@@ -154,8 +154,8 @@ public class icarService {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value ="/deleteCar/{idVoiture}")
-    public String deleteUserCar(@PathVariable("idVoiture") String idVoiture)
+    @RequestMapping(method = RequestMethod.POST, value ="/deleteCar")
+    public String deleteUserCar(@RequestParam("idVoiture") String idVoiture)
     {
 
         //Connection à la base de donnée avec la variable conn
@@ -537,12 +537,6 @@ public class icarService {
         }
 
     }
-
-
-
-
-
-
 
 
     @RequestMapping("/")

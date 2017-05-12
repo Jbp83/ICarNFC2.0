@@ -167,8 +167,6 @@ public class SignUp extends GlobalVars {
             formBuilder.add("Avatar", img);
 
 
-
-
             RequestBody formBody = formBuilder.build();
 
             Request request = new Request.Builder()
