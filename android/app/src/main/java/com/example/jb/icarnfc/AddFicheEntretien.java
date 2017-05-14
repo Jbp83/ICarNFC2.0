@@ -2,33 +2,30 @@ package com.example.jb.icarnfc;
 
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.RequiresApi;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.jb.icarnfc.Requests.RequestEtablissement;
-import com.example.jb.icarnfc.Requests.RequestInfoCar;
-import com.example.jb.icarnfc.Requests.RequestListCar;
 import com.example.jb.icarnfc.Requests.RequestListCarDb;
 import com.example.jb.icarnfc.common.GlobalVars;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -36,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -44,22 +40,21 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import static android.R.layout.simple_spinner_item;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class AddFicheEntretien extends GlobalVars {
 
-    Spinner spinner;
     String IdVoiture,Marque,Modele;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fiche_entretien);
 
-        //Création d'une liste d'élément à mettre dans le Spinner
-        List exempleList = new ArrayList();
-        exempleList.add("Porsche GT3RS");
-        exempleList.add("Megane RS");
+
+
 
 
         // Il faut recuperer toute les voitures afin de la selectionner lors de l'ajout
@@ -109,13 +104,21 @@ public class AddFicheEntretien extends GlobalVars {
                 public void onResponse(Call call, Response response) throws IOException {
                     String ReponseVoiture = response.body().string();
 
-                    Log.v("id", ReponseVoiture);
+                    Log.v("StringVoiture", ReponseVoiture);
 
 
                     try {
 
                         JSONObject Jobject = new JSONObject(ReponseVoiture);
-                        JSONArray Jarray = Jobject.getJSONArray("Entreprise");
+                        JSONArray Jarray = Jobject.getJSONArray("Cars");
+
+                        spinner = (Spinner) findViewById(R.id.spinnervoiture);
+                        List<String> list = new ArrayList<String>();
+
+
+
+
+
 
                         for (int i = 0; i < Jarray.length(); i++) {
                             JSONObject object = Jarray.getJSONObject(i);
@@ -124,16 +127,27 @@ public class AddFicheEntretien extends GlobalVars {
                             Modele = object.getString("Modele");
 
 
-                            Log.v("id : ", IdVoiture);
+                            /*Log.v("id : ", IdVoiture);
                             Log.v("Marque :", Marque);
-                            Log.v("Modele :", Modele);
+                            Log.v("Modele :", Modele);*/
 
-                            Spinner spinner = (Spinner) findViewById(R.id.spinnervoiture);
-                            // remplir le spinner dans la boucle
+                            list.add(Marque+" "+Modele);
 
-                            // Insertion des valeurs dans le spinner pour la selection de la voiture lors de l'ajout d'un entretien
 
                         }
+
+                        final ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(AddFicheEntretien.this, simple_spinner_item, list);
+                        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+                        AddFicheEntretien.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run()
+                            {
+                                spinner.setAdapter(dataAdapter); // Ajout d'un thread pour l'insertion dans le spinner
+                            }
+
+                            });
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -242,5 +256,6 @@ public class AddFicheEntretien extends GlobalVars {
 
 
     }
+
 
 }

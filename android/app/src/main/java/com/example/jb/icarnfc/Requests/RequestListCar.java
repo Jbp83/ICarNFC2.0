@@ -35,8 +35,8 @@ public class RequestListCar  extends GlobalVars{
 
 
 
-        mail="mars8.6@hotmail.fr";
-        String urlUserCar = IPSERVEUR + "/userCars?UserMail="+mail;
+        //mail="mars8.6@hotmail.fr";
+        String urlUserCar = IPSERVEUR + "/CarsDb";
 
         System.out.println(urlUserCar);
 
