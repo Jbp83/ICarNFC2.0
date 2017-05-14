@@ -53,13 +53,6 @@ public class AddFicheEntretien extends GlobalVars {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fiche_entretien);
 
-
-
-
-
-        // Il faut recuperer toute les voitures afin de la selectionner lors de l'ajout
-
-
         Button button= (Button) findViewById(R.id.addentretien);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +97,7 @@ public class AddFicheEntretien extends GlobalVars {
                 public void onResponse(Call call, Response response) throws IOException {
                     String ReponseVoiture = response.body().string();
 
-                    Log.v("StringVoiture", ReponseVoiture);
+                   // Log.v("StringVoiture", ReponseVoiture);
 
 
                     try {
@@ -115,14 +108,12 @@ public class AddFicheEntretien extends GlobalVars {
                         spinner = (Spinner) findViewById(R.id.spinnervoiture);
                         List<String> list = new ArrayList<String>();
 
-
-
-
-
-
                         for (int i = 0; i < Jarray.length(); i++) {
                             JSONObject object = Jarray.getJSONObject(i);
                             IdVoiture = object.getString("id");
+
+
+                            int idcar = new Integer(IdVoiture);
                             Marque = object.getString("Marque");
                             Modele = object.getString("Modele");
 
@@ -132,7 +123,7 @@ public class AddFicheEntretien extends GlobalVars {
                             Log.v("Modele :", Modele);*/
 
                             list.add(Marque+" "+Modele);
-
+                           // spinner.setId(idcar);
 
                         }
 
@@ -194,11 +185,16 @@ public class AddFicheEntretien extends GlobalVars {
         FormBody.Builder formBuilder = new FormBody.Builder()
                 .add("description", descriptiontxt);
 
-
-
-        // dynamically add more parameter like this:
-
+        int idvoitureentretien = 1;
+        int idetablissement =2;
+        int idutilisateur=3;
+        int id_mecanicien=34;
         formBuilder.add("date_creation", dat);
+        formBuilder.add("id_voiture", String.valueOf(idvoitureentretien));
+        formBuilder.add("id_etablissement", String.valueOf(idetablissement));
+        formBuilder.add("id_utilisateur", String.valueOf(idutilisateur));
+        formBuilder.add("id_mecanicien", String.valueOf(id_mecanicien));
+
 
         //todo ajouter les champs manquants
 

@@ -26,5 +26,7 @@ public class GlobalVars extends AppCompatActivity {
     public static final String PREFS_MAIL = "mail";
     //public String mail="mars";
 
+    // TODO: 15/05/2017 Recuperer les variables de session
+
 
     }
