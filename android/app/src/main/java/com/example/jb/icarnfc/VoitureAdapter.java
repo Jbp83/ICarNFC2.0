@@ -6,25 +6,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -89,7 +79,7 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
                 Log.d("bouton appuyé","id : "+voiture.getId());
 
                 String idselect= voiture.getId();
-                Log.v("coucou",idselect);
+                Log.v("iditemlistview",idselect);
 
                 Intent myIntent = new Intent (activity.getBaseContext(), Infos_car.class);
                 activity.startActivity(myIntent);
@@ -101,13 +91,9 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
             public void onClick(View v)
             {
 
-                Log.d("bouton appuyé","id : "+voiture.getId());
-                idselect= voiture.getId();
+                Log.v("bouton appuyé","id : "+voiture.getId()); // On recupere l'id de la voiture selectionné
+                idselect= voiture.getId(); // On met l'id dans un variable de type string
                 Log.v("delete",idselect);
-                //DeleteCar(idselect);
-
-               /* Intent myIntent = new Intent (activity.getBaseContext(), Infos_car.class);
-                activity.finishActivity(5);*/
 
 
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -116,10 +102,10 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
 
-                                DeleteCar(idselect);
+                                DeleteCar(idselect); // Si on appuie sur le DialogAlert sur oui on supprime l'item donc la voiture
                                 break;
 
-                            case DialogInterface.BUTTON_NEGATIVE:
+                            case DialogInterface.BUTTON_NEGATIVE: // Sinon on ne fait rien
                                 //No button clicked
                                 break;
                         }
@@ -128,7 +114,7 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setMessage("Etes vous sur de vouloir supprimer cette voiture ?").setPositiveButton("Oui", dialogClickListener)
-                        .setNegativeButton("Non", dialogClickListener).show();
+                        .setNegativeButton("Non", dialogClickListener).show(); // Message d'alerte si on supprime ou non la voiture
 
             }
         });
@@ -173,7 +159,6 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
 
             }
         });
-
 
 
         activity.finish();

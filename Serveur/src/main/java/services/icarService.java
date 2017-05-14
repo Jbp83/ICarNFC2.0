@@ -143,6 +143,53 @@ public class icarService {
             }
 
             return jsonVoiture.toString();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value ="/ficheentretien/{identretien}")
+    public String getFiche(@PathVariable("identretien") String identretien)
+    {
+        JSONObject jsonFiche = new JSONObject();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonFicheArray = new JSONArray();
+
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultat;
+        String Req;
+        Req = "SELECT * FROM entretien WHERE `id`="+identretien +";";
+
+        try {
+            statement = conn.createStatement();
+            resultat = statement.executeQuery(Req);
+
+            while (resultat.next()) {
+                jsonFiche.put("id", resultat.getInt("id"));
+                jsonFiche.put("date_creation", resultat.getString("date_creation"));
+                jsonFiche.put("id_voiture", resultat.getInt("id_voiture"));
+                jsonFiche.put("id_etablissement", resultat.getString("id_etablissement"));
+                jsonFiche.put("iddetailentretien", resultat.getInt("IdDetailEntretien"));
+                jsonFiche.put("detailentretien", resultat.getString("detail_entretien"));
+                jsonFiche.put("id", resultat.getInt("idmecanicien"));
+                jsonFicheArray.put(jsonFiche);
+                jsonArray.put("Entretien",jsonFicheArray);
+                return jsonArray.toString();
+            }
+
+            return jsonFiche.toString();
+
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
@@ -183,7 +230,6 @@ public class icarService {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 
@@ -232,7 +278,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/addEntretien")
-    public String PostEntretiens(@RequestParam("date_creation") Date date_creation, @RequestParam("id_voiture") int id_voiture,@RequestParam("id_etablissement") int id_etablissement,@RequestParam("id_utilisateur") int id_utilisateur,@RequestParam("description") String description)
+    public String PostEntretiens(@RequestParam("date_creation") Date date_creation, @RequestParam("id_voiture") int id_voiture,@RequestParam("id_etablissement") int id_etablissement,@RequestParam("id_utilisateur") int id_utilisateur,@RequestParam("description") String description, @RequestParam("id_mecanicien") int idmecanicien)
     {
         //Connection à la base de donnée avec la variable conn
         Connection  conn = getConnection();
@@ -241,18 +287,17 @@ public class icarService {
         PreparedStatement PrepStat;
         String Req;
 
-        Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur, detail_entretien) VALUES ( ?, ?, ?, ?,?)";
+        Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur, detail_entretien) VALUES ( ?, ?, ?, ?,?,?)";
 
 
         try {
-
             PrepStat = conn.prepareStatement(Req);
-
             PrepStat.setDate(1,date_creation);
             PrepStat.setInt(2,id_voiture);
             PrepStat.setInt(3,id_etablissement);
             PrepStat.setInt(4,id_utilisateur);
             PrepStat.setString(5,description);
+            PrepStat.setInt(6,idmecanicien);
 
 
             int created = PrepStat.executeUpdate();
@@ -266,8 +311,6 @@ public class icarService {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
 
@@ -362,6 +405,63 @@ public class icarService {
             }
             else
             {
+                return "error cannot load company";
+            }
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return "fail to load company";
+    }
+
+
+
+    @RequestMapping(method = RequestMethod.GET, value ="/CarsDb")
+    public String GetCarsDb()
+    {
+
+        JSONArray CarsDb = new JSONArray();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonNOM = new JSONArray();
+
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultats;
+        String Req;
+        Req = "SELECT * FROM voiture;";
+
+        try {
+            statement =  conn.createStatement();
+            resultats = statement.executeQuery(Req);
+
+
+            if(resultats.next())
+            {
+                resultats.previous();
+
+                while(resultats.next()) {
+                    JSONObject jsonEnt = new JSONObject();
+                    jsonEnt.put("id",resultats.getString("id"));
+                    jsonEnt.put("Marque",resultats.getString("marque"));
+                    jsonEnt.put("Modele",resultats.getString("modele"));
+                    CarsDb.put(jsonEnt);
+                    jsonNOM.put(jsonEnt);
+                    jsonArray.put("Cars",jsonNOM);
+                }
+
+                return jsonArray.toString();
+            }
+            else
+            {
                 return "error cannot load cars";
             }
 
@@ -375,7 +475,6 @@ public class icarService {
 
         return "fail to load cars";
     }
-
 
 
 

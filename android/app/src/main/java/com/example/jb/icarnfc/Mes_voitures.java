@@ -118,56 +118,6 @@ public class Mes_voitures extends GlobalVars {
         });*/
 
 
-
-
-
-
-    }
-
-    public void DeleteCar(View v)
-    {
-
-        Toast.makeText(v.getContext(), "The favorite list would appear on clicking this icon", Toast.LENGTH_LONG).show();
-
-
-    }
-
-
-    private void DeleteCar(String id) {
-        try {
-            RequestInfoCar infocar = new RequestInfoCar();
-            infocar.getInfosCar(id, new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String ReponseReq = response.body().string();
-
-                    Log.v("id", ReponseReq);
-
-                    if (ReponseReq.equals("Supprimer"))
-                    {
-                        Toast.makeText(Mes_voitures.this, "Voiture Supprimer", Toast.LENGTH_LONG).show();
-                        //Rediriger ensuite vers mes voitures
-                    }
-
-                    if (ReponseReq.equals("error"))
-                    {
-                        Toast.makeText(Mes_voitures.this, "Erreur lors de la suppression", Toast.LENGTH_LONG).show();
-                        //Rediriger ensuite vers mes voitures
-                    }
-
-                        }
-
-
-
-            });
-        } catch (InterruptedException | IOException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -200,7 +150,7 @@ public class Mes_voitures extends GlobalVars {
             public void onResponse(Call call, Response response) throws IOException {
 
                 String infosProfil = response.body().string();
-                Log.v("InfosProfil",infosProfil);
+                //Log.v("InfosProfil",infosProfil);
 
                 try {
 
@@ -222,8 +172,7 @@ public class Mes_voitures extends GlobalVars {
                         photo=object.getString("Blob");
 
 
-
-                        System.out.println("----------------------------");
+                        /*System.out.println("----------------------------");
                         Log.v(getClass().getName(), String.format("cv = %d", cv));
                         Log.v("idjson", idjson);
                         Log.v("Nom : ",nom);
@@ -231,20 +180,16 @@ public class Mes_voitures extends GlobalVars {
                         Log.v("Immatriculation: ",immatriculation);
                         Log.v("blob: ",urlimage);
                         Log.v("DateImmat :",DateImmat);
-                        Log.v("id_proprietaire : ",id_proprietaire);
+                        Log.v("id_proprietaire : ",id_proprietaire);*/
                         voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat,urlimage,cv,idjson));
+
 
                         /*String[] separated = photo.split(",");
                         final String s = separated[1];// this will contain "Fruit"
-
                         Log.v("coup",s);
-
                         byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
                         Log.v("Bitmap",decodedByte);
-
-
                         avatar.setImageBitmap(decodedByte);*/
 
 

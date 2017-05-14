@@ -29,7 +29,7 @@ import okhttp3.Response;
 
 public class Infos_car extends AppCompatActivity {
 
-    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,photo;
+    String nom,modele,immatriculation,DateImmat,id_proprietaire,marque,photo;
     int cv,idjson;
     ImageView imageView;
 
@@ -39,7 +39,7 @@ public class Infos_car extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
 
-        final String iddefault ="7";
+        final String iddefault ="9";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infos_car);
 
@@ -50,8 +50,6 @@ public class Infos_car extends AppCompatActivity {
         textView.setText(idea);
 
         imageView = (ImageView) findViewById(R.id.photo);
-
-        //String id ="1";
 
         Infos_car.this.runOnUiThread(new Runnable() {
             @Override
@@ -103,24 +101,21 @@ public class Infos_car extends AppCompatActivity {
                                 Log.v("Photo","Pas de photo");
                             }
 
-                            else {
+                            else
+                                {
 
-
-
-
-
-                                Infos_car.this.runOnUiThread(new Runnable() {
+                                    Infos_car.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
 
-                                        String[] separated = photo.split(","); // on recupere tout les donnes apres ces caractères.
-                                        final String s = separated[1];
+                                    String[] separated = photo.split(","); // on recupere tout les donnes apres ces caractères.
+                                    final String s = separated[1];
 
-                                        Log.v("coup",s);
+                                    Log.v("coup",s);
 
-                                        byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
-                                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                                        imageView.setImageBitmap(decodedByte);
+                                    byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
+                                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                    imageView.setImageBitmap(decodedByte);
 
                                     }
 
