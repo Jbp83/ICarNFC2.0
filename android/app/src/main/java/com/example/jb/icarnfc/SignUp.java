@@ -263,9 +263,11 @@ public class SignUp extends GlobalVars {
                     Log.d("Choose Picture", path);
                     //Transformer la photo en Bitmap
                     Bitmap bitmap = BitmapFactory.decodeFile(path);
+
+
                     //Afficher le Bitmap
-                    mImageView.setVisibility(View.VISIBLE);
-                    mImageView.setImageBitmap(bitmap);
+                    //mImageView.setVisibility(View.VISIBLE);
+                    //mImageView.setImageBitmap(bitmap);
 
 
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

@@ -69,10 +69,7 @@ public class ReadTag extends AppCompatActivity {
 
     }
 
-    public void onPause() {
-        super.onPause();
-        nfcAdapter.disableForegroundDispatch(this);
-    }
+
 
     public void onNewIntent(Intent intent) {
         String action = intent.getAction();
