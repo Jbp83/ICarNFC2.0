@@ -31,7 +31,6 @@ import org.json.JSONObject;
 public class MainActivity extends GlobalVars {
 
 
-    private static final String TAG = "Password md5" ;
     TextView txtString;
     String status,idrequest;
     UserSessionManager session;
@@ -71,6 +70,8 @@ public class MainActivity extends GlobalVars {
 
         lblName.setText(Html.fromHtml("Name: <b>" + id + "</b>"));
         lblEmail.setText(Html.fromHtml("Email: <b>" + email + "</b>"));
+
+
 
 
         Button button= (Button) findViewById(R.id.button);
@@ -116,7 +117,6 @@ public class MainActivity extends GlobalVars {
     }
 
 
-
     void SignUp() throws IOException
     {
         Intent myIntent = new Intent(getBaseContext(), SelectStatus.class);
@@ -138,9 +138,7 @@ public class MainActivity extends GlobalVars {
 
         if(mailtxt.matches("") || passwordtxt.matches(""))
         {
-
            Toast.makeText(MainActivity.this, "Les champs ne sont pas tous remplis", Toast.LENGTH_LONG).show();
-
 
         } else
 
@@ -149,7 +147,7 @@ public class MainActivity extends GlobalVars {
             MD5 md5 = new MD5();
             String pwdmd5= MD5.crypt(passwordtxt);
 
-            Log.v(TAG,pwdmd5);
+            Log.v("md5crypt",pwdmd5);
 
             FormBody.Builder formBuilder = new FormBody.Builder()
                     .add("UserMail", mailtxt);
@@ -170,7 +168,6 @@ public class MainActivity extends GlobalVars {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-
 
                     call.cancel();
                 }

@@ -53,7 +53,7 @@ tools:context="com.example.jb.icarnfc.MainActivity">
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="mars8.6@hotmail.fr" />
+                android:text="particulier" />
 
 
 

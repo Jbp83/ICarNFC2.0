@@ -49,6 +49,7 @@ public class icarService {
 
                 jsonLogin.put("id", resultats.getString("id"));
                 jsonLogin.put("status", resultats.getString("status"));
+                jsonLogin.put("identreprise", resultats.getString("id_etablissement"));
                 jsonUser.put(jsonLogin);
                 jsonArray.put("User",jsonUser);
                 return jsonArray.toString();

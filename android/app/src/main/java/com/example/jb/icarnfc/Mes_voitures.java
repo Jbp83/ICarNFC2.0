@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.example.jb.icarnfc.R.id.avatar;
+import static com.example.jb.icarnfc.R.id.login;
 
 public class Mes_voitures extends GlobalVars {
 
@@ -41,14 +42,9 @@ public class Mes_voitures extends GlobalVars {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mes_voitures);
-        //setContentView(R.layout.row_car);
         photovoiture = (ImageView) findViewById(avatar);
-        //photovoiture.setImageDrawable(null);
-
-
 
         session = new UserSessionManager(getApplicationContext());
-
 
         Button button= (Button) findViewById(R.id.addcar);
         button.setOnClickListener(new View.OnClickListener() {
@@ -64,10 +60,7 @@ public class Mes_voitures extends GlobalVars {
         mListView = (ListView) findViewById(R.id.listView);
 
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
-
-
-
-        String mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
+        //String mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
 
 
         // get user data from session
@@ -90,25 +83,6 @@ public class Mes_voitures extends GlobalVars {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-        /*mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-
-               TextView textView = (TextView) findViewById(R.id.idvoiture);
-                String test= textView.getText().toString();
-
-
-                Intent myIntent = new Intent(getBaseContext(), Infos_car.class);
-
-                startActivity(myIntent);
-
-
-            }
-        });*/
 
 
     }
@@ -140,14 +114,16 @@ public class Mes_voitures extends GlobalVars {
     }
 
 
-
     private List <Voiture> GenererVoiture() throws InterruptedException, NoSuchAlgorithmException, IOException
 
     {
 
         final List<Voiture> voituretest = new ArrayList<Voiture>();
-        RequestListCarUser test = new RequestListCarUser();
-        test.getCarsUser(emailsession, new Callback() {
+        RequestListCarUser listuser = new RequestListCarUser();
+
+        Log.v("emailsession",emailsession);
+
+        listuser.getCarsUser(emailsession, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
