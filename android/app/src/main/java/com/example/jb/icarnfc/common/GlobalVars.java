@@ -1,7 +1,7 @@
 package com.example.jb.icarnfc.common;
 
 
-import android.content.Context;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +15,7 @@ import okhttp3.OkHttpClient;
 public class GlobalVars extends AppCompatActivity {
 
 
-        public static final String IPSERVEUR="http://10.136.124.93:8080";
+        public static final String IPSERVEUR="http:/172.20.10.4:8080";
         public static final String MY_PREFS_NAME = "MyPrefsFile";
 
         public OkHttpClient okHttpClient = new OkHttpClient();

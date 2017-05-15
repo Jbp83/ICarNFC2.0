@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +38,7 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
 
     private Activity activity;
     String idselect;
+
 
     //tweets est la liste des models à afficher
     public VoitureAdapter(Context context, List<Voiture> voitures, Activity activity) {
@@ -70,7 +74,12 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
 
         viewHolder.modele.setText(voiture.getModele());
         viewHolder.immatriculation.setText(voiture.getImmatriculation());
-        viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
+        String[] separated = voiture.getPhoto().split(",");
+        final String s = separated[1];
+        Log.v("coup",s); // On recupere la chaine aprss la virgule
+        byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        viewHolder.avatar.setImageBitmap(decodedByte);
         viewHolder.marque.setText(String.valueOf(voiture.getMarque()));
         viewHolder.id.setText(String.valueOf(voiture.getId()));
         viewHolder.BtnInfo.setOnClickListener(new View.OnClickListener() {

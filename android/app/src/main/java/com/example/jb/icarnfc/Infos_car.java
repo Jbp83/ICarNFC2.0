@@ -42,10 +42,12 @@ public class Infos_car extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
 
-        final String iddefault ="1";
-        //final String iddefault = (String) getIntent().getSerializableExtra("idvoitureselect");
+        //final String iddefault ="1";
+        final String iddefault = (String) getIntent().getSerializableExtra("idvoitureselect");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infos_car);
+
+        Log.v("tube",iddefault);
 
 
         Intent intent = getIntent();
