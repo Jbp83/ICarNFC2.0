@@ -143,7 +143,6 @@ public class MainActivity extends GlobalVars {
         } else
 
         {
-
             MD5 md5 = new MD5();
             String pwdmd5= MD5.crypt(passwordtxt);
 

@@ -60,7 +60,7 @@ public class Mes_voitures extends GlobalVars {
         mListView = (ListView) findViewById(R.id.listView);
 
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
-        //String mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
+        mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
 
 
         // get user data from session
@@ -123,7 +123,7 @@ public class Mes_voitures extends GlobalVars {
 
         Log.v("emailsession",emailsession);
 
-        listuser.getCarsUser(emailsession, new Callback() {
+        listuser.getCarsUser(mailparticulier, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -134,7 +134,7 @@ public class Mes_voitures extends GlobalVars {
             public void onResponse(Call call, Response response) throws IOException {
 
                 String infosProfil = response.body().string();
-                //Log.v("InfosProfil",infosProfil);
+                Log.v("InfosProfil",infosProfil);
 
                 try {
 
@@ -168,12 +168,7 @@ public class Mes_voitures extends GlobalVars {
 
                         // Variable session
 
-
-
-
                         voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat, photo,cv,idjson));
-
-
 
 
                         //Log.v("Bitmap",s);
