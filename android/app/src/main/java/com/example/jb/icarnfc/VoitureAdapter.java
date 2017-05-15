@@ -81,7 +81,9 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
                 String idselect= voiture.getId();
                 Log.v("iditemlistview",idselect);
 
+
                 Intent myIntent = new Intent (activity.getBaseContext(), Infos_car.class);
+                myIntent.putExtra("idvoitureselect",idselect);
                 activity.startActivity(myIntent);
 
             }
