@@ -14,9 +14,9 @@ import okhttp3.Request;
 
 public class RequestScanPro extends GlobalVars{
 
-    public void checkguid(String GUID, Callback callback) throws NoSuchAlgorithmException, IOException, InterruptedException {
+    public void GetCarGuid(String GUID, Callback callback) throws NoSuchAlgorithmException, IOException, InterruptedException {
 
-        String urlInfosProfil = IPSERVEUR +"/checkguid";
+        String urlInfosProfil = IPSERVEUR +"/GetCarWithGuid";
         String urlParams = "?GUID="+GUID;
 
 

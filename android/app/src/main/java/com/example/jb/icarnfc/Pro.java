@@ -24,7 +24,7 @@ public class Pro extends GlobalVars {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getBaseContext(), ReadTag.class);
+                Intent myIntent = new Intent(getBaseContext(), ReadTagPro.class);
                 startActivity(myIntent);
             }
         });

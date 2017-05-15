@@ -48,9 +48,4 @@ public class GlobalVars extends AppCompatActivity {
         }
 
 
-
-
-
-        //editor.commit();
-
 }

@@ -11,12 +11,14 @@ import android.nfc.NfcManager;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Parcelable;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.jb.icarnfc.Requests.RequestCheckGuid;
+import com.example.jb.icarnfc.Requests.RequestScanPro;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -107,7 +109,7 @@ public class ReadTagPro extends AppCompatActivity {
 
         //Toast.makeText(ReadTag.this, strr, Toast.LENGTH_LONG).show();
 
-        CheckGuidBDD(strr);
+        ScanCarGuid(strr);
 
 
         //Log.i("GUID", strr + " / " + String.valueOf(strr));
@@ -142,10 +144,10 @@ public class ReadTagPro extends AppCompatActivity {
 
     }
 
-    private void CheckGuidBDD(String guid) {
+    private void ScanCarGuid(String guid) {
         try {
-            RequestCheckGuid checkGuid = new RequestCheckGuid();
-            checkGuid.checkguid(guid, new Callback() {
+            RequestScanPro checkGuid = new RequestScanPro();
+            checkGuid.GetCarGuid(guid, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();
@@ -155,27 +157,41 @@ public class ReadTagPro extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     String Reponse = response.body().string();
 
-                    Log.v("Guid", Reponse);
 
+                    if (Reponse.equals("error car not found"))
+                    {
+                       // Log.v("Reponse",Reponse);
 
-                    if (Reponse.equals("exist")) {
 
 
                         ReadTagPro.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ReadTagPro.this, "Cette voiture appartient deja à un propretaire", Toast.LENGTH_LONG).show();
-                            }
 
+                                Toast.makeText(ReadTagPro.this, "Le tag n'appartient à aucune voiture", Toast.LENGTH_LONG).show();
+
+                            }
+                            });
+                        //Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
+                        //startActivity(myIntent);
+                    }
+
+                    else
+                    {
+
+                        ReadTagPro.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Toast.makeText(ReadTagPro.this, "Il existe une voiture dans la db avec ce guid", Toast.LENGTH_LONG).show();
+
+                            }
                         });
 
+                        //Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
+                        //startActivity(myIntent);
+                    }
 
-                    }
-                    if (Reponse.equals("not exist")) {
-                        Intent myIntent = new Intent(getBaseContext(), Add_car.class);
-                        myIntent.putExtra("guid", strr);
-                        startActivity(myIntent);
-                    }
 
 
                 }
