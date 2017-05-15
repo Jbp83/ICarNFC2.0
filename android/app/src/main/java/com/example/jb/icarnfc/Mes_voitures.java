@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.jb.icarnfc.Object.Voiture;
 import com.example.jb.icarnfc.Requests.RequestListCarUser;
@@ -27,15 +29,16 @@ import org.json.JSONObject;
 
 import static com.example.jb.icarnfc.R.id.avatar;
 import static com.example.jb.icarnfc.R.id.login;
+import static com.example.jb.icarnfc.R.id.nocar;
 
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
     String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession,photo,idjson;
-    UserSessionManager session;
     int cv;
     ImageView photovoiture;
     List<Voiture> voitures;
+    TextView message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,9 @@ public class Mes_voitures extends GlobalVars {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mes_voitures);
         photovoiture = (ImageView) findViewById(avatar);
+        message =(TextView)findViewById(nocar);
 
-        session = new UserSessionManager(getApplicationContext());
+        //session = new UserSessionManager(getApplicationContext());
 
         Button button= (Button) findViewById(R.id.addcar);
         button.setOnClickListener(new View.OnClickListener() {
@@ -61,17 +65,6 @@ public class Mes_voitures extends GlobalVars {
 
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
         mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
-
-
-        // get user data from session
-        HashMap<String, String> user = session.getUserDetails();
-
-        // get id User
-        idsession = user.get(UserSessionManager.KEY_ID);
-
-        // get email
-        emailsession = user.get(UserSessionManager.KEY_EMAIL);
-
 
 
         try {
@@ -106,11 +99,9 @@ public class Mes_voitures extends GlobalVars {
 
 
   private void afficherListeVoitures() throws InterruptedException, NoSuchAlgorithmException, IOException {
-
-
+      
         VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures,this);
         mListView.setAdapter(adapter);
-
     }
 
 
@@ -121,7 +112,7 @@ public class Mes_voitures extends GlobalVars {
         final List<Voiture> voituretest = new ArrayList<Voiture>();
         RequestListCarUser listuser = new RequestListCarUser();
 
-        Log.v("emailsession",emailsession);
+        //Log.v("emailsession",emailsession);
 
         listuser.getCarsUser(mailparticulier, new Callback() {
             @Override
@@ -134,65 +125,76 @@ public class Mes_voitures extends GlobalVars {
             public void onResponse(Call call, Response response) throws IOException {
 
                 String infosProfil = response.body().string();
-                Log.v("InfosProfil",infosProfil);
-
-                try {
-
-                    JSONObject Jobject = new JSONObject(infosProfil);
-                    JSONArray Jarray = Jobject.getJSONArray("Cars");
-
-                    for (int i = 0; i < Jarray.length(); i++)
-                    {
-                        JSONObject object     = Jarray.getJSONObject(i);
-                        nom=object.getString("nom");
-                        cv=object.getInt("CV");
-                        modele = object.getString("modele");
-                        marque= object.getString("marque");
-                        immatriculation= object.getString("Immatriculation");
-                        urlimage = object.getString("Blob");
-                        idjson = object.getString("id");
-                        DateImmat = object.getString("DateImmat");
-                        id_proprietaire = object.getString("id_proprietaire");
-                        photo=object.getString("Blob");
 
 
-                        System.out.println("----------------------------");
-                        Log.v(getClass().getName(), String.format("cv = %d", cv));
-                        Log.v("idjson", idjson);
-                        Log.v("Nom : ",nom);
-                        Log.v("Modele :",modele);
-                        Log.v("Immatriculation: ",immatriculation);
-                        Log.v("blob: ",urlimage);
-                        Log.v("DateImmat :",DateImmat);
-                        Log.v("id_proprietaire : ",id_proprietaire);
+                if(infosProfil.equals("error cannot load cars"))
+                {
+                    Log.v("nbvoiture","Pas de voiture");
+                    message.setVisibility(View.VISIBLE);
 
-                        // Variable session
+                }
 
-                        voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat, photo,cv,idjson));
+                else {
+
+                    Log.v("InfosProfil",infosProfil);
+
+                    try {
+
+                        JSONObject Jobject = new JSONObject(infosProfil);
+                        JSONArray Jarray = Jobject.getJSONArray("Cars");
+
+                        for (int i = 0; i < Jarray.length(); i++) {
+                            JSONObject object = Jarray.getJSONObject(i);
+                            nom = object.getString("nom");
+                            cv = object.getInt("CV");
+                            modele = object.getString("modele");
+                            marque = object.getString("marque");
+                            immatriculation = object.getString("Immatriculation");
+                            urlimage = object.getString("Blob");
+                            idjson = object.getString("id");
+                            DateImmat = object.getString("DateImmat");
+                            id_proprietaire = object.getString("id_proprietaire");
+                            photo = object.getString("Blob");
 
 
-                        //Log.v("Bitmap",s);
+                            System.out.println("----------------------------");
+                            Log.v(getClass().getName(), String.format("cv = %d", cv));
+                            Log.v("idjson", idjson);
+                            Log.v("Nom : ", nom);
+                            Log.v("Modele :", modele);
+                            Log.v("Immatriculation: ", immatriculation);
+                            Log.v("blob: ", urlimage);
+                            Log.v("DateImmat :", DateImmat);
+                            Log.v("id_proprietaire : ", id_proprietaire);
 
-                    }
+                            // Variable session
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                afficherListeVoitures();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (NoSuchAlgorithmException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            voituretest.add(new Voiture(i, nom, immatriculation, modele, marque, DateImmat, photo, cv, idjson));
+
+
+                            //Log.v("Bitmap",s);
 
                         }
-                    });
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    afficherListeVoitures();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (NoSuchAlgorithmException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }

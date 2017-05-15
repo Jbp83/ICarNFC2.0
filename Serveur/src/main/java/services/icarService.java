@@ -392,9 +392,8 @@ public class icarService {
             statement =  conn.createStatement();
             resultats = statement.executeQuery(Req);
 
-            if(resultats.next()) {
-
-
+            if(resultats.next())
+            {
                 return "User Already exist";
             }
             else

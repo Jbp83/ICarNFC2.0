@@ -18,9 +18,6 @@ public class GlobalVars extends AppCompatActivity {
         public static final String PREFS_MAIL = "";
         public static final String PREFS_IDUSER = "";
 
-
-
-
         public SharedPreferences sharedPreferences;
         public SharedPreferences.Editor editor;
 

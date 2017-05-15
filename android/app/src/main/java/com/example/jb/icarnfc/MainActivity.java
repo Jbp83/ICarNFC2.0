@@ -2,7 +2,6 @@ package com.example.jb.icarnfc;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
-import java.util.HashMap;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -22,7 +20,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.MD5;
-import com.example.jb.icarnfc.common.UserSessionManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,46 +30,13 @@ public class MainActivity extends GlobalVars {
 
     TextView txtString;
     String status,idrequest;
-    UserSessionManager session;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        // User Session Manager
-        session = new UserSessionManager(getApplicationContext());
-
-
-        // On verifie si l'utilisateur est logué ou non
-       /* if(session.checkLogin())
-            finish();*/
-
-
-        // get user data from session
-        HashMap<String, String> user = session.getUserDetails();
-
-        // get id User
-        String id = user.get(UserSessionManager.KEY_ID);
-
-        // get email
-        String email = user.get(UserSessionManager.KEY_EMAIL);
-
-
-
-        TextView lblName = (TextView) findViewById(R.id.lblName);
-        TextView lblEmail = (TextView) findViewById(R.id.lblEmail);
-        //btnLogout = (Button) findViewById(R.id.btnLogout);
-
-        lblName.setText(Html.fromHtml("Name: <b>" + id + "</b>"));
-        lblEmail.setText(Html.fromHtml("Email: <b>" + email + "</b>"));
-
-
-
 
         Button button= (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -86,17 +50,6 @@ public class MainActivity extends GlobalVars {
                 }
             }
         });
-
-       /* btnLogout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                // Clear the User session data
-                // and redirect user to LoginActivity
-                session.logoutUser();
-            }
-        });*/
 
         txtString= (TextView)findViewById(R.id.mail);
 
@@ -203,20 +156,16 @@ public class MainActivity extends GlobalVars {
                                 {
                                     Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
                                     myIntent.putExtra("mailparticulier",mailtxt);
-                                    //session.createUserLoginSession(idjson,mailtxt);
-                                    startActivity(myIntent);
 
-                                    // FOnctionnelle pour les variables session
+                                    //Variable session
 
-                                    /*SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                                    //SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                                     editor.putString("UserMail", mailtxt);
-                                    editor.putString("idUser", idjson);
-                                    editor.commit();*/
-
-                                    editor.putString("PREFS_MAIL",mailtxt);
-                                    editor.putString("PREFS_IDUSER", idrequest);
-
+                                    editor.putString("idUser", idrequest);
+                                    editor.commit();
+                                    startActivity(myIntent);
                                     //finish();
+
                                 }
 
                                 if(status.equals("Professionnel"))
