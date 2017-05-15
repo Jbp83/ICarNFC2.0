@@ -1,4 +1,4 @@
-package com.example.jb.icarnfc;
+﻿package com.example.jb.icarnfc;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -165,76 +165,87 @@ public class SignUp extends GlobalVars {
             String img= "data:image/png;base64,"+encoded;
 
 
-            Log.v("cul",img);
-            //formBuilder.add("Avatar", img);
+            //Log.v("cul",img);
+            formBuilder.add("Avatar", img);
 
 
-            RequestBody formBody = formBuilder.build();
+            final RequestBody formBody = formBuilder.build();
 
-            Request request = new Request.Builder()
-                    .url(IPSERVEUR+"/subscribe")
-                    .post(formBody)
-                    .build();
-
-            OkHttpClient client = new OkHttpClient();
-
-
-            client.newCall(request).enqueue(new Callback() {
+            runOnUiThread(new Runnable() {
                 @Override
-                public void onFailure(Call call, IOException e) {
+                public void run() {
+                    Request request = new Request.Builder()
+                            .url(IPSERVEUR+"/subscribe")
+                            .post(formBody)
+                            .build();
 
-                    call.cancel();
+                    OkHttpClient client = new OkHttpClient();
 
-
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-
-                    final String myResponse = response.body().string();
-
-
-                    SignUp.this.runOnUiThread(new Runnable() {
+                    client.newCall(request).enqueue(new Callback() {
                         @Override
-                        public void run() {
+                        public void onFailure(Call call, IOException e) {
 
-                            if (myResponse.equals("utilisateur créé")) {
-
-                                Toast.makeText(SignUp.this, "Utilisateur crée", Toast.LENGTH_LONG).show();
-                                Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
-                                startActivity(myIntent);
-                            }
+                            call.cancel();
 
 
-                            if (myResponse.equals("erreur de création")) {
+                        }
 
-                                Toast toast = Toast.makeText(SignUp.this, "Erreur de création de l'utilisateur", Toast.LENGTH_LONG);
-                                LinearLayout layout = (LinearLayout) toast.getView();
-                                if (layout.getChildCount() > 0) {
-                                    TextView tv = (TextView) layout.getChildAt(0);
-                                    tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+
+                            final String myResponse = response.body().string();
+
+
+                            SignUp.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    if (myResponse.equals("utilisateur créé")) {
+
+                                        Toast.makeText(SignUp.this, "Utilisateur crée", Toast.LENGTH_LONG).show();
+                                        Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                                        startActivity(myIntent);
+                                    }
+
+
+                                    if (myResponse.equals("erreur de création")) {
+
+                                        Toast toast = Toast.makeText(SignUp.this, "Erreur de création de l'utilisateur", Toast.LENGTH_LONG);
+                                        LinearLayout layout = (LinearLayout) toast.getView();
+                                        if (layout.getChildCount() > 0) {
+                                            TextView tv = (TextView) layout.getChildAt(0);
+                                            tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                                        }
+                                        toast.show();
+                                    }
+
+                                    if (myResponse.equals("User Already exist")) {
+
+                                        Toast toast = Toast.makeText(SignUp.this, "Il existe deja un utilisateur avec cette adresse e-mail  !", Toast.LENGTH_LONG);
+                                        LinearLayout layout = (LinearLayout) toast.getView();
+                                        if (layout.getChildCount() > 0) {
+                                            TextView tv = (TextView) layout.getChildAt(0);
+                                            tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                                        }
+                                        toast.show();
+                                    }
+
+
+                                    // txtString.setText(myResponse);
                                 }
-                                toast.show();
-                            }
+                            });
 
-                            if (myResponse.equals("User Already exist")) {
-
-                                Toast toast = Toast.makeText(SignUp.this, "Il existe deja un utilisateur avec cette adresse e-mail  !", Toast.LENGTH_LONG);
-                                LinearLayout layout = (LinearLayout) toast.getView();
-                                if (layout.getChildCount() > 0) {
-                                    TextView tv = (TextView) layout.getChildAt(0);
-                                    tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-                                }
-                                toast.show();
-                            }
-
-
-                            // txtString.setText(myResponse);
                         }
                     });
 
+
                 }
             });
+
+
+
+
+
 
 
         } else {
@@ -264,10 +275,9 @@ public class SignUp extends GlobalVars {
                     //Transformer la photo en Bitmap
                     Bitmap bitmap = BitmapFactory.decodeFile(path);
 
+                    mImageView.setVisibility(View.VISIBLE);
+                   mImageView.setImageBitmap(bitmap);
 
-                    //Afficher le Bitmap
-                    //mImageView.setVisibility(View.VISIBLE);
-                    //mImageView.setImageBitmap(bitmap);
 
 
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -275,7 +285,7 @@ public class SignUp extends GlobalVars {
                     byte[] byteArray = byteArrayOutputStream .toByteArray();
                     encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
-                    Log.v("Encoded64",encoded);
+                   // Log.v("Encoded64",encoded);
 
 
                    /* //On renseigne les informations sur la photo séléctionné

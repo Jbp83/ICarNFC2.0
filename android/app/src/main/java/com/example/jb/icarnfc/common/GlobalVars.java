@@ -15,7 +15,7 @@ import okhttp3.OkHttpClient;
 public class GlobalVars extends AppCompatActivity {
 
 
-        public static final String IPSERVEUR="http:/172.20.10.4:8080";
+        public static final String IPSERVEUR="http:/172.20.10.12:8080";
         public static final String MY_PREFS_NAME = "MyPrefsFile";
 
         public OkHttpClient okHttpClient = new OkHttpClient();
@@ -23,8 +23,6 @@ public class GlobalVars extends AppCompatActivity {
         public static final String PREFS_NAME = "PrefAlex";
         public static final String PREFS_MAIL = "";
         public static final String PREFS_IDUSER = "";
-
-
 
 
         public SharedPreferences sharedPreferences;
