@@ -26,5 +26,4 @@ public class RequestListCarDb extends GlobalVars {
         okHttpClient.newCall(request).enqueue(callback);
     }
 
-
 }

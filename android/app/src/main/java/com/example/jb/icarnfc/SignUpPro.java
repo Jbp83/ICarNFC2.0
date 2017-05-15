@@ -153,8 +153,6 @@ public class SignUpPro extends GlobalVars {
                             Log.v("Siren :",siren);
                             Log.v("Adresse: ",adresse);*/
 
-
-
                         }
 
                     } catch (JSONException e) {

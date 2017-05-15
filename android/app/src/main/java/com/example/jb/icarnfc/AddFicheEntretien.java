@@ -1,30 +1,19 @@
 package com.example.jb.icarnfc;
 
 
-
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.RequiresApi;
-import android.util.Base64;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.example.jb.icarnfc.Requests.RequestListCarDb;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.UserSessionManager;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -205,16 +194,16 @@ public class AddFicheEntretien extends GlobalVars {
         HashMap<String, String> user = session.getUserDetails(); // Récuperation des variables sessions
 
 
-        String id = user.get(UserSessionManager.KEY_ID);
+        String idsession = user.get(UserSessionManager.KEY_ID);
         String email = user.get(UserSessionManager.KEY_EMAIL);
 
 
 
-        formBuilder.add("date_creation", dat);
+        /*formBuilder.add("date_creation", dat);
         formBuilder.add("id_voiture", id);
         formBuilder.add("id_etablissement", id);
         formBuilder.add("id_utilisateur",id);
-        formBuilder.add("id_mecanicien", id);
+        formBuilder.add("id_mecanicien", idsession);*/
 
 
         RequestBody formBody = formBuilder.build();
