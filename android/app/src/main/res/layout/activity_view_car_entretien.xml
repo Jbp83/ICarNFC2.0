@@ -10,34 +10,36 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/listView2" />
 
     <TextView
-        android:id="@+id/marque"
+        android:id="@+id/tv_marque"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="26dp"
         android:text="TextView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/addentretien"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="36dp" />
 
     <TextView
-        android:id="@+id/modele"
+        android:id="@+id/tv_modele"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tv_immatriculation"
+        android:layout_below="@+id/tv_immatriculation"
         android:layout_marginTop="23dp"
-        android:text="TextView"
-        android:layout_below="@+id/immatriculation"
-        android:layout_alignStart="@+id/immatriculation" />
+        android:text="TextView" />
 
     <TextView
-        android:id="@+id/immatriculation"
+        android:id="@+id/tv_immatriculation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
         android:text="TextView"
-        android:layout_below="@+id/marque"
-        android:layout_alignStart="@+id/marque" />
+        android:layout_below="@+id/tv_marque"
+        android:layout_alignStart="@+id/tv_marque" />
 
     <Button
         android:id="@+id/addentretien"
@@ -47,4 +49,12 @@
         tools:text="@string/addentretien"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignBottom="@+id/tv_modele"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="23dp" />
 </RelativeLayout>

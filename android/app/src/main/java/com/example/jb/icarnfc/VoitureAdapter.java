@@ -58,9 +58,9 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
         if(viewHolder == null){
             viewHolder = new VoitureClassHolder();
             viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
-            viewHolder.immatriculation = (TextView) convertView.findViewById(R.id.immatriculation);
-            viewHolder.marque= (TextView) convertView.findViewById(R.id.marque);
-            viewHolder.modele= (TextView) convertView.findViewById(R.id.modele);
+            viewHolder.immatriculation = (TextView) convertView.findViewById(R.id.tv_immatriculation);
+            viewHolder.marque= (TextView) convertView.findViewById(R.id.tv_marque);
+            viewHolder.modele= (TextView) convertView.findViewById(R.id.tv_modele);
             viewHolder.id = (TextView) convertView.findViewById(R.id.idvoiture);
             viewHolder.BtnInfo = (Button) convertView.findViewById(R.id.btnInfo);
             viewHolder.imageViewpoubelle = (ImageView) convertView.findViewById(R.id.poubelle);

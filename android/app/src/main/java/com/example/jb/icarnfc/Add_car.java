@@ -130,8 +130,8 @@ public class Add_car extends GlobalVars {
     {
         TextView result_guid =(TextView)findViewById(R.id.guid);
         EditText nom = (EditText) findViewById (R.id.nom);
-        EditText marque = (EditText) findViewById (R.id.marque);
-        EditText model = (EditText) findViewById (R.id.modele);
+        EditText marque = (EditText) findViewById (R.id.tv_marque);
+        EditText model = (EditText) findViewById (R.id.tv_modele);
         EditText immat = (EditText) findViewById (R.id.immat);
         EditText cv = (EditText) findViewById (R.id.cv);
 

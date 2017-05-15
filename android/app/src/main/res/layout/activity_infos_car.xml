@@ -13,14 +13,14 @@
         android:layout_width="215dp"
         android:layout_height="259dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/immatriculation"
+        android:layout_below="@+id/tv_immatriculation"
         android:layout_marginStart="72dp"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="25dp" />
 
 
     <TextView
-        android:id="@+id/immatriculation"
+        android:id="@+id/tv_immatriculation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -31,7 +31,7 @@
         tools:layout_editor_absoluteY="297dp" />
 
     <TextView
-        android:id="@+id/marque"
+        android:id="@+id/tv_marque"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dateimmat"
@@ -42,7 +42,7 @@
         tools:layout_editor_absoluteY="334dp" />
 
     <TextView
-        android:id="@+id/modele"
+        android:id="@+id/tv_modele"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/puissance"
@@ -56,7 +56,7 @@
         android:id="@+id/puissance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/marque"
+        android:layout_alignEnd="@+id/tv_marque"
         android:text="Puissance :"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="85dp"
@@ -66,7 +66,7 @@
         android:id="@+id/dateimmat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/modele"
+        android:layout_below="@+id/tv_modele"
         android:layout_centerHorizontal="true"
         android:text="Date d'immatriculation :"
         android:textAlignment="center"

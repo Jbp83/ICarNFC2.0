@@ -1,4 +1,4 @@
-﻿package com.example.jb.icarnfc;
+package com.example.jb.icarnfc;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -37,8 +36,8 @@ import com.example.jb.icarnfc.common.MD5;
 
 public class SignUp extends GlobalVars {
 
-  String encoded;
-   final static int SELECT_PICTURE = 1;
+    String encoded;
+    final static int SELECT_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +70,8 @@ public class SignUp extends GlobalVars {
         });
 
 
-        
-       // Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+        // Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         //Création d'une liste d'élément à mettre dans le Spinner
         List exempleList = new ArrayList();
@@ -118,7 +117,7 @@ public class SignUp extends GlobalVars {
         EditText password = (EditText) findViewById(R.id.password);
         EditText confirmpassword = (EditText) findViewById(R.id.password2);
         EditText email = (EditText) findViewById(R.id.email);
-       // Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        // Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
 // Récupére le text présent dans l'edit text
         String nomtxt = nom.getText().toString();
@@ -153,7 +152,7 @@ public class SignUp extends GlobalVars {
 
 
             MD5 md5 = new MD5();
-            String passwordmd5=md5.crypt(passwordtxt);
+            String passwordmd5= MD5.crypt(passwordtxt);
 
 
             // dynamically add more parameter like this:
@@ -244,10 +243,6 @@ public class SignUp extends GlobalVars {
 
 
 
-
-
-
-
         } else {
             Toast toast = Toast.makeText(SignUp.this, "Les mots de passe ne sont pas identiques", Toast.LENGTH_LONG);
             LinearLayout layout = (LinearLayout) toast.getView();
@@ -276,7 +271,7 @@ public class SignUp extends GlobalVars {
                     Bitmap bitmap = BitmapFactory.decodeFile(path);
 
                     mImageView.setVisibility(View.VISIBLE);
-                   mImageView.setImageBitmap(bitmap);
+                    mImageView.setImageBitmap(bitmap);
 
 
 
@@ -285,7 +280,7 @@ public class SignUp extends GlobalVars {
                     byte[] byteArray = byteArrayOutputStream .toByteArray();
                     encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
-                   // Log.v("Encoded64",encoded);
+                    // Log.v("Encoded64",encoded);
 
 
                    /* //On renseigne les informations sur la photo séléctionné

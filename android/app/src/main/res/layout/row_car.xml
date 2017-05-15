@@ -16,7 +16,7 @@
         />
 
     <TextView
-        android:id="@+id/marque"
+        android:id="@+id/tv_marque"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -26,27 +26,27 @@
         tools:text="Marque :" />
 
     <TextView
-        android:id="@+id/modele"
+        android:id="@+id/tv_modele"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@android:color/black"
         tools:text="Modèle : "
-        android:layout_below="@+id/marque"
-        android:layout_alignStart="@+id/immatriculation"
+        android:layout_below="@+id/tv_marque"
+        android:layout_alignStart="@+id/tv_immatriculation"
         android:layout_marginTop="12dp" />
 
     <TextView
         android:id="@+id/idvoiture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/modele"
-        android:layout_below="@+id/modele"
+        android:layout_alignStart="@+id/tv_modele"
+        android:layout_below="@+id/tv_modele"
         android:text="TextView"
         tools:text="idvoiture" />
 
     <TextView
-        android:id="@+id/immatriculation"
+        android:id="@+id/tv_immatriculation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/avatar"
@@ -69,7 +69,7 @@
         android:id="@+id/btnInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/immatriculation"
+        android:layout_alignBottom="@+id/tv_immatriculation"
         android:layout_toStartOf="@+id/poubelle"
         android:text="Info" />
 
