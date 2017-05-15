@@ -63,30 +63,24 @@
         <activity
             android:name=".AddFicheEntretien"
             android:label="Fiche entretien"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".HistoriqueEntretienPro" />
         <activity
             android:name=".SelectStatus"
-            android:label="Selection du status">
-
-        </activity>
+            android:label="Selection du status"></activity>
         <activity
             android:name=".SignUpPro"
-            android:label="Inscription Profesionnel">
-
-        </activity>
-        <activity android:name=".ReadTagPro"
+            android:label="Inscription Profesionnel"></activity>
+        <activity
+            android:name=".ReadTagPro"
             android:label="Espace professionnel">
             <intent-filter>
-
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".ViewCarEntretien"></activity>
     </application>
 
 </manifest>

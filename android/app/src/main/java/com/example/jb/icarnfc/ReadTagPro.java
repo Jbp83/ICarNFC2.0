@@ -178,21 +178,18 @@ public class ReadTagPro extends AppCompatActivity {
 
                     else
                     {
-
                         ReadTagPro.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
 
                                 Toast.makeText(ReadTagPro.this, "Il existe une voiture dans la db avec ce guid", Toast.LENGTH_LONG).show();
-
+                                Intent myIntent = new Intent(getBaseContext(), ViewCarEntretien.class);
+                                startActivity(myIntent);
                             }
                         });
 
-                        //Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
-                        //startActivity(myIntent);
+
                     }
-
-
 
                 }
             });
