@@ -1,22 +1,14 @@
 package com.example.jb.icarnfc;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import com.example.jb.icarnfc.Object.Voiture;
 import com.example.jb.icarnfc.Requests.RequestListCarUser;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.UserSessionManager;

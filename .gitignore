@@ -7,3 +7,14 @@ android/local.properties
 ICarNFC2/.idea/workspace.xml
 android/local.properties
 *.properties
+*.bin
+android/.gradle/3.3/taskArtifacts/fileHashes.bin
+*.lock
+android/.idea/libraries/android_android_25.xml
+android/build/generated/mockable-android-25.jar
+android/.idea/workspace.xml
+android/.idea/libraries/transition_25_1_0.xml
+android/.idea/libraries/support_vector_drawable_25_1_0.xml
+*.bin
+*.bin
+android/.gradle/3.3/taskArtifacts/fileSnapshots.bin
