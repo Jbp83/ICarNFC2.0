@@ -38,7 +38,7 @@
         tools:text="idvoiture" />
 
     <TextView
-        android:id="@+id/dateentretiej"
+        android:id="@+id/dateentretien"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/avatar"

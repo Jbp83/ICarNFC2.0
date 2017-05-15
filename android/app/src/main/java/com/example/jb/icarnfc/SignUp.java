@@ -147,6 +147,7 @@ public class SignUp extends GlobalVars {
 
         {
 
+
             FormBody.Builder formBuilder = new FormBody.Builder()
                     .add("UserName", nomtxt);
 
@@ -162,8 +163,10 @@ public class SignUp extends GlobalVars {
             formBuilder.add("UserStatut", "Particulier");
 
             String img= "data:image/png;base64,"+encoded;
-           // Log.v("cul",img);
-            formBuilder.add("Avatar", img);
+
+
+            Log.v("cul",img);
+            //formBuilder.add("Avatar", img);
 
 
             RequestBody formBody = formBuilder.build();

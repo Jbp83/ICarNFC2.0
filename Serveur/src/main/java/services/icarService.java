@@ -105,6 +105,63 @@ public class icarService {
 
     }
 
+
+    @RequestMapping(method = RequestMethod.GET, value ="/GetCarWithGuid")
+    public String GetCarguid(@RequestParam("GUID") String Guid)
+    {
+
+        JSONObject jsonCar = new JSONObject();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonVoitureArray = new JSONArray();
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultats;
+        String Req;
+
+
+        Req = "SELECT * FROM voiture WHERE guid='"+Guid+"'";
+
+        try {
+            statement =  conn.createStatement();
+            resultats = statement.executeQuery(Req);
+
+            if(resultats.next()) {
+
+                jsonCar.put("id", resultats.getString("id"));
+                jsonCar.put("guid", resultats.getString("guid"));
+                jsonCar.put("id_proprietaire", resultats.getString("id_proprietaire"));
+                jsonCar.put("Immatriculation", resultats.getString("immatriculation"));
+                jsonCar.put("nom", resultats.getString("nom"));
+                jsonCar.put("marque", resultats.getString("marque"));
+                jsonCar.put("modele", resultats.getString("modele"));
+                jsonCar.put("DateImmat", resultats.getString("DateImmat"));
+                jsonCar.put("cv", resultats.getString("Photo"));
+                jsonVoitureArray.put(jsonCar);
+                jsonArray.put("Car",jsonVoitureArray);
+                return jsonArray.toString();
+            }
+
+            else
+            {
+                return "error car not found";
+            }
+
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
     @RequestMapping(method = RequestMethod.GET, value ="/voiture/{idVoiture}")
     public String getVoiture(@PathVariable("idVoiture") String idVoiture)
     {

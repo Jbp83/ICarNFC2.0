@@ -30,23 +30,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SignUp"
             android:label="Inscription Particulier"
             android:windowSoftInputMode="stateHidden" />
-
         <activity android:name=".Mes_voitures" />
         <activity android:name=".AndroidSelectImage" />
-        <activity android:name=".Infos_car" >
+        <activity android:name=".Infos_car">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity android:name=".ReadTag">
             <intent-filter>
 
@@ -60,8 +56,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Add_car"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".Add_car"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Pro" />
         <activity
             android:name=".AddFicheEntretien"
@@ -75,8 +72,19 @@
             android:label="Selection du status">
 
         </activity>
-        <activity android:name=".SignUpPro"
+        <activity
+            android:name=".SignUpPro"
             android:label="Inscription Profesionnel">
+
+        </activity>
+        <activity android:name=".ReadTagPro"
+            android:label="Espace professionnel">
+            <intent-filter>
+
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
         </activity>
     </application>

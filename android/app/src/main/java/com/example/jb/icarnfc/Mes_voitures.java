@@ -196,7 +196,7 @@ public class Mes_voitures extends GlobalVars {
 
                         // Variable session
 
-                        voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat,urlimage,cv,idjson));
+                        voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat, photo,cv,idjson));
 
 
                         String[] separated = photo.split(",");
@@ -204,7 +204,10 @@ public class Mes_voitures extends GlobalVars {
                         Log.v("coup",s); // On recupere la chaine aprss la virgule
                         byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        //Log.v("Bitmap",decodedByte);
+                        //photovoiture.setImageBitmap(decodedByte);
+
+
+                        Log.v("Bitmap",s);
                         //photovoiture.setImageBitmap(decodedByte);
 
                            /* SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);

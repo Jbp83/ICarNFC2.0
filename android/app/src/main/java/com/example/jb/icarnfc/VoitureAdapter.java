@@ -73,19 +73,14 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
         viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
         viewHolder.marque.setText(String.valueOf(voiture.getMarque()));
         viewHolder.id.setText(String.valueOf(voiture.getId()));
-
         viewHolder.BtnInfo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("bouton appuyé","id : "+voiture.getId());
-
                 String idselect= voiture.getId();
                 Log.v("iditemlistview",idselect);
-
-
                 Intent myIntent = new Intent (activity.getBaseContext(), Infos_car.class);
                 myIntent.putExtra("idvoitureselect",idselect);
                 activity.startActivity(myIntent);
-
             }
         });
 
@@ -120,7 +115,6 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
 
             }
         });
-
 
         return convertView;
     }
@@ -169,7 +163,6 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
         //Toast.makeText(myIntent, "Les champs ne sont pas tous remplis", Toast.LENGTH_LONG).show();
 
     }
-
 
     private class VoitureClassHolder
     {
