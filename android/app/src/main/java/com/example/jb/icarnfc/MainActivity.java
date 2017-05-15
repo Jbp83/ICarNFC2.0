@@ -1,6 +1,8 @@
 package com.example.jb.icarnfc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -32,7 +34,7 @@ public class MainActivity extends GlobalVars {
 
     private static final String TAG = "Password md5" ;
     TextView txtString;
-    String status,idjson;
+    String status,idrequest;
     UserSessionManager session;
 
 
@@ -44,7 +46,6 @@ public class MainActivity extends GlobalVars {
         setContentView(R.layout.activity_main);
 
 
-
         // User Session Manager
         session = new UserSessionManager(getApplicationContext());
 
@@ -52,7 +53,6 @@ public class MainActivity extends GlobalVars {
         // On verifie si l'utilisateur est logué ou non
        /* if(session.checkLogin())
             finish();*/
-
 
 
         // get user data from session
@@ -63,6 +63,7 @@ public class MainActivity extends GlobalVars {
 
         // get email
         String email = user.get(UserSessionManager.KEY_EMAIL);
+
 
 
         TextView lblName = (TextView) findViewById(R.id.lblName);
@@ -195,10 +196,12 @@ public class MainActivity extends GlobalVars {
                                 for (int i = 0; i < Jarray.length(); i++)
                                 {
                                     JSONObject object     = Jarray.getJSONObject(i);
-                                    idjson=object.getString("id");
+                                    idrequest=object.getString("id");
                                     status=object.getString("status");
 
-                                    Log.v("id", idjson);
+                                    String idrequesttxt=idrequest.toString();
+
+                                    Log.v("id", idrequest);
                                     Log.v("status",status);
 
 
@@ -209,8 +212,19 @@ public class MainActivity extends GlobalVars {
                                 {
                                     Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
                                     myIntent.putExtra("mailparticulier",mailtxt);
-                                    session.createUserLoginSession(idjson,mailtxt);
+                                    //session.createUserLoginSession(idjson,mailtxt);
                                     startActivity(myIntent);
+
+                                    // FOnctionnelle pour les variables session
+
+                                    /*SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                                    editor.putString("UserMail", mailtxt);
+                                    editor.putString("idUser", idjson);
+                                    editor.commit();*/
+
+                                    editor.putString("PREFS_MAIL",mailtxt);
+                                    editor.putString("PREFS_IDUSER", idrequest);
+
                                     //finish();
                                 }
 
@@ -218,8 +232,10 @@ public class MainActivity extends GlobalVars {
                                 {
                                     Intent myIntent = new Intent(getBaseContext(), Pro.class);
                                     myIntent.putExtra("mailpro",mailtxt);
-                                    session.createUserLoginSession(idjson,mailtxt);
+                                    //session.createUserLoginSession(idjson,mailtxt);
                                     startActivity(myIntent);
+                                    editor.putString("mail",mailtxt);
+                                    editor.putString("iduser", idrequest);
                                     //finish();
                                 }
 

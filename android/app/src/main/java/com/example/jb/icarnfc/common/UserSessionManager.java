@@ -13,7 +13,7 @@ import com.example.jb.icarnfc.MainActivity;
  */
 
 
-    public class UserSessionManager {
+    public class UserSessionManager extends GlobalVars {
 
         // Shared Preferences reference
         SharedPreferences pref;

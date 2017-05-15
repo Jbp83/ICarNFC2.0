@@ -1,6 +1,8 @@
 package com.example.jb.icarnfc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,15 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.jb.icarnfc.Requests.RequestInfoCar;
-import com.example.jb.icarnfc.Requests.RequestListCar;
-import com.example.jb.icarnfc.common.Base64Convertor;
+import com.example.jb.icarnfc.Requests.RequestListCarUser;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.UserSessionManager;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -138,7 +134,7 @@ public class Mes_voitures extends GlobalVars {
     {
 
         final List<Voiture> voituretest = new ArrayList<Voiture>();
-        RequestListCar test = new RequestListCar();
+        RequestListCarUser test = new RequestListCarUser();
         test.getCarsUser(emailsession, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -172,7 +168,7 @@ public class Mes_voitures extends GlobalVars {
                         photo=object.getString("Blob");
 
 
-                        /*System.out.println("----------------------------");
+                        System.out.println("----------------------------");
                         Log.v(getClass().getName(), String.format("cv = %d", cv));
                         Log.v("idjson", idjson);
                         Log.v("Nom : ",nom);
@@ -180,7 +176,10 @@ public class Mes_voitures extends GlobalVars {
                         Log.v("Immatriculation: ",immatriculation);
                         Log.v("blob: ",urlimage);
                         Log.v("DateImmat :",DateImmat);
-                        Log.v("id_proprietaire : ",id_proprietaire);*/
+                        Log.v("id_proprietaire : ",id_proprietaire);
+
+                        // Variable session
+
                         voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat,urlimage,cv,idjson));
 
 
@@ -192,9 +191,23 @@ public class Mes_voitures extends GlobalVars {
                         Log.v("Bitmap",decodedByte);
                         avatar.setImageBitmap(decodedByte);*/
 
+                           /* SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+                            String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
+                            int idName = prefs.getInt("idName", 0); //0 is the default value.
 
+                            Log.v("sessionname",name);
+                            Log.v(getClass().getName(), String.format("cv = %d", idName));*/
+
+                           //sharedPreferences.getString("mail",null);
+                           //sharedPreferences.getString("iduser",null);
 
                     }
+
+                   Log.v("easy",emailsession);
+                    Log.v("ez",idusersession);
+
+
+                   // if (!idusersession.equals(""))Log.v("ez",idusersession);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
