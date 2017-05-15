@@ -95,28 +95,15 @@ public class SignUpPro extends GlobalVars {
         exempleList.add("123");
 
 
-        Button bt_avatar = (Button)findViewById(R.id.AddAvatar) ;
-        bt_avatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btGalleryClick(v);
-            }
-        });
+
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exempleList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Enfin on passe l'adapter au Spinner et c'est tout
         spinner.setAdapter(adapter);
 
-
     }
 
-    public void btGalleryClick(View v) {
-        //Création puis ouverture de la boite de dialogue
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
-    }
+
 
     private void GetEtablissement(){
         try {
@@ -213,7 +200,7 @@ public class SignUpPro extends GlobalVars {
                     .add("UserName", nomtxt);
 
             MD5 md5 = new MD5();
-            String passwordmd5= MD5.crypt(passwordtxt);
+            String passwordmd5= md5.crypt(passwordtxt);
 
 
             // dynamically add more parameter like this:
@@ -221,14 +208,6 @@ public class SignUpPro extends GlobalVars {
             formBuilder.add("UserMail", emailtxt);
             formBuilder.add("UserPassword", passwordmd5);
             formBuilder.add("UserStatut", "Professionnel");
-
-
-            String img= "data:image/png;base64,"+encoded;
-            Log.v("cul",img);
-
-            formBuilder.add("Avatar", img);
-
-
 
             RequestBody formBody = formBuilder.build();
 
@@ -265,7 +244,6 @@ public class SignUpPro extends GlobalVars {
                                 Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                 startActivity(myIntent);
 
-
                             }
 
 
@@ -291,8 +269,6 @@ public class SignUpPro extends GlobalVars {
                                 toast.show();
                             }
 
-
-                            // txtString.setText(myResponse);
                         }
                     });
 
@@ -313,59 +289,7 @@ public class SignUpPro extends GlobalVars {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        ImageView mImageView = (ImageView) findViewById(R.id.Avatar);
-        //TextView textViewstatus = (TextView) findViewById(R.id.tvStatus);
 
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case SELECT_PICTURE:
-                    String path = getRealPathFromURI(data.getData());
-                    Log.d("Choose Picture", path);
-                    //Transformer la photo en Bitmap
-                    Bitmap bitmap = BitmapFactory.decodeFile(path);
-                    //Afficher le Bitmap
-                    mImageView.setVisibility(View.VISIBLE);
-                    mImageView.setImageBitmap(bitmap);
-
-
-                   /* Base64Convertor convertavatar = new Base64Convertor();
-                    convertavatar.encodeTobase64(android.graphics.bitmap);*/
-
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                    byte[] byteArray = byteArrayOutputStream .toByteArray();
-                    encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
-                    Log.v("Encoded64",encoded);
-
-
-                   /* //On renseigne les informations sur la photo séléctionné
-                    textViewstatus.setText("");
-                    textViewstatus.append("Fichier: " + path);
-                    textViewstatus.append(System.getProperty("line.separator"));
-                    textViewstatus.append("Taille: " + bitmap.getWidth() + "px X " + bitmap.getHeight() + " px");
-                    break;*/
-            }
-        }
-    }
-
-    private String getRealPathFromURI(Uri contentURI) {
-        String result;
-
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) {
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        return result;
-    }
 
 
   /*  private static String md5(String s) { try {

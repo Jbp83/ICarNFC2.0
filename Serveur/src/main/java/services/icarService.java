@@ -23,7 +23,6 @@ public class icarService {
         return connection;
     }
 
-
     @RequestMapping(method = RequestMethod.POST, value ="/login")
     public String Login(@RequestParam("UserMail") String UserMail,@RequestParam("UserPassword") String UserPassword) {
 
@@ -375,7 +374,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/subscribe")
-    public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut,@RequestParam("Avatar") String avatar)
+    public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut)
     {
 
         //Connection à la base de donnée avec la variable conn
@@ -399,7 +398,7 @@ public class icarService {
             }
             else
             {
-                Req = "INSERT INTO users ( mail, nom, prenom, password, status, avatar) VALUES ( ?, ?, ?, ?, ?, ?)";
+                Req = "INSERT INTO users ( mail, nom, prenom, password, status) VALUES ( ?, ?, ?, ?, ?)";
                 PrepStat = conn.prepareStatement(Req);
 
                 PrepStat.setString(1,UserMail);
@@ -407,7 +406,6 @@ public class icarService {
                 PrepStat.setString(3,UserSurname);
                 PrepStat.setString(4,UserPassword);
                 PrepStat.setString(5,UserStatut);
-                PrepStat.setString(6,avatar);
 
                 int created = PrepStat.executeUpdate();
                 if(created ==1)
