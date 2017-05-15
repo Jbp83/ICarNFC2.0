@@ -24,19 +24,29 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".SignUp"
+            android:label="Inscription Particulier"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity android:name=".Mes_voitures" />
+        <activity android:name=".AndroidSelectImage" />
+        <activity android:name=".Infos_car" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity
-            android:name=".SignUp"
-            android:label="Inscription Particulier"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".Mes_voitures" />
-        <activity android:name=".AndroidSelectImage" />
-        <activity android:name=".Infos_car" />
+
         <activity android:name=".ReadTag">
             <intent-filter>
 

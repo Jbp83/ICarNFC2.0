@@ -199,11 +199,8 @@ public class MainActivity extends GlobalVars {
                                     idrequest=object.getString("id");
                                     status=object.getString("status");
 
-
                                     Log.v("id", idrequest);
                                     Log.v("status",status);
-
-
                                 }
 
 

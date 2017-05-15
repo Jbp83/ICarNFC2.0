@@ -31,23 +31,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.jb.icarnfc.R.id.avatar;
+
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
     String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession,photo,idjson;
     UserSessionManager session;
-    //ImageView photovoiture;
     int cv;
+    ImageView photovoiture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mes_voitures);
         //setContentView(R.layout.row_car);
-        //ImageView photovoiture = (ImageView) findViewById(R.id.avatar);
+        photovoiture = (ImageView) findViewById(avatar);
+        //photovoiture.setImageDrawable(null);
+
 
 
         session = new UserSessionManager(getApplicationContext());
@@ -60,7 +62,7 @@ public class Mes_voitures extends GlobalVars {
 
                 Intent myIntent = new Intent(getBaseContext(), ReadTag.class);
                 startActivity(myIntent);
-                finish();
+                //finish();
 
             }
         });
@@ -112,6 +114,22 @@ public class Mes_voitures extends GlobalVars {
         });*/
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+
+        try {
+            afficherListeVoitures();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -181,13 +199,13 @@ public class Mes_voitures extends GlobalVars {
                         voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat,urlimage,cv,idjson));
 
 
-                        /*String[] separated = photo.split(",");
-                        final String s = separated[1];// this will contain "Fruit"
-                        Log.v("coup",s);
+                        String[] separated = photo.split(",");
+                        final String s = separated[1];
+                        Log.v("coup",s); // On recupere la chaine aprss la virgule
                         byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        Log.v("Bitmap",decodedByte);
-                        avatar.setImageBitmap(decodedByte);*/
+                        //Log.v("Bitmap",decodedByte);
+                        //photovoiture.setImageBitmap(decodedByte);
 
                            /* SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
                             String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.

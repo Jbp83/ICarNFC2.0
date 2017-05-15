@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -69,18 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/modele"
         android:layout_centerHorizontal="true"
-        android:text="Date d'immatroculation :"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="451dp" />
-
-    <TextView
-        android:id="@+id/result123"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/gjdy"
-        android:layout_centerHorizontal="true"
-        android:text="Date d'immatroculation :"
+        android:text="Date d'immatriculation :"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="451dp" />
