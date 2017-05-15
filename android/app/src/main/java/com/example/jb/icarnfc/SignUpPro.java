@@ -20,8 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jb.icarnfc.Requests.RequestEtablissement;
-import com.example.jb.icarnfc.Requests.RequestInfoCar;
 import com.example.jb.icarnfc.common.GlobalVars;
+import com.example.jb.icarnfc.common.MD5;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +29,6 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;

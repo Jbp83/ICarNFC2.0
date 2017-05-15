@@ -1,8 +1,6 @@
 package com.example.jb.icarnfc;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -23,6 +21,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.example.jb.icarnfc.common.GlobalVars;
+import com.example.jb.icarnfc.common.MD5;
 import com.example.jb.icarnfc.common.UserSessionManager;
 import org.json.JSONArray;
 import org.json.JSONException;

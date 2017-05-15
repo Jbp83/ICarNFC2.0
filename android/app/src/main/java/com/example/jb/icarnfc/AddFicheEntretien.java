@@ -250,8 +250,8 @@ public class AddFicheEntretien extends GlobalVars {
                         if (myResponse.equals("entretien créé")) {
 
                             Toast.makeText(AddFicheEntretien.this, "Votre fiche d'entretien à bien été crée", Toast.LENGTH_LONG).show();
-                           // Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
-                            //startActivity(myIntent);
+                           Intent myIntent = new Intent(getBaseContext(), HistoriqueEntretienPro.class);
+                            startActivity(myIntent);
                         }
 
 

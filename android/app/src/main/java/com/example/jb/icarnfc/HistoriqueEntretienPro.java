@@ -33,6 +33,14 @@ public class HistoriqueEntretienPro extends GlobalVars {
         Log.v("MaiUSER",mail);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        getProfilInfos();
+    }
+
     private void getProfilInfos() {
         try {
             RequestsHistoriquePro historiquepro = new RequestsHistoriquePro();

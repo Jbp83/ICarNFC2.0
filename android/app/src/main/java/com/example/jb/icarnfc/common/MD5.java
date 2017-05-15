@@ -1,4 +1,4 @@
-package com.example.jb.icarnfc;
+package com.example.jb.icarnfc.common;
 
 /**
  * Created by Mars on 02/05/2017.
