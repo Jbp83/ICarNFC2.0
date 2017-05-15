@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.jb.icarnfc.Requests.RequestListCarDb;
 import com.example.jb.icarnfc.common.GlobalVars;
+import com.example.jb.icarnfc.common.UserSessionManager;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +34,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -44,6 +47,8 @@ import static android.R.layout.simple_spinner_item;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class AddFicheEntretien extends GlobalVars {
+
+    UserSessionManager session;
 
     String IdVoiture,Marque,Modele;
     private Spinner spinner;
@@ -189,14 +194,28 @@ public class AddFicheEntretien extends GlobalVars {
         int idetablissement =2;
         int idutilisateur=3;
         int id_mecanicien=34;
+        session = new UserSessionManager(getApplicationContext());
+
+
+        // On verifie si l'utilisateur est logué ou non
+       /* if(session.checkLogin())
+            finish();*/
+
+
+
+        HashMap<String, String> user = session.getUserDetails(); // Récuperation des variables sessions
+
+
+        String id = user.get(UserSessionManager.KEY_ID);
+        String email = user.get(UserSessionManager.KEY_EMAIL);
+
+
+
         formBuilder.add("date_creation", dat);
-        formBuilder.add("id_voiture", String.valueOf(idvoitureentretien));
-        formBuilder.add("id_etablissement", String.valueOf(idetablissement));
-        formBuilder.add("id_utilisateur", String.valueOf(idutilisateur));
-        formBuilder.add("id_mecanicien", String.valueOf(id_mecanicien));
-
-
-        //todo ajouter les champs manquants
+        formBuilder.add("id_voiture", id);
+        formBuilder.add("id_etablissement", id);
+        formBuilder.add("id_utilisateur",id);
+        formBuilder.add("id_mecanicien", id);
 
 
         RequestBody formBody = formBuilder.build();

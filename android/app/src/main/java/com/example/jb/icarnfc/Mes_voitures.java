@@ -31,8 +31,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.example.jb.icarnfc.R.id.result;
-
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
@@ -203,8 +201,10 @@ public class Mes_voitures extends GlobalVars {
 
                     }
 
-                   Log.v("easy",emailsession);
-                    Log.v("ez",idusersession);
+                    //Log.v("easy",emailsession);
+                   // Log.v("ez",idusersession);
+
+
 
 
                    // if (!idusersession.equals(""))Log.v("ez",idusersession);
@@ -217,8 +217,6 @@ public class Mes_voitures extends GlobalVars {
         });
        return voituretest;
     }
-
-
 
 }
 

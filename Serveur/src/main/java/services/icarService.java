@@ -278,7 +278,7 @@ public class icarService {
 
 
     @RequestMapping(method = RequestMethod.POST, value ="/addEntretien")
-    public String PostEntretiens(@RequestParam("date_creation") Date date_creation, @RequestParam("id_voiture") int id_voiture,@RequestParam("id_etablissement") int id_etablissement,@RequestParam("id_utilisateur") int id_utilisateur,@RequestParam("description") String description, @RequestParam("id_mecanicien") int idmecanicien)
+    public String PostEntretiens(@RequestParam("date_creation") String date_creation, @RequestParam("id_voiture") String id_voiture,@RequestParam("id_etablissement") String id_etablissement,@RequestParam("id_utilisateur") String id_utilisateur,@RequestParam("description") String description, @RequestParam("id_mecanicien") String idmecanicien)
     {
         //Connection à la base de donnée avec la variable conn
         Connection  conn = getConnection();
@@ -287,20 +287,22 @@ public class icarService {
         PreparedStatement PrepStat;
         String Req;
 
-        Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur, detail_entretien) VALUES ( ?, ?, ?, ?,?,?)";
+        Req = "INSERT INTO entretien ( date_creation, id_voiture, id_etablissement, id_utilisateur, detail_entretien, idmecanicien) VALUES ( ?, ?, ?, ?, ?, ?)";
 
 
         try {
+
             PrepStat = conn.prepareStatement(Req);
-            PrepStat.setDate(1,date_creation);
-            PrepStat.setInt(2,id_voiture);
-            PrepStat.setInt(3,id_etablissement);
-            PrepStat.setInt(4,id_utilisateur);
+            PrepStat.setString(1,date_creation);
+            PrepStat.setString(2,id_voiture);
+            PrepStat.setString(3,id_etablissement);
+            PrepStat.setString(4,id_utilisateur);
             PrepStat.setString(5,description);
-            PrepStat.setInt(6,idmecanicien);
+            PrepStat.setString(6,idmecanicien);
 
 
             int created = PrepStat.executeUpdate();
+            System.out.println(created);
             if(created ==1)
             {
                     return "entretien créé";
