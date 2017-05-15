@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -37,8 +36,8 @@ import com.example.jb.icarnfc.common.MD5;
 
 public class SignUp extends GlobalVars {
 
-  String encoded;
-   final static int SELECT_PICTURE = 1;
+    String encoded;
+    final static int SELECT_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +70,8 @@ public class SignUp extends GlobalVars {
         });
 
 
-        
-       // Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+        // Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         //Création d'une liste d'élément à mettre dans le Spinner
         List exempleList = new ArrayList();
@@ -118,7 +117,7 @@ public class SignUp extends GlobalVars {
         EditText password = (EditText) findViewById(R.id.password);
         EditText confirmpassword = (EditText) findViewById(R.id.password2);
         EditText email = (EditText) findViewById(R.id.email);
-       // Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        // Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
 // Récupére le text présent dans l'edit text
         String nomtxt = nom.getText().toString();
@@ -153,7 +152,7 @@ public class SignUp extends GlobalVars {
 
 
             MD5 md5 = new MD5();
-            String passwordmd5=md5.crypt(passwordtxt);
+            String passwordmd5= MD5.crypt(passwordtxt);
 
 
             // dynamically add more parameter like this:
@@ -165,76 +164,83 @@ public class SignUp extends GlobalVars {
             String img= "data:image/png;base64,"+encoded;
 
 
-            Log.v("cul",img);
-            //formBuilder.add("Avatar", img);
+            //Log.v("cul",img);
+            formBuilder.add("Avatar", img);
 
 
-            RequestBody formBody = formBuilder.build();
+            final RequestBody formBody = formBuilder.build();
 
-            Request request = new Request.Builder()
-                    .url(IPSERVEUR+"/subscribe")
-                    .post(formBody)
-                    .build();
-
-            OkHttpClient client = new OkHttpClient();
-
-
-            client.newCall(request).enqueue(new Callback() {
+            runOnUiThread(new Runnable() {
                 @Override
-                public void onFailure(Call call, IOException e) {
+                public void run() {
+                    Request request = new Request.Builder()
+                            .url(IPSERVEUR+"/subscribe")
+                            .post(formBody)
+                            .build();
 
-                    call.cancel();
+                    OkHttpClient client = new OkHttpClient();
 
-
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-
-                    final String myResponse = response.body().string();
-
-
-                    SignUp.this.runOnUiThread(new Runnable() {
+                    client.newCall(request).enqueue(new Callback() {
                         @Override
-                        public void run() {
+                        public void onFailure(Call call, IOException e) {
 
-                            if (myResponse.equals("utilisateur créé")) {
-
-                                Toast.makeText(SignUp.this, "Utilisateur crée", Toast.LENGTH_LONG).show();
-                                Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
-                                startActivity(myIntent);
-                            }
+                            call.cancel();
 
 
-                            if (myResponse.equals("erreur de création")) {
+                        }
 
-                                Toast toast = Toast.makeText(SignUp.this, "Erreur de création de l'utilisateur", Toast.LENGTH_LONG);
-                                LinearLayout layout = (LinearLayout) toast.getView();
-                                if (layout.getChildCount() > 0) {
-                                    TextView tv = (TextView) layout.getChildAt(0);
-                                    tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+
+                            final String myResponse = response.body().string();
+
+
+                            SignUp.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    if (myResponse.equals("utilisateur créé")) {
+
+                                        Toast.makeText(SignUp.this, "Utilisateur crée", Toast.LENGTH_LONG).show();
+                                        Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                                        startActivity(myIntent);
+                                    }
+
+
+                                    if (myResponse.equals("erreur de création")) {
+
+                                        Toast toast = Toast.makeText(SignUp.this, "Erreur de création de l'utilisateur", Toast.LENGTH_LONG);
+                                        LinearLayout layout = (LinearLayout) toast.getView();
+                                        if (layout.getChildCount() > 0) {
+                                            TextView tv = (TextView) layout.getChildAt(0);
+                                            tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                                        }
+                                        toast.show();
+                                    }
+
+                                    if (myResponse.equals("User Already exist")) {
+
+                                        Toast toast = Toast.makeText(SignUp.this, "Il existe deja un utilisateur avec cette adresse e-mail  !", Toast.LENGTH_LONG);
+                                        LinearLayout layout = (LinearLayout) toast.getView();
+                                        if (layout.getChildCount() > 0) {
+                                            TextView tv = (TextView) layout.getChildAt(0);
+                                            tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                                        }
+                                        toast.show();
+                                    }
+
+
+                                    // txtString.setText(myResponse);
                                 }
-                                toast.show();
-                            }
+                            });
 
-                            if (myResponse.equals("User Already exist")) {
-
-                                Toast toast = Toast.makeText(SignUp.this, "Il existe deja un utilisateur avec cette adresse e-mail  !", Toast.LENGTH_LONG);
-                                LinearLayout layout = (LinearLayout) toast.getView();
-                                if (layout.getChildCount() > 0) {
-                                    TextView tv = (TextView) layout.getChildAt(0);
-                                    tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-                                }
-                                toast.show();
-                            }
-
-
-                            // txtString.setText(myResponse);
                         }
                     });
 
+
                 }
             });
+
 
 
         } else {
@@ -263,9 +269,10 @@ public class SignUp extends GlobalVars {
                     Log.d("Choose Picture", path);
                     //Transformer la photo en Bitmap
                     Bitmap bitmap = BitmapFactory.decodeFile(path);
-                    //Afficher le Bitmap
+
                     mImageView.setVisibility(View.VISIBLE);
                     mImageView.setImageBitmap(bitmap);
+
 
 
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -273,7 +280,7 @@ public class SignUp extends GlobalVars {
                     byte[] byteArray = byteArrayOutputStream .toByteArray();
                     encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
-                    Log.v("Encoded64",encoded);
+                    // Log.v("Encoded64",encoded);
 
 
                    /* //On renseigne les informations sur la photo séléctionné

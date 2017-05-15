@@ -88,7 +88,6 @@ public class AddFicheEntretien extends GlobalVars {
 
     }
 
-
     private void RecuperationVoitureDb() throws IOException {
         try {
             RequestListCarDb listcardb = new RequestListCarDb();

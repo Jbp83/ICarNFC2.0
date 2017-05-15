@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.example.jb.icarnfc.Requests.RequestListCarUser;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.UserSessionManager;
@@ -40,6 +42,7 @@ public class Mes_voitures extends GlobalVars {
     UserSessionManager session;
     int cv;
     ImageView photovoiture;
+    List<Voiture> voitures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +88,9 @@ public class Mes_voitures extends GlobalVars {
         emailsession = user.get(UserSessionManager.KEY_EMAIL);
 
 
+
         try {
-            afficherListeVoitures();
+            voitures = GenererVoiture();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -94,6 +98,7 @@ public class Mes_voitures extends GlobalVars {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
 
         /*mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -137,7 +142,6 @@ public class Mes_voitures extends GlobalVars {
   private void afficherListeVoitures() throws InterruptedException, NoSuchAlgorithmException, IOException {
 
 
-        List<Voiture> voitures = GenererVoiture();
         VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures,this);
         mListView.setAdapter(adapter);
 
@@ -196,39 +200,33 @@ public class Mes_voitures extends GlobalVars {
 
                         // Variable session
 
+
+
+
                         voituretest.add(new Voiture(i,nom,immatriculation,modele,marque,DateImmat, photo,cv,idjson));
 
 
-                        String[] separated = photo.split(",");
-                        final String s = separated[1];
-                        Log.v("coup",s); // On recupere la chaine aprss la virgule
-                        byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        //photovoiture.setImageBitmap(decodedByte);
 
 
-                        Log.v("Bitmap",s);
-                        //photovoiture.setImageBitmap(decodedByte);
-
-                           /* SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-                            String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
-                            int idName = prefs.getInt("idName", 0); //0 is the default value.
-
-                            Log.v("sessionname",name);
-                            Log.v(getClass().getName(), String.format("cv = %d", idName));*/
-
-                           //sharedPreferences.getString("mail",null);
-                           //sharedPreferences.getString("iduser",null);
+                        //Log.v("Bitmap",s);
 
                     }
 
-                    //Log.v("easy",emailsession);
-                   // Log.v("ez",idusersession);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                afficherListeVoitures();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (NoSuchAlgorithmException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
 
-
-
-
-                   // if (!idusersession.equals(""))Log.v("ez",idusersession);
+                        }
+                    });
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -5,15 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.util.DiffUtil;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.jb.icarnfc.Requests.RequestCheckGuid;
 import com.example.jb.icarnfc.Requests.RequestInfoCar;
 
 import org.json.JSONArray;
@@ -42,10 +38,12 @@ public class Infos_car extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
 
-        final String iddefault ="1";
-        //final String iddefault = (String) getIntent().getSerializableExtra("idvoitureselect");
+        //final String iddefault ="1";
+        final String iddefault = (String) getIntent().getSerializableExtra("idvoitureselect");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infos_car);
+
+        Log.v("tube",iddefault);
 
 
         Intent intent = getIntent();
@@ -55,9 +53,9 @@ public class Infos_car extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.photo);
         puissanceEdit= (TextView) findViewById(R.id.puissance);
         dateimmatEdit = (TextView) findViewById(R.id.dateimmat);
-        marqueEdit =(TextView) findViewById(R.id.marque);
-        modeleEdit= (TextView) findViewById(R.id.modele);
-        immatriculationEdit = (TextView) findViewById(R.id.immatriculation);
+        marqueEdit =(TextView) findViewById(R.id.tv_marque);
+        modeleEdit= (TextView) findViewById(R.id.tv_modele);
+        immatriculationEdit = (TextView) findViewById(R.id.tv_immatriculation);
 
         Infos_car.this.runOnUiThread(new Runnable() {
             @Override

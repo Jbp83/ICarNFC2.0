@@ -42,7 +42,7 @@
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/marque"
+            android:id="@+id/tv_marque"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
@@ -51,7 +51,7 @@
            android:hint="Marque" />
 
         <EditText
-            android:id="@+id/modele"
+            android:id="@+id/tv_modele"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"

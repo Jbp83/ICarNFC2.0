@@ -8,7 +8,7 @@
     >
 
     <TextView
-        android:id="@+id/marque"
+        android:id="@+id/tv_marque"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,22 +18,22 @@
         tools:text="Marque :" />
 
     <TextView
-        android:id="@+id/modele"
+        android:id="@+id/tv_modele"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@android:color/black"
         tools:text="Modèle : "
-        android:layout_below="@+id/marque"
-        android:layout_alignStart="@+id/immatriculation"
+        android:layout_below="@+id/tv_marque"
+        android:layout_alignStart="@+id/tv_immatriculation"
         android:layout_marginTop="12dp" />
 
     <TextView
         android:id="@+id/idvoiture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/modele"
-        android:layout_below="@+id/modele"
+        android:layout_alignStart="@+id/tv_modele"
+        android:layout_below="@+id/tv_modele"
         android:text="TextView"
         tools:text="idvoiture" />
 
@@ -62,8 +62,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Info"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/poubelle"
-        android:layout_marginEnd="23dp" />
+        android:layout_marginEnd="43dp"
+        android:layout_alignBottom="@+id/tv_modele"
+        android:layout_toStartOf="@+id/poubelle" />
 
 </RelativeLayout>

@@ -134,12 +134,13 @@ public class icarService {
                 jsonCar.put("id", resultats.getString("id"));
                 jsonCar.put("guid", resultats.getString("guid"));
                 jsonCar.put("id_proprietaire", resultats.getString("id_proprietaire"));
-                jsonCar.put("Immatriculation", resultats.getString("immatriculation"));
+                jsonCar.put("Immatriculation", resultats.getString("Immatriculation"));
                 jsonCar.put("nom", resultats.getString("nom"));
                 jsonCar.put("marque", resultats.getString("marque"));
                 jsonCar.put("modele", resultats.getString("modele"));
                 jsonCar.put("DateImmat", resultats.getString("DateImmat"));
-                jsonCar.put("cv", resultats.getString("Photo"));
+                jsonCar.put("cv", resultats.getString("CV"));
+                jsonCar.put("photo", resultats.getString("Photo"));
                 jsonVoitureArray.put(jsonCar);
                 jsonArray.put("Car",jsonVoitureArray);
                 return jsonArray.toString();

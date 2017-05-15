@@ -147,11 +147,13 @@ public class SignUpPro extends GlobalVars {
                             siren = object.getString("Siren");
                             adresse= object.getString("Adresse");
 
-                            System.out.println("--------------------");
+                          /*  System.out.println("--------------------");
                             Log.v("Etablissement : ",nometablissement);
                             Log.v("Téléphone :",telephone);
                             Log.v("Siren :",siren);
-                            Log.v("Adresse: ",adresse);
+                            Log.v("Adresse: ",adresse);*/
+
+
 
                         }
 
@@ -213,7 +215,7 @@ public class SignUpPro extends GlobalVars {
                     .add("UserName", nomtxt);
 
             MD5 md5 = new MD5();
-            String passwordmd5=md5.crypt(passwordtxt);
+            String passwordmd5= MD5.crypt(passwordtxt);
 
 
             // dynamically add more parameter like this:

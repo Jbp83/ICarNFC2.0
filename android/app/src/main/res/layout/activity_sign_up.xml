@@ -14,10 +14,12 @@
 
     <ImageView
         android:id="@+id/Avatar"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/ad" />
+        android:layout_marginBottom="5dp"
+        app:srcCompat="@drawable/ad"
+        />
 
    <!-- <TextView
         android:id="@+id/tvStatus"
@@ -93,11 +95,6 @@
                 android:ems="10"
                 android:hint="Confirmation mot de passe"
                 android:inputType="textPassword" />
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="351dp"
-                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/AddAvatar"
