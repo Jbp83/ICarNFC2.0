@@ -52,7 +52,7 @@ public class Mes_voitures extends GlobalVars {
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
 
 
-        // Récupération des variables session
+        //Récupération des variables session
         SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
         String email = settings.getString("UserMail", "Null");
         String id=settings.getString("idUser", "Null");
@@ -79,6 +79,7 @@ public class Mes_voitures extends GlobalVars {
 
             }
         });
+
 
         mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
 
