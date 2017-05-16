@@ -85,9 +85,14 @@
         <activity android:name=".ViewCarEntretien"></activity>
 
         <activity
-            android:name=".Entreprise.AddFicheEntretienClientVoiture"
+        android:name=".Entreprise.AddFicheEntretienClientVoiture"
+        android:screenOrientation="portrait"
+        ></activity>
+
+        <activity
+            android:name=".Entreprise.AddFicheToVoiture"
             android:screenOrientation="portrait"
-           ></activity>
+            ></activity>
     </application>
 
 </manifest>

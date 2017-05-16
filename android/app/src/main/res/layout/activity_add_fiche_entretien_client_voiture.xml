@@ -10,14 +10,19 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Selectionner la voiture du client"
-        android:textAlignment="textStart" />
+        android:text="Selectionner la voiture du client :"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <ListView android:id="@+id/CarListview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        />
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

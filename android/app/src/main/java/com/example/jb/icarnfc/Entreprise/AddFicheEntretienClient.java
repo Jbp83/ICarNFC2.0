@@ -3,9 +3,11 @@ package com.example.jb.icarnfc.Entreprise;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -49,11 +51,15 @@ public class AddFicheEntretienClient extends GlobalVars {
 
     UserSessionManager session;
     ListView mListView;
+    String idEntreprise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fiche_entretien);
+        SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
+        idEntreprise = settings.getString("id_entreprise", "Null");
+
         mListView = (ListView) findViewById(R.id.UserListview);
 
                 try {
@@ -67,7 +73,7 @@ public class AddFicheEntretienClient extends GlobalVars {
     private void RecuperationVoitureDb() throws IOException {
         try {
             RequestUser reqUser = new RequestUser();
-            reqUser.getUserbyEntreprise("1",new Callback() {
+            reqUser.getUserbyEntreprise(idEntreprise,new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();

@@ -47,6 +47,6 @@ public class RequestEtablissement extends GlobalVars{
                 .post(formBody)
                 .build();
 
-        OkHttpClient client = new OkHttpClient();
+        okHttpClient.newCall(request).enqueue(callback);
     }
 }

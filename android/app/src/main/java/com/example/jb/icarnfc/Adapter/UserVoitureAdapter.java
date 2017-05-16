@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jb.icarnfc.Entreprise.AddFicheEntretienClientVoiture;
+import com.example.jb.icarnfc.Entreprise.AddFicheToVoiture;
 import com.example.jb.icarnfc.Infos_car;
 import com.example.jb.icarnfc.Mes_voitures;
 import com.example.jb.icarnfc.Object.Voiture;
@@ -83,9 +84,12 @@ public class UserVoitureAdapter extends ArrayAdapter<Voiture> {
             viewHolder.BtnSelect.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     String idselect= voiture.getId();
-                    Intent monIntent = new Intent(getContext(), AddFicheEntretienClientVoiture.class);
+                    String idProp = String.valueOf(voiture.getId_proprietaire());
+                    Intent monIntent = new Intent(getContext(), AddFicheToVoiture.class);
                     monIntent.putExtra("idVoiture", idselect );
+                    monIntent.putExtra("idClient", idProp );
                     getContext().startActivity(monIntent);
+
                 }
             });
 

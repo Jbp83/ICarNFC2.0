@@ -206,7 +206,8 @@ public class MainActivity extends GlobalVars {
                                     editor.putString("nom", nom);
                                     editor.putString("prenom", prenom);
                                     editor.putString("status", status);
-                                    //finish();
+                                    editor.commit();
+                                    startActivity(myIntent);
                                 }
 
 
