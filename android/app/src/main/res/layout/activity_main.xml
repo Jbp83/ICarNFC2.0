@@ -96,21 +96,10 @@ tools:context="com.example.jb.icarnfc.MainActivity">
             android:id="@+id/inscription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:layout_weight="0.26"
             android:text="Pas de compte ? Inscrivez vous"
             android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/lblName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/lblEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
 
     </LinearLayout>
 </ScrollView>

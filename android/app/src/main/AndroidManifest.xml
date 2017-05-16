@@ -59,7 +59,8 @@
         </activity>
         <activity
             android:name=".Add_car"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:label="Ajouter voiture"/>
         <activity android:name=".Pro" />
         <activity
             android:name=".AddFicheEntretien"

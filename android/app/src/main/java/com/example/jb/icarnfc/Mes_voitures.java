@@ -37,7 +37,7 @@ import static com.example.jb.icarnfc.R.id.nocar;
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
-    String nom, modele, immatriculation, urlimage, DateImmat, id_proprietaire, marque, mailparticulier, photo, idjson;
+    String nom, modele, immatriculation, urlimage, DateImmat, id_proprietaire, marque, mailparticulier, photo, idjson,email;
     int cv;
     ImageView photovoiture;
     List<Voiture> voitures;
@@ -56,7 +56,7 @@ public class Mes_voitures extends GlobalVars {
 
         //Récupération des variables session
         SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
-        String email = settings.getString("UserMail", "Null");
+        email = settings.getString("UserMail", "Null");
         String id = settings.getString("idUser", "Null");
         String id_entreprise = settings.getString("id_entreprise", "Null");
         String nom = settings.getString("nom", "Null");
@@ -77,13 +77,13 @@ public class Mes_voitures extends GlobalVars {
 
                 Intent myIntent = new Intent(getBaseContext(), ReadTag.class);
                 startActivity(myIntent);
-                //finish();
+                finish();
 
             }
         });
 
 
-        mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
+        //mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
 
 
         try {
@@ -96,16 +96,15 @@ public class Mes_voitures extends GlobalVars {
             e.printStackTrace();
         }
 
-
     }
 
     @Override
     public void onResume() {
-        super.onResume();  // Always call the superclass method first
+        super.onResume();
 
 
         try {
-            afficherListeVoitures();
+            voitures = GenererVoiture();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -132,7 +131,7 @@ public class Mes_voitures extends GlobalVars {
 
         //Log.v("emailsession",emailsession);
 
-        listuser.getCarsUser(mailparticulier, new Callback() {
+        listuser.getCarsUser(email, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

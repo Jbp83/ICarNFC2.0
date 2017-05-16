@@ -1,6 +1,7 @@
 package com.example.jb.icarnfc;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,6 +30,7 @@ public class Add_car extends GlobalVars {
 
     String encoded;
     final static int SELECT_PICTURE = 1;
+    String str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class Add_car extends GlobalVars {
         setContentView(R.layout.activity_add_car);
 
         Button button= (Button) findViewById(R.id.addfiche);
-        TextView textView =(TextView)findViewById(R.id.guid);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,8 +50,9 @@ public class Add_car extends GlobalVars {
             }
         });
 
-        String str = (String) getIntent().getSerializableExtra("guid");
-        textView.setText(str);
+         str = (String) getIntent().getSerializableExtra("guid");
+        Log.v("tag",str);
+        //textView.setText(str);
 
 
         Button bt_avatar = (Button)findViewById(R.id.AddPhotoCar) ;
@@ -128,14 +131,15 @@ public class Add_car extends GlobalVars {
 
     void AddCar() throws IOException
     {
-        TextView result_guid =(TextView)findViewById(R.id.guid);
+        //TextView result_guid =(TextView)findViewById(R.id.guid);
         EditText nom = (EditText) findViewById (R.id.nom);
         EditText marque = (EditText) findViewById (R.id.tv_marque);
         EditText model = (EditText) findViewById (R.id.tv_modele);
         EditText immat = (EditText) findViewById (R.id.immat);
         EditText cv = (EditText) findViewById (R.id.cv);
 
-        final String guidtxt = result_guid.getText().toString();
+        final String guidtxt = str.toString();
+
         final String nomtxt = nom.getText().toString();
         final String marquetxt = marque.getText().toString();
         final String modeltxt = model.getText().toString();
@@ -150,12 +154,16 @@ public class Add_car extends GlobalVars {
         }
         else
         {
+            // Récuperation de l'id du user dans les shared preferences
+            SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
+
+            String iduser = settings.getString("idUser", "Null");
 
             FormBody.Builder formBuilder = new FormBody.Builder()
                     .add("GUID", guidtxt);
 
             // dynamically add more parameter like this:
-            formBuilder.add("UserID", "11");
+            formBuilder.add("UserID", iduser);
             formBuilder.add("CarImmat", immattxt);
             formBuilder.add("CarName", nomtxt);
             formBuilder.add("CarBrand", marquetxt);
