@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.jb.icarnfc.Adapter.VoitureAdapter;
 import com.example.jb.icarnfc.Object.Voiture;
 import com.example.jb.icarnfc.Requests.RequestListCarUser;
 import com.example.jb.icarnfc.common.GlobalVars;

@@ -2,10 +2,11 @@ package com.example.jb.icarnfc;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.RequiresPermission;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.jb.icarnfc.Entreprise.AddFicheEntretienClient;
 import com.example.jb.icarnfc.common.GlobalVars;
 
 public class Pro extends GlobalVars {
@@ -33,7 +34,7 @@ public class Pro extends GlobalVars {
         fiche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getBaseContext(), AddFicheEntretien.class);
+                Intent myIntent = new Intent(getBaseContext(), AddFicheEntretienClient.class);
                 startActivity(myIntent);
             }
         });

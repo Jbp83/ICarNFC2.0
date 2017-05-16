@@ -37,11 +37,11 @@
         <activity android:name=".Mes_voitures" />
         <activity android:name=".AndroidSelectImage" />
         <activity android:name=".Infos_car">
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".ReadTag">
             <intent-filter>
@@ -61,7 +61,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Pro" />
         <activity
-            android:name=".AddFicheEntretien"
+            android:name=".Entreprise.AddFicheEntretienClient"
             android:label="Fiche entretien"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".HistoriqueEntretienPro" />
@@ -81,6 +81,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewCarEntretien"></activity>
+
+        <activity
+            android:name=".Entreprise.AddFicheEntretienClientVoiture"
+            android:screenOrientation="portrait"
+           ></activity>
     </application>
 
 </manifest>

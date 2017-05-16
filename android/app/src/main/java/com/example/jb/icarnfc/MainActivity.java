@@ -147,7 +147,7 @@ public class MainActivity extends GlobalVars {
         {
 
             MD5 md5 = new MD5();
-            String pwdmd5= MD5.crypt(passwordtxt);
+            String pwdmd5= md5.crypt(passwordtxt);
 
             Log.v(TAG,pwdmd5);
 

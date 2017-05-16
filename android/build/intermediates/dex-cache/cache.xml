@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="D:\LP IDSE\NFC\ICarNFC2.0\android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="D:\LP IDSE\NFC\ICarNFC2.0\android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_477580ff9f2deb5762d04d88c745f62fa019f2c7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\LP IDSE\NFC\ICarNFC2.0\android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ac541faa5a514e664f1d6de6e7b5c71955b32b61">
+        <dex dex="D:\LP IDSE\NFC\ICarNFC2.0\android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_83b9e176a9c5a513c3212c51b91a949b6585c4ba\classes.dex" />
+    </item>
+
+</items>

@@ -106,111 +106,7 @@ public class icarService {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value ="/GetCarWithGuid")
-    public String GetCarguid(@RequestParam("GUID") String Guid)
-    {
 
-        JSONObject jsonCar = new JSONObject();
-        JSONObject jsonArray = new JSONObject();
-        JSONArray jsonVoitureArray = new JSONArray();
-
-        //Connection à la base de donnée avec la variable conn
-        Connection  conn = getConnection();
-
-        // On déclare les variables à utiliser
-        Statement statement;
-        ResultSet resultats;
-        String Req;
-
-
-        Req = "SELECT * FROM voiture WHERE guid='"+Guid+"'";
-
-        try {
-            statement =  conn.createStatement();
-            resultats = statement.executeQuery(Req);
-
-            if(resultats.next()) {
-
-                jsonCar.put("id", resultats.getString("id"));
-                jsonCar.put("guid", resultats.getString("guid"));
-                jsonCar.put("id_proprietaire", resultats.getString("id_proprietaire"));
-                jsonCar.put("Immatriculation", resultats.getString("Immatriculation"));
-                jsonCar.put("nom", resultats.getString("nom"));
-                jsonCar.put("marque", resultats.getString("marque"));
-                jsonCar.put("modele", resultats.getString("modele"));
-                jsonCar.put("DateImmat", resultats.getString("DateImmat"));
-                jsonCar.put("cv", resultats.getString("CV"));
-                jsonCar.put("photo", resultats.getString("Photo"));
-                jsonVoitureArray.put(jsonCar);
-                jsonArray.put("Car",jsonVoitureArray);
-                return jsonArray.toString();
-            }
-
-            else
-            {
-                return "error car not found";
-            }
-
-
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value ="/voiture/{idVoiture}")
-    public String getVoiture(@PathVariable("idVoiture") String idVoiture)
-    {
-        JSONObject jsonVoiture = new JSONObject();
-        JSONObject jsonArray = new JSONObject();
-        JSONArray jsonvVoitureArray = new JSONArray();
-
-
-        //Connection à la base de donnée avec la variable conn
-        Connection  conn = getConnection();
-
-        // On déclare les variables à utiliser
-        Statement statement;
-        ResultSet resultat;
-        String Req;
-        Req = "SELECT * FROM voiture WHERE `id`="+idVoiture +";";
-
-        try {
-            statement = conn.createStatement();
-            resultat = statement.executeQuery(Req);
-
-            while (resultat.next()) {
-                jsonVoiture.put("id", resultat.getInt("id"));
-                jsonVoiture.put("guid", resultat.getString("guid"));
-                jsonVoiture.put("id_proprietaire", resultat.getInt("id_proprietaire"));
-                jsonVoiture.put("Immatriculation", resultat.getString("Immatriculation"));
-                jsonVoiture.put("nom", resultat.getString("nom"));
-                jsonVoiture.put("marque", resultat.getString("marque"));
-                jsonVoiture.put("modele", resultat.getString("modele"));
-                jsonVoiture.put("DateImmat", resultat.getDate("DateImmat"));
-                jsonVoiture.put("CV", resultat.getString("CV"));
-                jsonVoiture.put("Photo", resultat.getString("Photo"));
-                jsonvVoitureArray.put(jsonVoiture);
-                jsonArray.put("Voiture",jsonvVoitureArray);
-                return jsonArray.toString();
-            }
-
-            return jsonVoiture.toString();
-
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
     @RequestMapping(method = RequestMethod.GET, value ="/ficheentretien/{identretien}")
     public String getFiche(@PathVariable("identretien") String identretien)
@@ -259,37 +155,7 @@ public class icarService {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value ="/deleteCar")
-    public String deleteUserCar(@RequestParam("idVoiture") String idVoiture)
-    {
 
-        //Connection à la base de donnée avec la variable conn
-        Connection  conn = getConnection();
-
-        // On déclare les variables à utiliser
-        PreparedStatement PrepStat;
-        int resultat;
-
-        String Req = "DELETE FROM voiture WHERE `id`="+idVoiture +";";
-
-      try {
-          PrepStat =  conn.prepareStatement(Req);
-            resultat = PrepStat.executeUpdate();
-
-              if(resultat == 1)
-              {
-                return "deleted";
-            }
-            else
-            {
-                return "erreur";
-            }
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
 
     @RequestMapping(method = RequestMethod.GET, value ="/ficheEntretien")
@@ -334,7 +200,6 @@ public class icarService {
         return null;
     }
 
-
     @RequestMapping(method = RequestMethod.POST, value ="/addEntretien")
     public String PostEntretiens(@RequestParam("date_creation") String date_creation, @RequestParam("id_voiture") String id_voiture,@RequestParam("id_etablissement") String id_etablissement,@RequestParam("id_utilisateur") String id_utilisateur,@RequestParam("description") String description, @RequestParam("id_mecanicien") String idmecanicien)
     {
@@ -372,7 +237,6 @@ public class icarService {
             throw new RuntimeException(e);
         }
     }
-
 
     @RequestMapping(method = RequestMethod.POST, value ="/subscribe")
     public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut,@RequestParam("Avatar") String avatar)
@@ -479,7 +343,198 @@ public class icarService {
         return "fail to load company";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value ="/info")
+    public String getInfos(@RequestParam("UserMail") String UserMail)
+    {
+        JSONObject jsonInfo = new JSONObject();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonNOM = new JSONArray();
 
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultats;
+        String Req;
+        Req = "SELECT * FROM users WHERE `mail`='"+UserMail +"';";
+
+        try {
+            statement =  conn.createStatement();
+            resultats = statement.executeQuery(Req);
+
+            if(resultats.next()) {
+
+                jsonInfo.put("nom", resultats.getString("nom"));
+                jsonInfo.put("prenom", resultats.getString("prenom"));
+                jsonInfo.put("mail", resultats.getString("mail"));
+                jsonInfo.put("status", resultats.getString("status"));
+                jsonNOM.put(jsonInfo);
+                jsonArray.put("User",jsonNOM);
+                return jsonArray.toString();
+            }
+            else
+            {
+                return "error user not found";
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+
+    // ---- users -----
+
+    @RequestMapping(method = RequestMethod.GET, value ="/UserbyEntreprise/{idEntreprise}")
+    public String GetUserbyEntreprise(@PathVariable("idEntreprise") String idEntreprise)
+    {
+
+        JSONArray Users = new JSONArray();
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultats;
+        String Req;
+        Req = "SELECT * FROM users WHERE `id_etablissement` =" +idEntreprise +" AND `status`= 'Particulier';";
+
+        try {
+            statement =  conn.createStatement();
+            resultats = statement.executeQuery(Req);
+
+                while(resultats.next()) {
+                    JSONObject jsonUser = new JSONObject();
+                    jsonUser.put("id",resultats.getString("id"));
+                    jsonUser.put("nom", resultats.getString("nom"));
+                    jsonUser.put("prenom", resultats.getString("prenom"));
+                    jsonUser.put("mail", resultats.getString("mail"));
+                    jsonUser.put("status", resultats.getString("status"));
+                    jsonUser.put("id_etablissement", resultats.getString("id_etablissement"));
+                    Users.put(jsonUser);
+                }
+                return Users.toString();
+
+            } catch (SQLException e1) {
+            e1.printStackTrace();
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+
+        return "fail to load cars";
+    }
+
+
+// ---- voitures----
+    @RequestMapping(method = RequestMethod.POST, value ="/addcar")
+    public String AddCar(@RequestParam("GUID") String GUID,@RequestParam("UserID") String UserId,@RequestParam("CarImmat") String CarImmat, @RequestParam("CarName") String CarName,@RequestParam("CarBrand") String CarBrand, @RequestParam("CarModel") String CarModel ,@RequestParam("DateImmat") String DateImmat,@RequestParam("CV") String CV,@RequestParam("Photo") String Photo)
+    {
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        PreparedStatement PrepStat;
+        ResultSet resultats;
+        String Req;
+        Req = "SELECT * FROM voiture WHERE GUID='"+GUID+ "' ;";
+
+        try {
+            statement =  conn.createStatement();
+            resultats = statement.executeQuery(Req);
+
+            if(resultats.next())
+            {
+                return "Car Already exist";
+            }
+            else
+            {
+                Req = "INSERT INTO voiture (guid,id_proprietaire, Immatriculation, nom, marque, modele, DateImmat,CV,Photo) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ,?)";
+                PrepStat = conn.prepareStatement(Req);
+
+                PrepStat.setString(1,GUID);
+                PrepStat.setString(2,UserId);
+                PrepStat.setString(3,CarImmat);
+                PrepStat.setString(4,CarName);
+                PrepStat.setString(5,CarBrand);
+                PrepStat.setString(6,CarModel);
+                PrepStat.setString(7,DateImmat);
+                PrepStat.setString(8,CV);
+                PrepStat.setString(9,Photo);
+
+
+                int created = PrepStat.executeUpdate();
+                if(created ==1)
+                    return "voiture crée";
+                else
+                    return "erreur de création";
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value ="/userCars/{UserId}")
+    public String getCarsbyUser(@PathVariable("UserId") String UserId)
+    {
+
+        JSONArray CarArray = new JSONArray();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonNOM = new JSONArray();
+
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultats;
+        String Req;
+        Req = "SELECT * FROM `voiture` WHERE `id_proprietaire` = '"+UserId +"';";
+
+        try {
+            statement =  conn.createStatement();
+            resultats = statement.executeQuery(Req);
+
+                while(resultats.next()) {
+                    JSONObject jsonCar = new JSONObject();
+                    jsonCar.put("guid",resultats.getString("guid"));
+                    jsonCar.put("nom",resultats.getString("nom"));
+                    jsonCar.put("id",resultats.getInt("id"));
+                    jsonCar.put("id_proprietaire",resultats.getInt("id_proprietaire"));
+                    jsonCar.put("Immatriculation",resultats.getString("Immatriculation"));
+                    jsonCar.put("marque",resultats.getString("marque"));
+                    jsonCar.put("modele",resultats.getString("modele"));
+                    jsonCar.put("DateImmat",resultats.getDate("DateImmat"));
+                    jsonCar.put("CV",resultats.getInt("CV"));
+                    jsonCar.put("Blob",resultats.getString("Photo"));
+                    CarArray.put(jsonCar);
+                    jsonNOM.put(jsonCar);
+                    jsonArray.put("Cars",jsonNOM);
+                }
+
+                return jsonArray.toString();
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return "fail to load cars";
+    }
 
     @RequestMapping(method = RequestMethod.GET, value ="/CarsDb")
     public String GetCarsDb()
@@ -536,15 +591,94 @@ public class icarService {
         return "fail to load cars";
     }
 
-
-
-
-    @RequestMapping(method = RequestMethod.GET, value ="/info")
-    public String getInfos(@RequestParam("UserMail") String UserMail)
+    @RequestMapping(method = RequestMethod.GET, value ="/voiture/{idVoiture}")
+    public String getVoiture(@PathVariable("idVoiture") String idVoiture)
     {
-        JSONObject jsonInfo = new JSONObject();
+        JSONObject jsonVoiture = new JSONObject();
         JSONObject jsonArray = new JSONObject();
-        JSONArray jsonNOM = new JSONArray();
+        JSONArray jsonvVoitureArray = new JSONArray();
+
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        Statement statement;
+        ResultSet resultat;
+        String Req;
+        Req = "SELECT * FROM voiture WHERE `id`="+idVoiture +";";
+
+        try {
+            statement = conn.createStatement();
+            resultat = statement.executeQuery(Req);
+
+            while (resultat.next()) {
+                jsonVoiture.put("id", resultat.getInt("id"));
+                jsonVoiture.put("guid", resultat.getString("guid"));
+                jsonVoiture.put("id_proprietaire", resultat.getInt("id_proprietaire"));
+                jsonVoiture.put("Immatriculation", resultat.getString("Immatriculation"));
+                jsonVoiture.put("nom", resultat.getString("nom"));
+                jsonVoiture.put("marque", resultat.getString("marque"));
+                jsonVoiture.put("modele", resultat.getString("modele"));
+                jsonVoiture.put("DateImmat", resultat.getDate("DateImmat"));
+                jsonVoiture.put("CV", resultat.getString("CV"));
+                jsonVoiture.put("Photo", resultat.getString("Photo"));
+                jsonvVoitureArray.put(jsonVoiture);
+                jsonArray.put("Voiture",jsonvVoitureArray);
+                return jsonArray.toString();
+            }
+
+            return jsonVoiture.toString();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value ="/deleteCar")
+    public String deleteUserCar(@RequestParam("idVoiture") String idVoiture)
+    {
+
+        //Connection à la base de donnée avec la variable conn
+        Connection  conn = getConnection();
+
+        // On déclare les variables à utiliser
+        PreparedStatement PrepStat;
+        int resultat;
+
+        String Req = "DELETE FROM voiture WHERE `id`="+idVoiture +";";
+
+        try {
+            PrepStat =  conn.prepareStatement(Req);
+            resultat = PrepStat.executeUpdate();
+
+            if(resultat == 1)
+            {
+                return "deleted";
+            }
+            else
+            {
+                return "erreur";
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value ="/GetCarWithGuid")
+    public String GetCarguid(@RequestParam("GUID") String Guid)
+    {
+
+        JSONObject jsonCar = new JSONObject();
+        JSONObject jsonArray = new JSONObject();
+        JSONArray jsonVoitureArray = new JSONArray();
 
         //Connection à la base de donnée avec la variable conn
         Connection  conn = getConnection();
@@ -553,7 +687,9 @@ public class icarService {
         Statement statement;
         ResultSet resultats;
         String Req;
-        Req = "SELECT * FROM users WHERE `mail`='"+UserMail +"';";
+
+
+        Req = "SELECT * FROM voiture WHERE guid='"+Guid+"'";
 
         try {
             statement =  conn.createStatement();
@@ -561,18 +697,27 @@ public class icarService {
 
             if(resultats.next()) {
 
-                jsonInfo.put("nom", resultats.getString("nom"));
-                jsonInfo.put("prenom", resultats.getString("prenom"));
-                jsonInfo.put("mail", resultats.getString("mail"));
-                jsonInfo.put("status", resultats.getString("status"));
-                jsonNOM.put(jsonInfo);
-                jsonArray.put("User",jsonNOM);
+                jsonCar.put("id", resultats.getString("id"));
+                jsonCar.put("guid", resultats.getString("guid"));
+                jsonCar.put("id_proprietaire", resultats.getString("id_proprietaire"));
+                jsonCar.put("Immatriculation", resultats.getString("Immatriculation"));
+                jsonCar.put("nom", resultats.getString("nom"));
+                jsonCar.put("marque", resultats.getString("marque"));
+                jsonCar.put("modele", resultats.getString("modele"));
+                jsonCar.put("DateImmat", resultats.getString("DateImmat"));
+                jsonCar.put("cv", resultats.getString("CV"));
+                jsonCar.put("photo", resultats.getString("Photo"));
+                jsonVoitureArray.put(jsonCar);
+                jsonArray.put("Car",jsonVoitureArray);
                 return jsonArray.toString();
             }
+
             else
             {
-                return "error user not found";
+                return "error car not found";
             }
+
+
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -581,121 +726,10 @@ public class icarService {
         }
 
         return null;
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value ="/userCars")
-    public String getCars(@RequestParam("UserMail") String UserMail)
-    {
-
-        JSONArray CarArray = new JSONArray();
-        JSONObject jsonArray = new JSONObject();
-        JSONArray jsonNOM = new JSONArray();
-
-
-        //Connection à la base de donnée avec la variable conn
-        Connection  conn = getConnection();
-
-        // On déclare les variables à utiliser
-        Statement statement;
-        ResultSet resultats;
-        String Req;
-        Req = "SELECT * FROM `voiture` WHERE `id_proprietaire` = (SELECT `id` FROM `users` WHERE `mail`='"+UserMail +"');";
-
-        try {
-            statement =  conn.createStatement();
-            resultats = statement.executeQuery(Req);
-
-
-            if(resultats.next())
-            {
-                resultats.previous();
-
-                while(resultats.next()) {
-                    JSONObject jsonCar = new JSONObject();
-                    jsonCar.put("guid",resultats.getString("guid"));
-                    jsonCar.put("nom",resultats.getString("nom"));
-                    jsonCar.put("id",resultats.getInt("id"));
-                    jsonCar.put("id_proprietaire",resultats.getInt("id_proprietaire"));
-                    jsonCar.put("Immatriculation",resultats.getString("Immatriculation"));
-                    jsonCar.put("marque",resultats.getString("marque"));
-                    jsonCar.put("modele",resultats.getString("modele"));
-                    jsonCar.put("DateImmat",resultats.getDate("DateImmat"));
-                    jsonCar.put("CV",resultats.getInt("CV"));
-                    jsonCar.put("Blob",resultats.getString("Photo"));
-                    CarArray.put(jsonCar);
-                    jsonNOM.put(jsonCar);
-                    jsonArray.put("Cars",jsonNOM);
-                }
-
-               return jsonArray.toString();
-            }
-            else
-            {
-                return "error cannot load cars";
-            }
-
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-         catch (JSONException e) {
-        e.printStackTrace();
-    }
-
-        return "fail to load cars";
-    }
-
-
-    @RequestMapping(method = RequestMethod.POST, value ="/addcar")
-    public String AddCar(@RequestParam("GUID") String GUID,@RequestParam("UserID") String UserId,@RequestParam("CarImmat") String CarImmat, @RequestParam("CarName") String CarName,@RequestParam("CarBrand") String CarBrand, @RequestParam("CarModel") String CarModel ,@RequestParam("DateImmat") String DateImmat,@RequestParam("CV") String CV,@RequestParam("Photo") String Photo)
-    {
-
-        //Connection à la base de donnée avec la variable conn
-        Connection  conn = getConnection();
-
-        // On déclare les variables à utiliser
-        Statement statement;
-        PreparedStatement PrepStat;
-        ResultSet resultats;
-        String Req;
-        Req = "SELECT * FROM voiture WHERE GUID='"+GUID+ "' ;";
-
-        try {
-            statement =  conn.createStatement();
-            resultats = statement.executeQuery(Req);
-
-            if(resultats.next())
-            {
-                return "Car Already exist";
-            }
-            else
-            {
-                Req = "INSERT INTO voiture (guid,id_proprietaire, Immatriculation, nom, marque, modele, DateImmat,CV,Photo) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ,?)";
-                PrepStat = conn.prepareStatement(Req);
-
-                PrepStat.setString(1,GUID);
-                PrepStat.setString(2,UserId);
-                PrepStat.setString(3,CarImmat);
-                PrepStat.setString(4,CarName);
-                PrepStat.setString(5,CarBrand);
-                PrepStat.setString(6,CarModel);
-                PrepStat.setString(7,DateImmat);
-                PrepStat.setString(8,CV);
-                PrepStat.setString(9,Photo);
-
-
-                int created = PrepStat.executeUpdate();
-                if(created ==1)
-                    return "voiture crée";
-                else
-                    return "erreur de création";
-            }
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
     }
+
+
 
 
     @RequestMapping("/")

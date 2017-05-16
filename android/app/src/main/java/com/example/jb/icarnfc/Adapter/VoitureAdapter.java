@@ -1,4 +1,4 @@
-package com.example.jb.icarnfc;
+package com.example.jb.icarnfc.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,7 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jb.icarnfc.Infos_car;
+import com.example.jb.icarnfc.Mes_voitures;
 import com.example.jb.icarnfc.Object.Voiture;
+import com.example.jb.icarnfc.R;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,8 +37,6 @@ import static com.example.jb.icarnfc.common.GlobalVars.IPSERVEUR;
 /**
  * Created by Mars on 25/04/2017.
  */
-
-
 
 public class VoitureAdapter extends ArrayAdapter<Voiture> {
 
