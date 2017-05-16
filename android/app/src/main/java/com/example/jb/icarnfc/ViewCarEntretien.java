@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 public class ViewCarEntretien extends AppCompatActivity {
 
-    String DateImmat, photo, id_proprietaire, nom, cv, idjson;
+    String DateImmat, photo, id_proprietaire, nom, cv, idjson,guid;
     ImageView imageview;
 
 
@@ -35,6 +35,23 @@ public class ViewCarEntretien extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_car_entretien);
+
+        Bundle extras = getIntent().getExtras();
+        guid= extras.getString("guid");
+
+        //Log.v("guid",guid);
+
+
+
+        ViewCarEntretien.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                getinfosCar(guid);
+
+            }
+        });
+
 
     }
 
@@ -69,7 +86,7 @@ public class ViewCarEntretien extends AppCompatActivity {
                             final String marquejson = object.getString("marque");
                             toString();
                             final String immatriculationjson = object.getString("Immatriculation").toString();
-                            photo = object.getString("Photo");
+                            photo = object.getString("photo");
 
 
                             if (photo.matches("")) {

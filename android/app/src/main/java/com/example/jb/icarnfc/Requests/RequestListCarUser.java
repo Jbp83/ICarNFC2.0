@@ -13,10 +13,10 @@ import okhttp3.Request;
 
 public class RequestListCarUser  extends GlobalVars{
 
-    public void getCarsUser(String mail,Callback callback) throws NoSuchAlgorithmException, IOException, InterruptedException {
+    public void getCarsUser(String id,Callback callback) throws NoSuchAlgorithmException, IOException, InterruptedException {
 
-        //mail="mars8.6@hotmail.fr";
-        String urlUserCar = IPSERVEUR + "/userCars?UserMail="+mail;
+
+        String urlUserCar = IPSERVEUR + "/userCars/"+id;
 
         System.out.println(urlUserCar);
 

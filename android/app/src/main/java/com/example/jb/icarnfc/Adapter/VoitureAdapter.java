@@ -113,6 +113,11 @@ public class VoitureAdapter extends ArrayAdapter<Voiture> {
                             case DialogInterface.BUTTON_POSITIVE:
 
                                 DeleteCar(idselect); // Si on appuie sur le DialogAlert sur oui on supprime l'item donc la voiture
+                                activity.finish();
+                                Intent myIntent = new Intent (activity.getBaseContext(), Mes_voitures.class);
+                                activity.startActivity(myIntent);
+
+
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE: // Sinon on ne fait rien
