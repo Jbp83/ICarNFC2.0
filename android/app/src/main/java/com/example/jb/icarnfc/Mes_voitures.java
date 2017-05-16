@@ -15,11 +15,13 @@ import com.example.jb.icarnfc.Object.Voiture;
 import com.example.jb.icarnfc.Requests.RequestListCarUser;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.UserSessionManager;
+
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -35,7 +37,7 @@ import static com.example.jb.icarnfc.R.id.nocar;
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
-    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,photo,idjson;
+    String nom, modele, immatriculation, urlimage, DateImmat, id_proprietaire, marque, mailparticulier, photo, idjson;
     int cv;
     ImageView photovoiture;
     List<Voiture> voitures;
@@ -47,7 +49,7 @@ public class Mes_voitures extends GlobalVars {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mes_voitures);
         photovoiture = (ImageView) findViewById(avatar);
-        message =(TextView)findViewById(nocar);
+        message = (TextView) findViewById(nocar);
         mListView = (ListView) findViewById(R.id.listView);
         ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
 
@@ -55,20 +57,20 @@ public class Mes_voitures extends GlobalVars {
         //Récupération des variables session
         SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
         String email = settings.getString("UserMail", "Null");
-        String id=settings.getString("idUser", "Null");
-        String id_entreprise=settings.getString("id_entreprise", "Null");
+        String id = settings.getString("idUser", "Null");
+        String id_entreprise = settings.getString("id_entreprise", "Null");
         String nom = settings.getString("nom", "Null");
-        String prenom=settings.getString("prenom", "Null");
-        String status=settings.getString("status", "Null");
+        String prenom = settings.getString("prenom", "Null");
+        String status = settings.getString("status", "Null");
 
-        Log.v("emailsession",email);
-        Log.v("id_user",id);
-        Log.v("id_entreprise",id_entreprise);
-        Log.v("nom",nom);
-        Log.v("prenom",prenom);
-        Log.v("status",status);
+        Log.v("emailsession", email);
+        Log.v("id_user", id);
+        Log.v("id_entreprise", id_entreprise);
+        Log.v("nom", nom);
+        Log.v("prenom", prenom);
+        Log.v("status", status);
 
-        Button button= (Button) findViewById(R.id.addcar);
+        Button button = (Button) findViewById(R.id.addcar);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,15 +116,14 @@ public class Mes_voitures extends GlobalVars {
     }
 
 
+    private void afficherListeVoitures() throws InterruptedException, NoSuchAlgorithmException, IOException {
 
-  private void afficherListeVoitures() throws InterruptedException, NoSuchAlgorithmException, IOException {
-
-        VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures,this);
+        VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures, this);
         mListView.setAdapter(adapter);
     }
 
 
-    private List <Voiture> GenererVoiture() throws InterruptedException, NoSuchAlgorithmException, IOException
+    private List<Voiture> GenererVoiture() throws InterruptedException, NoSuchAlgorithmException, IOException
 
     {
 
@@ -144,16 +145,20 @@ public class Mes_voitures extends GlobalVars {
                 String infosProfil = response.body().string();
 
 
-                if(infosProfil.equals("error cannot load cars"))
-                {
-                    Log.v("nbvoiture","Pas de voiture");
-                    message.setVisibility(View.VISIBLE);
+                if (infosProfil.equals("error cannot load cars")) {
+                    Log.v("nbvoiture", "Pas de voiture");
 
-                }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            message.setVisibility(View.VISIBLE);
+                        }
+                    });
 
-                else {
 
-                    Log.v("InfosProfil",infosProfil);
+                } else {
+
+                    Log.v("InfosProfil", infosProfil);
 
                     try {
 
@@ -216,7 +221,7 @@ public class Mes_voitures extends GlobalVars {
 
             }
         });
-       return voituretest;
+        return voituretest;
     }
 
 }
