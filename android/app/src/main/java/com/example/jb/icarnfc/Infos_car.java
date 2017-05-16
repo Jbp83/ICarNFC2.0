@@ -132,7 +132,7 @@ public class Infos_car extends AppCompatActivity {
                                 public void run() {
 
 
-                                    puissanceEdit.setText(nom);
+                                    puissanceEdit.setText(cv);
                                     marqueEdit.setText(marque);
                                     modeleEdit.setText(modele);
                                     dateimmatEdit.setText(DateImmat);

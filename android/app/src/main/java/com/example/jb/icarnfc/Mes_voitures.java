@@ -143,9 +143,10 @@ public class Mes_voitures extends GlobalVars {
             public void onResponse(Call call, Response response) throws IOException {
 
                 String infosProfil = response.body().string();
+                Log.v("prout",infosProfil);
 
 
-                if (infosProfil.equals("error cannot load cars")) {
+                if (infosProfil.equals("{}")) {
                     Log.v("nbvoiture", "Pas de voiture");
 
                     runOnUiThread(new Runnable() {
