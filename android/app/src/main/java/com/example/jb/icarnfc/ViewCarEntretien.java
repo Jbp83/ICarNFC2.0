@@ -1,5 +1,6 @@
 package com.example.jb.icarnfc;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +8,12 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jb.icarnfc.Entreprise.AddFicheEntretienClient;
+import com.example.jb.icarnfc.Entreprise.AddFicheToVoiture;
 import com.example.jb.icarnfc.R;
 import com.example.jb.icarnfc.Requests.RequestInfoCar;
 import com.example.jb.icarnfc.Requests.RequestScanPro;
@@ -42,6 +46,17 @@ public class ViewCarEntretien extends AppCompatActivity {
         //Log.v("guid",guid);
 
 
+        Button button= (Button) findViewById(R.id.addentretien);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent myIntent = new Intent(getBaseContext(), AddFicheToVoiture.class);
+                startActivity(myIntent);
+            }
+        });
+
+
 
         ViewCarEntretien.this.runOnUiThread(new Runnable() {
             @Override
@@ -51,6 +66,9 @@ public class ViewCarEntretien extends AppCompatActivity {
 
             }
         });
+
+
+
 
 
     }
