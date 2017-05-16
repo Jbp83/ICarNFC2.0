@@ -1,6 +1,7 @@
 package com.example.jb.icarnfc;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +35,7 @@ import static com.example.jb.icarnfc.R.id.nocar;
 public class Mes_voitures extends GlobalVars {
 
     ListView mListView;
-    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,emailsession,idsession,photo,idjson;
+    String nom,modele,immatriculation,urlimage,DateImmat,id_proprietaire,marque,mailparticulier,photo,idjson;
     int cv;
     ImageView photovoiture;
     List<Voiture> voitures;
@@ -47,8 +48,25 @@ public class Mes_voitures extends GlobalVars {
         setContentView(R.layout.activity_mes_voitures);
         photovoiture = (ImageView) findViewById(avatar);
         message =(TextView)findViewById(nocar);
+        mListView = (ListView) findViewById(R.id.listView);
+        ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
 
-        //session = new UserSessionManager(getApplicationContext());
+
+        // Récupération des variables session
+        SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
+        String email = settings.getString("UserMail", "Null");
+        String id=settings.getString("idUser", "Null");
+        String id_entreprise=settings.getString("id_entreprise", "Null");
+        String nom = settings.getString("nom", "Null");
+        String prenom=settings.getString("prenom", "Null");
+        String status=settings.getString("status", "Null");
+
+        Log.v("emailsession",email);
+        Log.v("id_user",id);
+        Log.v("id_entreprise",id_entreprise);
+        Log.v("nom",nom);
+        Log.v("prenom",prenom);
+        Log.v("status",status);
 
         Button button= (Button) findViewById(R.id.addcar);
         button.setOnClickListener(new View.OnClickListener() {
@@ -61,9 +79,7 @@ public class Mes_voitures extends GlobalVars {
 
             }
         });
-        mListView = (ListView) findViewById(R.id.listView);
 
-        ImageView poubelle = (ImageView) findViewById(R.id.poubelle);
         mailparticulier = (String) getIntent().getSerializableExtra("mailparticulier");
 
 
@@ -99,7 +115,7 @@ public class Mes_voitures extends GlobalVars {
 
 
   private void afficherListeVoitures() throws InterruptedException, NoSuchAlgorithmException, IOException {
-      
+
         VoitureAdapter adapter = new VoitureAdapter(Mes_voitures.this, voitures,this);
         mListView.setAdapter(adapter);
     }

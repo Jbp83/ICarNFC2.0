@@ -43,8 +43,7 @@ public class Infos_car extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infos_car);
 
-        Log.v("tube",iddefault);
-
+        //Log.v("tube",iddefault);
 
         Intent intent = getIntent();
         final String idea = intent.getStringExtra("id");

@@ -1,6 +1,7 @@
 package com.example.jb.icarnfc;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,14 +30,25 @@ public class MainActivity extends GlobalVars {
 
 
     TextView txtString;
-    String status,idrequest;
+    String status,idrequest,identreprise,nom,prenom,email;
+    SharedPreferences Editor;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("silentMode", "coucou");
+
+        // Commit the edits!
+        editor.commit();
 
         Button button= (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +158,10 @@ public class MainActivity extends GlobalVars {
                                     JSONObject object     = Jarray.getJSONObject(i);
                                     idrequest=object.getString("id");
                                     status=object.getString("status");
+                                    identreprise=object.getString("identreprise");
+                                    nom=object.getString("nom");
+                                    prenom=object.getString("prenom");
+                                    email=object.getString("mail");
 
                                     Log.v("id", idrequest);
                                     Log.v("status",status);
@@ -157,11 +173,20 @@ public class MainActivity extends GlobalVars {
                                     Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
                                     myIntent.putExtra("mailparticulier",mailtxt);
 
+
+
                                     //Variable session
 
-                                    //SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                                    SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
+                                    SharedPreferences.Editor editor = settings.edit();
                                     editor.putString("UserMail", mailtxt);
                                     editor.putString("idUser", idrequest);
+                                    editor.putString("id_entreprise", identreprise);
+                                    editor.putString("nom", nom);
+                                    editor.putString("prenom", prenom);
+                                    editor.putString("status", status);
+
+
                                     editor.commit();
                                     startActivity(myIntent);
                                     //finish();
@@ -172,10 +197,15 @@ public class MainActivity extends GlobalVars {
                                 {
                                     Intent myIntent = new Intent(getBaseContext(), Pro.class);
                                     myIntent.putExtra("mailpro",mailtxt);
-                                    //session.createUserLoginSession(idjson,mailtxt);
-                                    startActivity(myIntent);
-                                    editor.putString("mail",mailtxt);
-                                    editor.putString("iduser", idrequest);
+
+                                    SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
+                                    SharedPreferences.Editor editor = settings.edit();
+                                    editor.putString("UserMail", mailtxt);
+                                    editor.putString("idUser", idrequest);
+                                    editor.putString("id_entreprise", identreprise);
+                                    editor.putString("nom", nom);
+                                    editor.putString("prenom", prenom);
+                                    editor.putString("status", status);
                                     //finish();
                                 }
 
