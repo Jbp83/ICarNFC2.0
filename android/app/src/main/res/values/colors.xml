@@ -6,4 +6,6 @@
     <color name="opaque_grey">#FF4081</color>
     <color name="opaque_white">#FF4081</color>
     <color name="opaque_green">#FF4081</color>
+    <color name="indigo">#405dff</color>
+    <color name="pink">#a040ff</color>
 </resources>

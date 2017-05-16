@@ -23,14 +23,4 @@ public class ScanParticulier extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        //restoreActionBar();
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle("Menu");
-        return super.onCreateOptionsMenu(menu);
-    }
 }
