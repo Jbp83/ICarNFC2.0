@@ -36,8 +36,6 @@ import com.example.jb.icarnfc.common.MD5;
 
 public class SignUp extends GlobalVars {
 
-    String encoded;
-    final static int SELECT_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,49 +67,13 @@ public class SignUp extends GlobalVars {
             }
         });
 
-
-
-        // Spinner spinner = (Spinner) findViewById(R.id.spinner);
-
-        //Création d'une liste d'élément à mettre dans le Spinner
-        List exempleList = new ArrayList();
-        exempleList.add("Particulier");
-        exempleList.add("Professionnel");
-
-
-        Button bt_avatar = (Button)findViewById(R.id.AddAvatar) ;
-
-        bt_avatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btGalleryClick(v);
-            }
-        });
-
-
-       /* ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exempleList);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Enfin on passe l'adapter au Spinner et c'est tout
-        spinner.setAdapter(adapter);*/
-
-
-
-    }
-
-    public void btGalleryClick(View v) {
-        //Création puis ouverture de la boite de dialogue
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
     }
 
 
     void Inscription() throws IOException {
 
 
-// déclare l'édit text, que l'on chercher à partir de son id
+    // déclare l'édit text, que l'on chercher à partir de son id
         EditText nom = (EditText) findViewById(R.id.mail);
         EditText prenom=(EditText) findViewById(R.id.prenom);
         EditText password = (EditText) findViewById(R.id.password);
@@ -119,7 +81,7 @@ public class SignUp extends GlobalVars {
         EditText email = (EditText) findViewById(R.id.email);
         // Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
-// Récupére le text présent dans l'edit text
+    // Récupére le text présent dans l'edit text
         String nomtxt = nom.getText().toString();
         String prenomtxt=prenom.getText().toString();
         String passwordtxt = password.getText().toString();
@@ -143,16 +105,16 @@ public class SignUp extends GlobalVars {
 
         } else if (passwordtxt.equals(passwordtxt2))
 
-
         {
-
 
             FormBody.Builder formBuilder = new FormBody.Builder()
                     .add("UserName", nomtxt);
 
 
             MD5 md5 = new MD5();
-            String passwordmd5= MD5.crypt(passwordtxt);
+            String passwordmd5= md5.crypt(passwordtxt);
+
+            Log.v("md5",passwordmd5);
 
 
             // dynamically add more parameter like this:
@@ -161,11 +123,6 @@ public class SignUp extends GlobalVars {
             formBuilder.add("UserPassword", passwordmd5);
             formBuilder.add("UserStatut", "Particulier");
 
-            String img= "data:image/png;base64,"+encoded;
-
-
-            //Log.v("cul",img);
-            formBuilder.add("Avatar", img);
 
 
             final RequestBody formBody = formBuilder.build();
@@ -230,7 +187,6 @@ public class SignUp extends GlobalVars {
                                     }
 
 
-                                    // txtString.setText(myResponse);
                                 }
                             });
 
@@ -256,60 +212,7 @@ public class SignUp extends GlobalVars {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        ImageView mImageView = (ImageView) findViewById(R.id.Avatar);
-        //TextView textViewstatus = (TextView) findViewById(R.id.tvStatus);
-
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case SELECT_PICTURE:
-                    String path = getRealPathFromURI(data.getData());
-                    Log.d("Choose Picture", path);
-                    //Transformer la photo en Bitmap
-                    Bitmap bitmap = BitmapFactory.decodeFile(path);
-
-                    mImageView.setVisibility(View.VISIBLE);
-                    mImageView.setImageBitmap(bitmap);
-
-
-
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
-                    byte[] byteArray = byteArrayOutputStream .toByteArray();
-                    encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
-                    // Log.v("Encoded64",encoded);
-
-
-                   /* //On renseigne les informations sur la photo séléctionné
-                    textViewstatus.setText("");
-                    textViewstatus.append("Fichier: " + path);
-                    textViewstatus.append(System.getProperty("line.separator"));
-                    textViewstatus.append("Taille: " + bitmap.getWidth() + "px X " + bitmap.getHeight() + " px");
-                    break;*/
-            }
-        }
-    }
-
-    private String getRealPathFromURI(Uri contentURI) {
-        String result;
-
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) {
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        return result;
-    }
-
-
-    private static String md5(String s) { try {
+/*    private static String md5(String s) { try {
 
         // Create MD5 Hash
         MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
@@ -327,7 +230,7 @@ public class SignUp extends GlobalVars {
     }
         return "";
 
-    }
+    }*/
 
 
 }

@@ -34,5 +34,6 @@
     <string name="historique">Historique des entretiens</string>
     <string name="title_activity_code_recup">Sign in</string>
     <string name="selection">Veuillez selectionner la voiture que vous avez réviser</string>
+    <string name="anyvoiture">Vous avez aucune voiture</string>
 </resources>
 

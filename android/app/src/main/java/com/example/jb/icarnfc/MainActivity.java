@@ -1,8 +1,8 @@
 package com.example.jb.icarnfc;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
-import java.util.HashMap;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -22,7 +21,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.example.jb.icarnfc.common.GlobalVars;
 import com.example.jb.icarnfc.common.MD5;
-import com.example.jb.icarnfc.common.UserSessionManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,47 +29,26 @@ import org.json.JSONObject;
 public class MainActivity extends GlobalVars {
 
 
-    private static final String TAG = "Password md5" ;
     TextView txtString;
-    String status,idrequest;
-    UserSessionManager session;
+    String status,idrequest,identreprise,nom,prenom,email;
+    SharedPreferences Editor;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("silentMode", "coucou");
 
-        // User Session Manager
-        session = new UserSessionManager(getApplicationContext());
-
-
-        // On verifie si l'utilisateur est logué ou non
-       /* if(session.checkLogin())
-            finish();*/
-
-
-        // get user data from session
-        HashMap<String, String> user = session.getUserDetails();
-
-        // get id User
-        String id = user.get(UserSessionManager.KEY_ID);
-
-        // get email
-        String email = user.get(UserSessionManager.KEY_EMAIL);
-
-
-
-        TextView lblName = (TextView) findViewById(R.id.lblName);
-        TextView lblEmail = (TextView) findViewById(R.id.lblEmail);
-        //btnLogout = (Button) findViewById(R.id.btnLogout);
-
-        lblName.setText(Html.fromHtml("Name: <b>" + id + "</b>"));
-        lblEmail.setText(Html.fromHtml("Email: <b>" + email + "</b>"));
-
+        // Commit the edits!
+        editor.commit();
 
         Button button= (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -85,17 +62,6 @@ public class MainActivity extends GlobalVars {
                 }
             }
         });
-
-       /* btnLogout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                // Clear the User session data
-                // and redirect user to LoginActivity
-                session.logoutUser();
-            }
-        });*/
 
         txtString= (TextView)findViewById(R.id.mail);
 
@@ -114,7 +80,6 @@ public class MainActivity extends GlobalVars {
 
             });
     }
-
 
 
     void SignUp() throws IOException
@@ -138,18 +103,15 @@ public class MainActivity extends GlobalVars {
 
         if(mailtxt.matches("") || passwordtxt.matches(""))
         {
-
            Toast.makeText(MainActivity.this, "Les champs ne sont pas tous remplis", Toast.LENGTH_LONG).show();
-
 
         } else
 
         {
-
             MD5 md5 = new MD5();
             String pwdmd5= md5.crypt(passwordtxt);
 
-            Log.v(TAG,pwdmd5);
+            Log.v("md5crypt",pwdmd5);
 
             FormBody.Builder formBuilder = new FormBody.Builder()
                     .add("UserMail", mailtxt);
@@ -170,7 +132,6 @@ public class MainActivity extends GlobalVars {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-
 
                     call.cancel();
                 }
@@ -197,6 +158,10 @@ public class MainActivity extends GlobalVars {
                                     JSONObject object     = Jarray.getJSONObject(i);
                                     idrequest=object.getString("id");
                                     status=object.getString("status");
+                                    identreprise=object.getString("identreprise");
+                                    nom=object.getString("nom");
+                                    prenom=object.getString("prenom");
+                                    email=object.getString("mail");
 
                                     Log.v("id", idrequest);
                                     Log.v("status",status);
@@ -207,30 +172,40 @@ public class MainActivity extends GlobalVars {
                                 {
                                     Intent myIntent = new Intent(getBaseContext(), Mes_voitures.class);
                                     myIntent.putExtra("mailparticulier",mailtxt);
-                                    //session.createUserLoginSession(idjson,mailtxt);
-                                    startActivity(myIntent);
 
-                                    // FOnctionnelle pour les variables session
 
-                                    /*SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+
+                                    //Variable session
+
+                                    SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
+                                    SharedPreferences.Editor editor = settings.edit();
                                     editor.putString("UserMail", mailtxt);
-                                    editor.putString("idUser", idjson);
-                                    editor.commit();*/
+                                    editor.putString("idUser", idrequest);
+                                    editor.putString("id_entreprise", identreprise);
+                                    editor.putString("nom", nom);
+                                    editor.putString("prenom", prenom);
+                                    editor.putString("status", status);
 
-                                    editor.putString("PREFS_MAIL",mailtxt);
-                                    editor.putString("PREFS_IDUSER", idrequest);
 
+                                    editor.commit();
+                                    startActivity(myIntent);
                                     //finish();
+
                                 }
 
                                 if(status.equals("Professionnel"))
                                 {
                                     Intent myIntent = new Intent(getBaseContext(), Pro.class);
                                     myIntent.putExtra("mailpro",mailtxt);
-                                    //session.createUserLoginSession(idjson,mailtxt);
-                                    startActivity(myIntent);
-                                    editor.putString("mail",mailtxt);
-                                    editor.putString("iduser", idrequest);
+
+                                    SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, 0);
+                                    SharedPreferences.Editor editor = settings.edit();
+                                    editor.putString("UserMail", mailtxt);
+                                    editor.putString("idUser", idrequest);
+                                    editor.putString("id_entreprise", identreprise);
+                                    editor.putString("nom", nom);
+                                    editor.putString("prenom", prenom);
+                                    editor.putString("status", status);
                                     //finish();
                                 }
 

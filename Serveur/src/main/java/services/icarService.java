@@ -23,10 +23,9 @@ public class icarService {
         return connection;
     }
 
-
     @RequestMapping(method = RequestMethod.POST, value ="/login")
-    public String Login(@RequestParam("UserMail") String UserMail,@RequestParam("UserPassword") String UserPassword) {
-
+    public String Login(@RequestParam("UserMail") String UserMail,@RequestParam("UserPassword") String UserPassword)
+    {
         JSONObject jsonLogin = new JSONObject();
         JSONObject jsonArray = new JSONObject();
         JSONArray jsonUser = new JSONArray();
@@ -50,6 +49,10 @@ public class icarService {
 
                 jsonLogin.put("id", resultats.getString("id"));
                 jsonLogin.put("status", resultats.getString("status"));
+                jsonLogin.put("identreprise", resultats.getString("id_etablissement"));
+                jsonLogin.put("nom", resultats.getString("nom"));
+                jsonLogin.put("prenom", resultats.getString("prenom"));
+                jsonLogin.put("mail", resultats.getString("mail"));
                 jsonUser.put(jsonLogin);
                 jsonArray.put("User",jsonUser);
                 return jsonArray.toString();
@@ -239,7 +242,7 @@ public class icarService {
     }
 
     @RequestMapping(method = RequestMethod.POST, value ="/subscribe")
-    public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut,@RequestParam("Avatar") String avatar)
+    public String Subscribe(@RequestParam("UserName") String UserName,@RequestParam("UserSurname") String UserSurname, @RequestParam("UserMail") String UserMail ,@RequestParam("UserPassword") String UserPassword,@RequestParam("UserStatut") String UserStatut)
     {
 
         //Connection à la base de donnée avec la variable conn
@@ -256,14 +259,13 @@ public class icarService {
             statement =  conn.createStatement();
             resultats = statement.executeQuery(Req);
 
-            if(resultats.next()) {
-
-
+            if(resultats.next())
+            {
                 return "User Already exist";
             }
             else
             {
-                Req = "INSERT INTO users ( mail, nom, prenom, password, status, avatar) VALUES ( ?, ?, ?, ?, ?, ?)";
+                Req = "INSERT INTO users ( mail, nom, prenom, password, status) VALUES ( ?, ?, ?, ?, ?)";
                 PrepStat = conn.prepareStatement(Req);
 
                 PrepStat.setString(1,UserMail);
@@ -271,7 +273,6 @@ public class icarService {
                 PrepStat.setString(3,UserSurname);
                 PrepStat.setString(4,UserPassword);
                 PrepStat.setString(5,UserStatut);
-                PrepStat.setString(6,avatar);
 
                 int created = PrepStat.executeUpdate();
                 if(created ==1)

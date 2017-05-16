@@ -12,13 +12,6 @@
     tools:context="com.example.jb.icarnfc.SignUpPro">
 
 
-    <ImageView
-        android:id="@+id/Avatar"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:visibility="invisible"
-        app:srcCompat="@drawable/ad" />
-
     <!-- <TextView
          android:id="@+id/tvStatus"
          android:layout_width="match_parent"
@@ -41,6 +34,7 @@
                 android:id="@+id/mail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
                 android:ems="10"
                 android:hint="Votre nom"
                 android:inputType="textPersonName" />
@@ -105,12 +99,6 @@
                 android:id="@+id/entreprise"
                 android:layout_width="351dp"
                 android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/AddAvatar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ajouter un avatar" />
 
             <Button
                 android:id="@+id/butonsignup"

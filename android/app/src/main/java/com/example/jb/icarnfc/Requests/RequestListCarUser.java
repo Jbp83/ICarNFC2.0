@@ -15,11 +15,10 @@ public class RequestListCarUser  extends GlobalVars{
 
     public void getCarsUser(String mail,Callback callback) throws NoSuchAlgorithmException, IOException, InterruptedException {
 
-        mail="mars8.6@hotmail.fr";
+        //mail="mars8.6@hotmail.fr";
         String urlUserCar = IPSERVEUR + "/userCars?UserMail="+mail;
 
         System.out.println(urlUserCar);
-
 
         Request request = new Request.Builder()
                 .url(urlUserCar)
